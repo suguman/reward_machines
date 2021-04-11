@@ -78,24 +78,37 @@ register(
 # ----------------------------------------- 9 ROOMS
 
 register(
-    id='Rooms9-v0',
-    entry_point='envs.rooms.rm_rooms:nine_rooms',
+    id='Rooms9-M1-v0',
+    entry_point='envs.rooms.rm_rooms:nine_rooms_half',
     max_episode_steps=1000
 )
+
+register(
+    id='Rooms9-M2-v0',
+    entry_point='envs.rooms.rm_rooms:nine_rooms_one',
+    max_episode_steps=1000
+)
+
 
 # ----------------------------------------- 16 ROOMS Few Doors
 
 register(
-    id='Rooms16-v0',
-    entry_point='envs.rooms.rm_rooms:sixteen_rooms_fewdoors1',
+    id='Rooms16-M1-v0',
+    entry_point='envs.rooms.rm_rooms:sixteen_rooms_half',
     max_episode_steps=1000
 )
 
-# ----------------------------------------- 16 ROOMS More Doors
 
 register(
-    id='Rooms16-v1',
-    entry_point='envs.rooms.rm_rooms:sixteen_rooms_moredoors1',
+    id='Rooms16-M2-v0',
+    entry_point='envs.rooms.rm_rooms:sixteen_rooms_one',
     max_episode_steps=1000
 )
+
+register(
+    id='Rooms16-M3-v0',
+    entry_point='envs.rooms.rm_rooms:sixteen_rooms_two',
+    max_episode_steps=1000
+)
+
 

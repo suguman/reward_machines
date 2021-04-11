@@ -310,7 +310,7 @@ def learn(network, env,
                     break
             #print(eval_info)
         prob_sat = num_sat/20
-        combined_stats['prob_satisficability'] = prob_sat
+        combined_stats['prob_satisfiability'] = prob_sat
         
         print(eval_info)
 

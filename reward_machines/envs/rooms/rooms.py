@@ -271,7 +271,15 @@ class RoomsEnv(gym.Env):
             label += 'b'
         if params.in_room((2,2)):
             label += 'c'
-
+        if params.in_room((2,2)):
+            label += 'c'
+        if params.in_room((1,2)):
+            label += 'd'
+        if params.in_room((2,3)):
+            label += 'e'
+        if params.in_room((1,3)):
+            label += 'f'
+            
         # Ensure that the center of a room is not visited
         if params.avoid_center((1,0)):
             label += 'x'
