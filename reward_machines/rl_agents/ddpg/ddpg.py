@@ -19,7 +19,6 @@ except ImportError:
     MPI = None
 
 
-
 def learn(network, env,
           seed=None,
           use_crm=False,
@@ -127,8 +126,6 @@ def learn(network, env,
 
     epoch = 0
 
-
-
     start_time = time.time()
 
     epoch_episode_rewards = []
@@ -137,13 +134,20 @@ def learn(network, env,
     epoch_qs = []
     epoch_episodes = 0
     for epoch in range(nb_epochs):
+        #print("Epoch {}".format(epoch))
+
         for cycle in range(nb_epoch_cycles):
+            #print("Epoch [], Cycle {}".format(epoch, cycle))
             # Perform rollouts.
+
             if nenvs > 1:
                 # if simulating multiple envs in parallel, impossible to reset agent at the end of the episode in each
                 # of the environments, so resetting here instead
                 agent.reset()
+                
             for t_rollout in range(nb_rollout_steps):
+                #print("Epoch [], Cycle {}, Rollout {}".format(epoch, cycle, t_rollout))
+            
                 # Predict next action.
                 action, q, _, _ = agent.step(obs, apply_noise=True, compute_Q=True)
 
@@ -245,6 +249,7 @@ def learn(network, env,
 
         # Log stats.
         # XXX shouldn't call np.mean on variable length lists
+        
         duration = time.time() - start_time
         stats = agent.get_stats()
         combined_stats = stats.copy()
@@ -288,11 +293,34 @@ def learn(network, env,
         combined_stats['total/epochs'] = epoch + 1
         combined_stats['total/steps'] = t
 
+        #collected_stat['probability'] = compute_prob(agent, env, nb_rollout_steps)
+        ## Compute likelihood of satisfiability
+        num_sat = 0.0
+        for _ in range(20):
+            state = env.reset()
+            #print(state)
+            for _ in range(10000):
+                action, _, _, _ = agent.step(state)
+                state, _, _, eval_info = env.step(action)
+                #print(eval_info)
+                if eval_info[0]['env_done']:
+                    break
+                if eval_info[0]['rm_done']:
+                    num_sat += 1.0
+                    break
+            #print(eval_info)
+        prob_sat = num_sat/20
+        combined_stats['prob_satisficability'] = prob_sat
+        
+        print(eval_info)
+
         for key in sorted(combined_stats.keys()):
             logger.record_tabular(key, combined_stats[key])
 
+            
         if rank == 0:
             logger.dump_tabular()
+           
         logger.info('')
         logdir = logger.get_dir()
         if rank == 0 and logdir:
@@ -303,5 +331,5 @@ def learn(network, env,
                 with open(os.path.join(logdir, 'eval_env_state.pkl'), 'wb') as f:
                     pickle.dump(eval_env.get_state(), f)
 
-
     return agent
+

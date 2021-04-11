@@ -92,8 +92,12 @@ class RewardMachineEnv(gym.Wrapper):
         done = rm_done or env_done
         rm_obs = self.get_observation(next_obs, self.current_rm_id, self.current_u_id, done)
 
+        info['rm_done'] = rm_done
+        info['env_done'] = env_done
+    
         return rm_obs, rm_rew, done, info
 
+    
     def get_observation(self, next_obs, rm_id, u_id, done):
         rm_feat = self.rm_done_feat if done else self.rm_state_features[(rm_id,u_id)]
         rm_obs = {'features': next_obs,'rm-state': rm_feat}
