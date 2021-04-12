@@ -36,12 +36,12 @@ for rm in dict1['rm']:
             path = dirname + "/" + str(i) 
             #print(path)
 
-            temp = env+rm+option
+            temp = env+rm+option+str(i)
             
             cmd = " ".join(['screen -dmS', temp, 'python3 run.py --alg=ddpg',
                            '--env='+env_name,
                            '--num_timesteps='+dict1['time'],
                             '--gamma='+str(dict1['gamma']),
-                            "--log-path="+path])
+                            "--log_path="+path])
 
             print(cmd)
