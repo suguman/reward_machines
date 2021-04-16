@@ -89,6 +89,21 @@ register(
     max_episode_steps=1000
 )
 
+# ----------------------------------------- 9 ROOMS Continuous Rewards
+
+register(
+    id='Rooms9C-M1-v0',
+    entry_point='envs.rooms.rm_rooms:nine_rooms_half_continuous',
+    max_episode_steps=1000
+)
+
+
+register(
+    id='Rooms9C-M2-v0',
+    entry_point='envs.rooms.rm_rooms:nine_rooms_one_continuous',
+    max_episode_steps=1000
+)
+
 
 # ----------------------------------------- 16 ROOMS Few Doors
 
@@ -108,6 +123,27 @@ register(
 register(
     id='Rooms16-M3-v0',
     entry_point='envs.rooms.rm_rooms:sixteen_rooms_two',
+    max_episode_steps=1000
+)
+
+# ----------------------------------------- 16 ROOMS Few Doors : Continuous
+
+register(
+    id='Rooms16C-M1-v0',
+    entry_point='envs.rooms.rm_rooms:sixteen_rooms_half_continuous',
+    max_episode_steps=1000
+)
+
+
+register(
+    id='Rooms16C-M2-v0',
+    entry_point='envs.rooms.rm_rooms:sixteen_rooms_one_continuous',
+    max_episode_steps=1000
+)
+
+register(
+    id='Rooms16C-M3-v0',
+    entry_point='envs.rooms.rm_rooms:sixteen_rooms_two_continuous',
     max_episode_steps=1000
 )
 

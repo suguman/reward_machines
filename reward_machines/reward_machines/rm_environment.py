@@ -32,20 +32,35 @@ class RewardMachineEnv(gym.Wrapper):
         --------------------
             - env: original environment. It must implement the following function:
                 - get_events(...): Returns the propositions that currently hold on the environment.
-            - rm_files: list of strings with paths to the RM files.
+            - rm_files: list of strings with paths to the RM files
+                        OR
+                        A reward machine (Added to include continuous rewards
+              
+        ---------------------
+        
         """
         super().__init__(env)
 
-        # Loading the reward machines
-        self.rm_files = rm_files
-        self.reward_machines = []
-        self.num_rm_states = 0
-        for rm_file in rm_files:
-            rm = RewardMachine(rm_file)
-            self.num_rm_states += len(rm.get_states())
-            self.reward_machines.append(rm)
-        self.num_rms = len(self.reward_machines)
+        if isinstance(rm_files, list):
+            # Loading the reward machines
+            self.rm_files = rm_files
+            self.reward_machines = []
+            self.num_rm_states = 0
+            for rm_file in rm_files:
+                rm = RewardMachine(rm_file)
+                self.num_rm_states += len(rm.get_states())
+                self.reward_machines.append(rm)
+        
+            self.num_rms = len(self.reward_machines)
 
+        else:
+            # rm_files is a single reward machine 
+            rm = rm_files
+            self.rm_files = ''
+            self.reward_machines = [rm]
+            self.num_rm_states = len(rm.get_states())
+            self.num_rms = 1
+            
         # The observation space is a dictionary including the env features and a one-hot representation of the state in the reward machine
         self.observation_dict  = spaces.Dict({'features': env.observation_space, 'rm-state': spaces.Box(low=0, high=1, shape=(self.num_rm_states,), dtype=np.uint8)})
         flatdim = gym.spaces.flatdim(self.observation_dict)

@@ -66,7 +66,13 @@ class RewardMachine:
         # This is an auxiliary method used by the HRL baseline to prune "useless" options
         return [self.delta_u[u1][u2].split("&") for u2 in self.delta_u[u1] if u1 != u2]
 
-
+    def print_rm(self):
+        print("Non-terminal states are {}".format(self.get_states()))
+        print("Transition are:")
+        for u1 in self.delta_u:
+            for u2 in self.delta_u[u1]:
+                print("{}--->{} on {} with reward {}".format(u1, u2, self.delta_u[u1][u2], self.delta_r[u1][u2]))
+                
     # Private methods -----------------------------------
 
     def _get_reward(self,u1,u2,s_info,add_rs,env_done):

@@ -1,7 +1,9 @@
 0 # initial state
-[1,2] # terminal state
+[4] # terminal state
 (0,3,'x',ConstantRewardFunction(0))
 (0,0,'!x&!a&!b',ConstantRewardFunction(0))
 (0,1,'!x&a',ConstantRewardFunction(1))
 (0,2,'!x&b',ConstantRewardFunction(1))
 (3,3,'',ConstantRewardFunction(0))
+(1,4,'',ConstantRewardFunction(0))
+(2,4,'',ConstantRewardFunction(0))

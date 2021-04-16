@@ -1,4 +1,5 @@
 import math
+import numpy as np
 
 class RewardFunction:
     def __init__(self):
@@ -65,3 +66,29 @@ class RewardBackwards(RewardFunction):
 
     def get_reward(self, s_info):
         return -s_info['reward_run'] + s_info['reward_ctrl']  #Cheetah
+
+
+class RoomRewardFunction(RewardFunction):
+    
+    def __init__(self, goallist):
+        super().__init__()
+        self.goallist = goallist
+
+    def get_type(self):
+        return "Rooms-Continuous"
+
+    def get_reward(self, s_info):
+    
+        sys_state = s_info['cur_pos']
+
+        reward = 10000
+        for elem in self.goallist:
+            #print(elem, elem[0], elem[1])
+            low = elem[0]
+            high = elem[1]
+            temp = min(np.concatenate([sys_state[:2] - low, high - sys_state[:2]]))
+            reward = min(temp, reward)
+            
+        return reward  # Rooms: Continuous
+
+

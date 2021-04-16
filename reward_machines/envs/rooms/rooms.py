@@ -135,11 +135,11 @@ class RoomsEnv(gym.Env):
             if self.goal_region.contains(next_state):
                 reward = 1
                 done = True
-            return self.state, reward, done, {}
+            return self.state, reward, done, {'cur_pos': self.state}
         else:
             reward = 0
             done = True
-            return self.state, reward, done, {}
+            return self.state, reward, done, {'cur_pos': self.state}
 
     @property
     def observation_space(self):
