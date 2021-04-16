@@ -123,6 +123,7 @@ class RoomsEnv(gym.Env):
         return self.state
 
     def step(self, action):
+        #print(action)
         action = self.action_scale * action
         action = np.array([action[0] * math.cos(action[1]),
                            action[0] * math.sin(action[1])])

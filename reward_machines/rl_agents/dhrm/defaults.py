@@ -128,7 +128,7 @@ def car2d():
         option_kargs=option_kargs)
 
 
-def RoomsEnv():
+def rm_rooms():
 
     controller_kargs=dict(
           network='mlp',

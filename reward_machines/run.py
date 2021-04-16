@@ -84,7 +84,7 @@ def train(args, extra_args):
     alg_kwargs['gamma']    = args.gamma
 
     print('Training {} on {}:{} with arguments \n{}'.format(args.alg, env_type, env_id, alg_kwargs))
-
+    
     model = learn(
         env=env,
         seed=seed,
@@ -173,9 +173,11 @@ def get_learn_function(alg):
 
 
 def get_learn_function_defaults(alg, env_type):
+    print(alg, env_type)
     try:
         alg_defaults = get_alg_module(alg, 'defaults')
         kwargs = getattr(alg_defaults, env_type)()
+        print(alg_defaults, kwargs)
     except (ImportError, AttributeError):
         kwargs = {}
     return kwargs

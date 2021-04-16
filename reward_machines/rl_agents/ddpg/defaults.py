@@ -23,7 +23,7 @@ def car2d():
         normalize_observations=False
     )
 
-def RoomsEnv():
+def rm_rooms():
     return dict(
         network='mlp',
         num_layers=2, 
