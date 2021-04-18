@@ -148,3 +148,16 @@ register(
 )
 
 
+# ------------------------------------- Fetch
+
+register(
+    id = 'Fetch-M1-v0',
+    entry_point = 'envs.mujoco_rm.fetch:fpp_goal',
+    max_episode_steps = 1000
+)
+
+register(
+    id = 'Fetch-M2-v0',
+    entry_point = 'envs.mujoco_rm.fetch:fpp_fixed_goal',
+    max_episode_steps = 1000
+)

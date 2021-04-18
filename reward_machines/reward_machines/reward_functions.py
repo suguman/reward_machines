@@ -1,6 +1,8 @@
 import math
 import numpy as np
 
+from numpy import linalg as LA
+
 class RewardFunction:
     def __init__(self):
         pass
@@ -92,3 +94,85 @@ class RoomRewardFunction(RewardFunction):
         return reward  # Rooms: Continuous
 
 
+class FetchNearObjectReward(RewardFunction):
+
+    def __init__(self):
+        super().__init__()
+
+    def get_type(self):
+        return "Fetch-GripNearObject"
+
+    def get_reward(self, s_info):
+        err = 0.03
+        
+        sys_state = s_info['my_cur_pos']
+        dist = sys_state[:3] - (sys_state[3:6] + np.array([0., 0., 0.065]))
+        dist = np.concatenate([dist, [sys_state[9] + sys_state[10] - 0.1]])
+
+        return -LA.norm(dist) + err
+
+class FetchHoldObjectReward(RewardFunction):
+
+    def __init__(self):
+        super().__init__()
+
+    def get_type(self):
+        return "Fetch-HoldObject"
+
+    def get_reward(self, s_info):
+        err = 0.03
+        
+        sys_state = s_info['my_cur_pos']
+        dist = sys_state[:3] - sys_state[3:6] 
+        dist2 = np.concatenate([dist, [sys_state[9] + sys_state[10] - 0.1]])
+
+        return -LA.norm(dist2) + err
+
+
+class FetchObjectInAirReward(RewardFunction):
+
+    def __init__(self):
+        super().__init__()
+
+    def get_type(self):
+        return "Fetch-ObjectInAir"
+
+    def get_reward(self, s_info):
+        sys_state = s_info['my_cur_pos']
+        return sys_state[5] - 0.45
+
+
+class FetchObjectAtGoalReward(RewardFunction):
+
+    def __init__(self):
+        super().__init__()
+
+    def get_type(self):
+        return "Fetch-ObjectAtGoal"
+
+    def get_reward(self, s_info):
+        err = 0.05
+        sys_state = s_info['my_cur_pos']
+        dist = np.concatenate([sys_state[-3:], [sys_state[9] + sys_state[10] - 0.045]])
+        return -LA.norm(dist) + err
+
+class FetchObjectAtGoalFixedReward(RewardFunction):
+
+    def __init__(self, goalpos):
+        super().__init__()
+        self.goalpos = goalpos
+
+    def get_type(self):
+        return "Fetch-ObjectAtGoalFixed"
+
+    def get_reward(self, s_info):
+        err = 0.05
+        sys_state = s_info['my_cur_pos']
+        goal = np.array(self.goalpos)
+        return -LA.norm(sys_state[3:6] - goal) + err
+
+    
+
+    
+
+    
