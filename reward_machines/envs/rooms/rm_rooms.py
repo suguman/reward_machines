@@ -1,7 +1,7 @@
 
 from reward_machines.rm_environment import RewardMachineEnv
 from reward_machines.reward_machine import RewardMachine
-from reward_machines.reward_functions import RoomRewardFunction, ConstantRewardFunction
+from reward_machines.reward_functions import RoomRewardFunction, ConstantRewardFunction, RoomRewardFunctionObstacle
 
 from envs.rooms.rooms import GridParams, RoomsEnv, AbstractState
 from envs.rooms.rooms_envs import GRID_PARAMS_LIST, MAX_TIMESTEPS, START_ROOM, FINAL_ROOM
@@ -61,7 +61,10 @@ class nine_rooms_half_continuous(RewardMachineEnv):
 
         goal_list = [(2,0), (0,2)]
         center_list = [grid_params.get_center_region(room).region for room in goal_list]
-        rm.delta_r[0][0] = RoomRewardFunction(center_list)
+        obstacle = (1,0)
+        obstacle_list = grid_params.get_center_region(obstacle).region
+
+        rm.delta_r[0][0] = RoomRewardFunctionObstacle(center_list, obstacle_list)
         
         super().__init__(env, rm)
 
@@ -73,13 +76,19 @@ class nine_rooms_one_continuous(RewardMachineEnv):
         
         rm = RewardMachine("./envs/rooms/reward_machines/rm2.txt")
 
-        
+        obstacle = (1,0)
+        obstacle_list = grid_params.get_center_region(obstacle).region
+
         loop_goal = [[(2,0), (0,2)], [2,2], [2,2]]
         for i in range(len(loop_goal)):
             goal_list = loop_goal[i]
             center_list = [grid_params.get_center_region(room).region for room in goal_list]
-            rm.delta_r[i][i] = RoomRewardFunction(center_list)
 
+            if i==0:
+                rm.delta_r[0][0] = RoomRewardFunctionObstacle(center_list, obstacle_list)
+            else:
+                rm.delta_r[i][i] = RoomRewardFunction(center_list)
+            
         super().__init__(env, rm)
 
 
@@ -90,10 +99,13 @@ class sixteen_rooms_half_continuous(RewardMachineEnv):
         env = RoomsEnv(grid_params, START_ROOM[env_num], FINAL_ROOM[env_num])
 
         rm = RewardMachine("./envs/rooms/reward_machines/rm1.txt")
+
+        obstacle = (1,0)
+        obstacle_list = grid_params.get_center_region(obstacle).region
         goal_list = [(2,0), (0,2)]
         center_list = [grid_params.get_center_region(room).region for room in goal_list]
-        rm.delta_r[0][0] = RoomRewardFunction(center_list)
-        
+        rm.delta_r[0][0] = RoomRewardFunctionObstacle(center_list, obstacle_list)
+    
         super().__init__(env, rm)
 
 class sixteen_rooms_one_continuous(RewardMachineEnv):
@@ -103,12 +115,19 @@ class sixteen_rooms_one_continuous(RewardMachineEnv):
         env = RoomsEnv(grid_params, START_ROOM[env_num], FINAL_ROOM[env_num])
 
         rm = RewardMachine("./envs/rooms/reward_machines/rm2.txt")
-        
+
+        obstacle = (1,0)
+        obstacle_list = grid_params.get_center_region(obstacle).region
+
         loop_goal = [[(2,0), (0,2)], [(2,2)], [(2,2)]]
         for i in range(len(loop_goal)):
             goal_list = loop_goal[i]
             center_list = [grid_params.get_center_region(room).region for room in goal_list]
-            rm.delta_r[i][i] = RoomRewardFunction(center_list)
+            if i==0:
+                rm.delta_r[0][0] = RoomRewardFunctionObstacle(center_list, obstacle_list)
+            else:
+                rm.delta_r[i][i] = RoomRewardFunction(center_list)
+        
 
         super().__init__(env, rm)
 
@@ -120,10 +139,16 @@ class sixteen_rooms_two_continuous(RewardMachineEnv):
 
         rm = RewardMachine("./envs/rooms/reward_machines/rm3.txt")
         
+        obstacle = (1,0)
+        obstacle_list = grid_params.get_center_region(obstacle).region
+
         loop_goal = [[(2,0), (0,2)], [(2,2)], [(2,2)], [(1,2), (2,3)], [(2,3)], [(2,3)]]
         for i in range(len(loop_goal)):
             goal_list = loop_goal[i]
             center_list = [grid_params.get_center_region(room).region for room in goal_list]
-            rm.delta_r[i][i] = RoomRewardFunction(center_list)
-
+            if i==0:
+                rm.delta_r[0][0] = RoomRewardFunctionObstacle(center_list, obstacle_list)
+            else:
+                rm.delta_r[i][i] = RoomRewardFunction(center_list)
+        
         super().__init__(env, rm)

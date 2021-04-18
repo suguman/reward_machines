@@ -60,6 +60,8 @@ class RewardMachineEnv(gym.Wrapper):
             self.reward_machines = [rm]
             self.num_rm_states = len(rm.get_states())
             self.num_rms = 1
+
+            rm.print_rm()
             
         # The observation space is a dictionary including the env features and a one-hot representation of the state in the reward machine
         self.observation_dict  = spaces.Dict({'features': env.observation_space, 'rm-state': spaces.Box(low=0, high=1, shape=(self.num_rm_states,), dtype=np.uint8)})

@@ -83,15 +83,45 @@ class RoomRewardFunction(RewardFunction):
     
         sys_state = s_info['cur_pos']
 
-        reward = 10000
+        reward = -10000
         for elem in self.goallist:
             #print(elem, elem[0], elem[1])
             low = elem[0]
             high = elem[1]
             temp = min(np.concatenate([sys_state[:2] - low, high - sys_state[:2]]))
-            reward = min(temp, reward)
+            reward = max(temp, reward)
             
         return reward  # Rooms: Continuous
+
+class RoomRewardFunctionObstacle(RewardFunction):
+    
+    def __init__(self, goallist, obstacle):
+        super().__init__()
+        self.goallist = goallist
+        self.obstacle = obstacle
+
+    def get_type(self):
+        return "Rooms-with-Obstacle-Continuous"
+
+    def get_reward(self, s_info):
+    
+        sys_state = s_info['cur_pos']
+
+        reward = -10000
+        for elem in self.goallist:
+            #print(elem, elem[0], elem[1])
+            low = elem[0]
+            high = elem[1]
+            temp = min(np.concatenate([sys_state[:2] - low, high - sys_state[:2]]))
+            reward = max(temp, reward)
+
+        obs_low = self.obstacle[0]
+        obs_high = self.obstacle[1]
+        reward_obs = 10*max(np.concatenate(low - [sys_state[:2], sys_state[:2] - high]))
+
+        total_reward = reward + reward_obs
+            
+        return total_reward  # Rooms: Continuous
 
 
 class FetchNearObjectReward(RewardFunction):
