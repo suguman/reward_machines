@@ -299,20 +299,21 @@ def learn(network, env,
         for _ in range(20):
             state = env.reset()
             #print(state)
-            for _ in range(10000):
+            for _ in range(nb_rollout_steps):
                 action, _, _, _ = agent.step(state)
                 state, _, _, eval_info = env.step(action)
                 #print(eval_info)
-                if eval_info[0]['env_done']:
-                    break
                 if eval_info[0]['rm_done']:
                     num_sat += 1.0
                     break
+                if eval_info[0]['env_done']:
+                    break
+                
             #print(eval_info)
         prob_sat = num_sat/20
         combined_stats['prob_satisfiability'] = prob_sat
         
-        print(eval_info)
+        #print(eval_info)
 
         for key in sorted(combined_stats.keys()):
             logger.record_tabular(key, combined_stats[key])

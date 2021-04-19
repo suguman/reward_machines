@@ -31,7 +31,8 @@ def rm_rooms():
         activation=tf.nn.relu,
         batch_size=100,
         gamma=0.99,
-        normalize_observations=False
+        normalize_observations=False,
+        nb_rollout_steps=120
     )
 
 
