@@ -119,7 +119,7 @@ class RoomRewardFunctionObstacle(RewardFunction):
         obs_high = self.obstacle[1]
         reward_obs = 10*max(np.concatenate(low - [sys_state[:2], sys_state[:2] - high]))
 
-        total_reward = reward + reward_obs
+        total_reward = reward + min(reward_obs, 0)
             
         return total_reward  # Rooms: Continuous
 
