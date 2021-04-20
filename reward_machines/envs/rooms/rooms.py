@@ -267,22 +267,22 @@ class RoomsEnv(gym.Env):
         params = self.grid_params
 
         # Check for presence in a room
-        if params.in_room((2,0)):
+        if params.in_room((2,0))(self.state, None) > 0:
             label += 'a'
-        if params.in_room((0,2)):
+        if params.in_room((0,2))(self.state, None) > 0:
             label += 'b'
-        if params.in_room((2,2)):
+        if params.in_room((2,2))(self.state, None) > 0:
             label += 'c'
-        if params.in_room((2,2)):
+        if params.in_room((2,2))(self.state, None) > 0:
             label += 'c'
-        if params.in_room((1,2)):
+        if params.in_room((1,2))(self.state, None) > 0:
             label += 'd'
-        if params.in_room((2,3)):
+        if params.in_room((2,3))(self.state, None) > 0:
             label += 'e'
-        if params.in_room((1,3)):
+        if params.in_room((1,3))(self.state, None) > 0:
             label += 'f'
             
         # Ensure that the center of a room is not visited
-        if params.avoid_center((1,0)):
+        if params.avoid_center((1,0))(self.state, None) > 0:
             label += 'x'
         return label
