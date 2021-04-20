@@ -124,10 +124,16 @@ def learn(env,
                 option_rews = []
 
             # Take action and update exploration to the newest value
+            #print("Option observation in HRM is {}".format(env.get_option_observation(option_id)))
             action = options.get_action(env.get_option_observation(option_id), t, reset)
+            #print("Action inside dhrm is {}".format(action))
+            action1 = np.concatenate(action)
+            #print(action1)
+        
             reset = False
-            new_obs, rew, done, info = env.step(action)
-
+            new_obs, rew, done, info = env.step(action1)
+            #print("DHRM: ActionTemp is {}, Action is {}, New Obs is {}".format(action1, action, new_obs))
+            
             # Saving the real reward that the option is getting
             if use_rs:
                 option_rews.append(info["rs-reward"])

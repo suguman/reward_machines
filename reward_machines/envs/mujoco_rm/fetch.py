@@ -110,7 +110,7 @@ class ObservationWrapper(gym.Env):
         return self.flatten_obs(obs)
 
     def step(self, action):
-
+        #print(action)
         obs, rew, done, info = self.env.step(action)
         info['my_cur_pos'] = self.flatten_obs(obs)
         self.t += 1

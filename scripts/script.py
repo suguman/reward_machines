@@ -27,6 +27,12 @@ mydict['Rooms16C']['rm'] = ['M1', 'M2','M3']
 mydict['Rooms16C']['gamma'] = 0.99
 mydict['Rooms16C']['options'] = ['cr', 'basic']
 
+mydict['Fetch'] = {}
+mydict['Fetch']['time'] = '2.5e5'
+mydict['Fetch']['rm'] = ['M1', 'M2']
+mydict['Fetch']['gamma'] = 0.95
+mydict['Fetch']['options'] = ['cr', 'basic']
+
 
 num_iter = 3
 DIR = '../results'

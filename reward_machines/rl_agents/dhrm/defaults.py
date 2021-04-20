@@ -83,12 +83,13 @@ def half_cheetah_environment():
         controller_kargs=controller_kargs,
         option_kargs=option_kargs)
 
-def car2d():
+
+def rm_rooms():
 
     controller_kargs=dict(
           network='mlp',
           num_layers=2, 
-          num_hidden=30, 
+          num_hidden=5, 
           activation=tf.nn.relu,
           lr=1e-3,
           buffer_size=50000,
@@ -101,9 +102,9 @@ def car2d():
     option_kargs=dict(
           network='mlp',
           num_layers=2, 
-          num_hidden=256, 
+          num_hidden=30, 
           activation=tf.nn.relu,
-          nb_rollout_steps=100,
+          nb_rollout_steps=120,
           reward_scale=1.0,
           noise_type='adaptive-param_0.2',
           normalize_returns=False,
@@ -114,7 +115,7 @@ def car2d():
           popart=False,
           clip_norm=None,
           nb_train_steps=50, # per epoch cycle and MPI worker,  <- HERE!
-          nb_eval_steps=100,
+          nb_eval_steps=120,
           buffer_size=1000000,
           batch_size=100, # per MPI worker
           tau=0.01,
@@ -128,7 +129,7 @@ def car2d():
         option_kargs=option_kargs)
 
 
-def rm_rooms():
+def fetch():
 
     controller_kargs=dict(
           network='mlp',

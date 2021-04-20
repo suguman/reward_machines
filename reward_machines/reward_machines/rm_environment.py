@@ -279,6 +279,9 @@ class HierarchicalRMWrapper(gym.Wrapper):
         return self.num_options
 
     def get_valid_options(self):
+        #print(self.options)
+        #print(self.valid_options)
+        #print(self.option_features)
         return self.valid_options[(self.env.current_rm_id,self.env.current_u_id)]
 
     def get_option_observation(self, option_id, env_obs=None):
@@ -286,6 +289,7 @@ class HierarchicalRMWrapper(gym.Wrapper):
             env_obs = self.env.obs # using the current environment observation
         opt_feat = self.option_features[self.options[option_id]]
         opt_obs = {'features': env_obs,'option': opt_feat}
+        #print("Inside RM_Env is {}".format(gym.spaces.flatten(self.option_observation_dict, opt_obs)))
         return gym.spaces.flatten(self.option_observation_dict, opt_obs)    
 
     def reset(self):
