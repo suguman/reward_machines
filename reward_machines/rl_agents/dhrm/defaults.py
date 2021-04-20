@@ -89,7 +89,7 @@ def rm_rooms():
     controller_kargs=dict(
           network='mlp',
           num_layers=2, 
-          num_hidden=5, 
+          num_hidden=30, 
           activation=tf.nn.relu,
           lr=1e-3,
           buffer_size=50000,
