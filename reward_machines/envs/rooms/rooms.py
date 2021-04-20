@@ -283,6 +283,6 @@ class RoomsEnv(gym.Env):
             label += 'f'
             
         # Ensure that the center of a room is not visited
-        if params.avoid_center((1,0))(self.state, None) > 0:
+        if params.avoid_center((1,0))(self.state, None) <= 0:
             label += 'x'
         return label
