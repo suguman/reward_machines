@@ -314,7 +314,6 @@ class OptionDDPG:
         # and adapt the observation features to have shape (1,...)
         obs.shape = (1,) + obs.shape
         action, q, _, _ = self.agent.step(obs, apply_noise=True, compute_Q=True)
-        return self.max_action * action
 
 
     def add_experience(self, obs, action, rew, new_obs, done):
