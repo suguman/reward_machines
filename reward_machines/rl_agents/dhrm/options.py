@@ -314,7 +314,9 @@ class OptionDDPG:
         # and adapt the observation features to have shape (1,...)
         obs.shape = (1,) + obs.shape
         action, q, _, _ = self.agent.step(obs, apply_noise=True, compute_Q=True)
-
+        action_final = (self.max_action * action) [0]
+        return action_final
+        
 
     def add_experience(self, obs, action, rew, new_obs, done):
         # The DDPG agent assumes that the environment is a vectorized environment
