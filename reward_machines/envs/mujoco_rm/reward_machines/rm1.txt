@@ -1,5 +1,5 @@
 0   # initial state
-[]  # terminal state
+[4]  # terminal state
 (0,0,'!n' ,FetchNearObjectReward())
 (0,1,'n',ConstantRewardFunction(1))
 (1,1,'!h',FetchHoldObjectReward())
