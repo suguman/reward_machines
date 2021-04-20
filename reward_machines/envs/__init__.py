@@ -104,6 +104,12 @@ register(
     max_episode_steps=1000
 )
 
+register(
+    id='Rooms9C-M4-v0',
+    entry_point='envs.rooms.rm_rooms:nine_rooms_back_and_forth',
+    max_episode_steps=1000
+)
+
 
 # ----------------------------------------- 16 ROOMS Few Doors
 

@@ -91,6 +91,25 @@ class nine_rooms_one_continuous(RewardMachineEnv):
             
         super().__init__(env, rm)
 
+class nine_rooms_back_and_forth(RewardMachineEnv):
+    def __init__(self):
+        env_num = 2
+        grid_params = GRID_PARAMS_LIST[env_num]
+        env = RoomsEnv(grid_params, START_ROOM[env_num], FINAL_ROOM[env_num])
+        
+        rm = RewardMachine("./envs/rooms/reward_machines/rm4.txt")
+
+        obstacle = (1,0)
+        obstacle_list = grid_params.get_center_region(obstacle).region
+
+        loop_goal = [[(2,0)], [(0,0)]]
+        for i in range(len(loop_goal)):
+            goal_list = loop_goal[i]
+            center_list = [grid_params.get_center_region(room).region for room in goal_list]
+            rm.delta_r[i][i] = RoomRewardFunctionObstacle(center_list, obstacle_list)
+                
+        super().__init__(env, rm)
+
 
 class sixteen_rooms_half_continuous(RewardMachineEnv):
     def __init__(self):
