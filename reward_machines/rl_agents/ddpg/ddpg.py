@@ -293,10 +293,10 @@ def learn(network, env,
         combined_stats['total/epochs'] = epoch + 1
         combined_stats['total/steps'] = t
 
-        #collected_stat['probability'] = compute_prob(agent, env, nb_rollout_steps)
         ## Compute likelihood of satisfiability
         num_sat = 0.0
-        for _ in range(50):
+        num_rollout = 50
+        for _ in range(num_rollout):
             state = env.reset()
             #print(state)
             for _ in range(nb_rollout_steps):
@@ -310,7 +310,7 @@ def learn(network, env,
                     break
                 
             #print(eval_info)
-        prob_sat = num_sat/20
+        prob_sat = num_sat/num_rollout
         combined_stats['prob_satisfiability'] = prob_sat
         
         #print(eval_info)

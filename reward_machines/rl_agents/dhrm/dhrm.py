@@ -91,6 +91,8 @@ def learn(env,
     option_rews = []   # Rewards obtained by the current option
 
     episode_rewards = [0.0]
+    episode_steps = 0
+    max_episode_steps = 0
     saved_mean_reward = None
     obs = env.reset()
     options.reset()
@@ -159,22 +161,62 @@ def learn(env,
 
             obs = new_obs
             episode_rewards[-1] += rew
-
+            episode_steps += 1
+            
             if done:
                 obs = env.reset()
                 options.reset()
                 episode_rewards.append(0.0)
                 reset = True
-
+                max_episode_steps = max(episode_steps, max_episode_steps)
+                episode_steps = 0
+    
             # General stats
             mean_100ep_reward = round(np.mean(episode_rewards[-101:-1]), 1)
             num_episodes = len(episode_rewards)
             if done and print_freq is not None and len(episode_rewards) % print_freq == 0:
+
+                #Compute prob. of satisfaction:
+
+                num_rollout = 50
+                num_sat = 0.0
+                for r in range(num_rollout):
+                    obs = env.reset()
+                    options.reset()
+                    option_id_eval = None
+                    for _ in range(min(10*max_episode_steps, 999)):
+                        if option_id_eval is None:
+                            valid_options_eval = env.get_valid_options()
+                            option_id_eval   = controller.get_action(obs, valid_options_eval)
+
+                        #print(obs, option_id_eval)
+                        
+                        action_eval = options.get_action(env.get_option_observation(option_id_eval), t, reset)
+                        #print(obs, option_id_eval, action_eval)
+                        obs, _, _, eval_info = env.step(action_eval)
+                        #print(r, eval_info)
+                        
+                        if env.did_option_terminate(option_id_eval) :
+                            option_id_eval = None
+                        
+                        if eval_info['rm_done']:
+                            num_sat = num_sat + 1.0
+                            #print("Yes, num_sat is {}".format(num_sat))
+                            break
+                        if eval_info['env_done']:
+                            break
+
+                prob_sat = num_sat/num_rollout
+                obs = env.reset()
+                options.reset()
+                
+                logger.record_tabular("prob_satisfiability", prob_sat)
                 logger.record_tabular("steps", t)
                 logger.record_tabular("episodes", num_episodes)
                 logger.record_tabular("mean 100 episode reward", mean_100ep_reward)
                 logger.dump_tabular()
 
+                
             if (checkpoint_freq is not None and
                     num_episodes > 100 and t % checkpoint_freq == 0):
                 if saved_mean_reward is None or mean_100ep_reward > saved_mean_reward:
