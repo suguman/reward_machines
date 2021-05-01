@@ -188,18 +188,28 @@ class FetchObjectAtGoalReward(RewardFunction):
 
 class FetchObjectAtGoalFixedReward(RewardFunction):
 
-    def __init__(self, goalpos):
+    def __init__(self, goalposlist):
         super().__init__()
-        self.goalpos = goalpos
+        
+        self.goalposlist = goalposlist
 
     def get_type(self):
         return "Fetch-ObjectAtGoalFixed"
 
     def get_reward(self, s_info):
-        err = 0.05
+        
         sys_state = s_info['my_cur_pos']
-        goal = np.array(self.goalpos)
-        return -LA.norm(sys_state[3:6] - goal) + err
+
+        reward = -10000
+        for goalpos in self.goalposlist:
+            if goalpos == [1.50, 1.05, 0.425]:
+                err = 0.01
+            else:
+                err = 0.05
+            goal = np.array(goalpos)
+            reward = max(reward, -LA.norm(sys_state[3:6] - goal) + err)
+
+        return reward
 
     
 

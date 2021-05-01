@@ -167,3 +167,10 @@ register(
     entry_point = 'envs.mujoco_rm.fetch:fpp_fixed_goal',
     max_episode_steps = 1000
 )
+
+
+register(
+    id = 'Fetch-M3-v0',
+    entry_point = 'envs.mujoco_rm.fetch:fpp_fixed_goal_choice',
+    max_episode_steps = 1000
+)

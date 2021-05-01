@@ -1,6 +1,7 @@
 import os
 
-env = 'Fetch'
+env = 'Rooms9C'
+alg = "ddpg"
 
 mydict = {}
 mydict['Rooms9'] = {}
@@ -29,9 +30,10 @@ mydict['Rooms16C']['options'] = ['cr', 'basic']
 
 mydict['Fetch'] = {}
 mydict['Fetch']['time'] = '2.5e5'
-mydict['Fetch']['rm'] = [('M1', '2e5'), ('M2','2e5')]
+mydict['Fetch']['rm'] = [('M1', '2.2e5'), ('M2','2.2e5'), ('M3','4.2e5')]
 mydict['Fetch']['gamma'] = 0.95
 mydict['Fetch']['options'] = ['cr', 'basic']
+
 
 
 num_iter = 3
@@ -48,8 +50,10 @@ for (rm,timestep) in dict1['rm']:
             flag = '--use_crm --use_rs'
         if option == "basic":
             flag = ''
-            
-        dirname = '/'.join([DIR,env,rm,option])
+
+        if alg=="dhrm":
+            flag += " --r_max=1000 --r_mix=-1000 "
+        dirname = '/'.join([DIR,env,rm,alg, option])
         if not os.path.exists(dirname):
             os.makedirs(dirname)
 
@@ -57,9 +61,9 @@ for (rm,timestep) in dict1['rm']:
             path = dirname + "/" + str(i) 
             #print(path)
 
-            temp = env+rm+option+str(i)
+            temp = env+rm+alg+option+str(i)
             
-            cmd = " ".join(['screen -dmS', temp, 'python3 run.py --alg=ddpg',
+            cmd = " ".join(['screen -dmS', temp, 'python3 run.py --alg='+alg,
                            '--env='+env_name,
                            '--num_timesteps='+timestep,
                             '--gamma='+str(dict1['gamma']),

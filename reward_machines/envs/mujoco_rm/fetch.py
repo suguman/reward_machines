@@ -172,6 +172,18 @@ class ObservationWrapper(gym.Env):
         if (-LA.norm(sys_state[3:6] - goal) + err2)>0:
             label += 'f'
 
+        goal = np.array([1.45, 1.0, 0.5])
+        if (-LA.norm(sys_state[3:6] - goal) + err2)>0:
+            label += 'h'
+
+        goal = np.array([1.15, 1.0, 0.425])
+        if (-LA.norm(sys_state[3:6] - goal) + err2)>0:
+            label += 'l'
+
+        goal = np.array([1.50, 1.05, 0.425])
+        if (-LA.norm(sys_state[3:6] - goal) + 0.01)>0:
+            label += 'm'
+
         return label
 
 class fpp_goal(RewardMachineEnv):
@@ -188,6 +200,14 @@ class fpp_fixed_goal(RewardMachineEnv):
                                  relative=(('desired_goal', 0, 3), ('observation', 3, 6)))
 
         rm_files = ["./envs/mujoco_rm/reward_machines/rm2.txt"]
+        super().__init__(env, rm_files)
+
+class fpp_fixed_goal_choice(RewardMachineEnv):
+    def __init__(self):
+        env = ObservationWrapper(FetchPickAndPlaceEnv(), ['observation', 'desired_goal'],
+                                 relative=(('desired_goal', 0, 3), ('observation', 3, 6)))
+
+        rm_files = ["./envs/mujoco_rm/reward_machines/rm3.txt"]
         super().__init__(env, rm_files)
 
     
