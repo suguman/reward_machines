@@ -273,18 +273,33 @@ class RoomsEnv(gym.Env):
             label += 'b'
         if params.in_room((2,2))(self.state, None) > 0:
             label += 'c'
-        if params.in_room((2,2))(self.state, None) > 0:
-            label += 'c'
-        if params.in_room((1,2))(self.state, None) > 0:
+
+        if params.in_room((2,1))(self.state, None) > 0:
             label += 'd'
-        if params.in_room((2,3))(self.state, None) > 0:
+        if params.in_room((3,2))(self.state, None) > 0:
             label += 'e'
-        if params.in_room((1,3))(self.state, None) > 0:
+        if params.in_room((3,1))(self.state, None) > 0:
             label += 'f'
+            
+        if params.in_room((1,1))(self.state, None) > 0:
+            label += 'g'
+        if params.in_room((3,3))(self.state, None) > 0:
+            label += 'h'
+        if params.in_room((1,3))(self.state, None) > 0:
+            label += 'i'
+            
+        if params.in_room((0,3))(self.state, None) > 0:
+            label += 'j'
+        if params.in_room((0,1))(self.state, None) > 0:
+            label += 'k'
+        
         if params.in_room((0,0))(self.state, None) > 0:
             label += 'o'
             
         # Ensure that the center of a room is not visited
         if params.avoid_center((1,0))(self.state, None) <= 0:
             label += 'x'
+        if params.avoid_center((2,3))(self.state, None) <= 0:
+            label += 'y'
+
         return label

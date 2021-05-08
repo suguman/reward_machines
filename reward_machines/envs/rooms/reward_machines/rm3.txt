@@ -15,4 +15,4 @@
 (4,4,'!f',ConstantRewardFunction(0))
 (5,5,'!f',ConstantRewardFunction(0))
 (4,6,'f',ConstantRewardFunction(1))
-(4,6,'f',ConstantRewardFunction(1))
+(5,6,'f',ConstantRewardFunction(1))

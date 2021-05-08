@@ -144,6 +144,7 @@ register(
     max_episode_steps=1000
 )
 
+
 # ----------------------------------------- 16 ROOMS Few Doors : Continuous
 
 register(
@@ -162,6 +163,18 @@ register(
 register(
     id='Rooms16C-M3-v0',
     entry_point='envs.rooms.rm_rooms:sixteen_rooms_two_continuous',
+    max_episode_steps=1000
+)
+
+register(
+    id='Rooms16C-M4-v0',
+    entry_point='envs.rooms.rm_rooms:sixteen_rooms_three_continuous',
+    max_episode_steps=1000
+)
+
+register(
+    id='Rooms16C-M5-v0',
+    entry_point='envs.rooms.rm_rooms:sixteen_rooms_four_continuous',
     max_episode_steps=1000
 )
 

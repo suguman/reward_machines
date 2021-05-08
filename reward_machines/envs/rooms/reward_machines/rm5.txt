@@ -1,7 +1,7 @@
 0 # initial state
-[9] # terminal state
-(0,10,'x',ConstantRewardFunction(0))
-(10,10,'',ConstantRewardFunction(0))
+[12] # terminal state
+(0,13,'x',ConstantRewardFunction(0))
+(13,13,'',ConstantRewardFunction(0))
 (0,0,'!x&!a&!b',ConstantRewardFunction(0))
 (0,1,'!x&a',ConstantRewardFunction(1))
 (0,2,'!x&b',ConstantRewardFunction(1))
@@ -21,6 +21,13 @@
 (6,8,'h',ConstantRewardFunction(1))
 (7,7,'!i',ConstantRewardFunction(0))
 (7,9,'i',ConstantRewardFunction(1))
-(8,10,'y',ConstantRewardFunction(0))
+(8,13,'y',ConstantRewardFunction(0))
 (8,8,'!y&!i',ConstantRewardFunction(0))
 (8,9,'!y&i',ConstantRewardFunction(1))
+(9,9,'!g&!j',ConstantRewardFunction(0))
+(9,10,'g',ConstantRewardFunction(1))
+(9,11,'j',ConstantRewardFunction(1))
+(10,10,'!k',ConstantRewardFunction(0))
+(11,11,'!k',ConstantRewardFunction(0))
+(10,12,'k',ConstantRewardFunction(1))
+(11,12,'k',ConstantRewardFunction(1))
