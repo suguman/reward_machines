@@ -18,13 +18,14 @@ mydict['Rooms9C']['options'] = ['cr', 'basic']
 
 mydict['Rooms16'] = {}
 mydict['Rooms16']['time'] = '1.5e7'
-mydict['Rooms16']['rm'] = [('M1', '4e6'), ('M2', '6.5e6'), ('M3', '1.1e7')]
+mydict['Rooms16']['rm'] = [('M1', '3.5e6'), ('M2', '6.5e6'), ('M3', '1.1e7')]
 mydict['Rooms16']['gamma'] = 0.99
 mydict['Rooms16']['options'] = ['rs', 'cr', 'rc']
 
 mydict['Rooms16C'] = {}
 mydict['Rooms16C']['time'] = '1.5e7'
-mydict['Rooms16C']['rm'] = [('M1', '4e6'), ('M2', '6.5e6'), ('M3', '1.1e7')]
+#mydict['Rooms16C']['rm'] = [('M1', '3.3e6'), ('M2', '5.2e6'), ('M3', '9e6'), ('M4', '1.7e7'), ('M5', '2.1e7')]
+mydict['Rooms16C']['rm'] = [('M3', '9e6'), ('M4', '1.7e7'), ('M5', '2.1e7')]
 mydict['Rooms16C']['gamma'] = 0.99
 mydict['Rooms16C']['options'] = ['cr', 'basic']
 
