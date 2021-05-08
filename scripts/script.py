@@ -12,7 +12,7 @@ mydict['Rooms9']['options'] = ['rs', 'rc', 'cr']
 
 mydict['Rooms9C'] = {}
 mydict['Rooms9C']['time'] = '3e6'
-mydict['Rooms9C']['rm'] = [('M1', '1.6e6'), ('M2', '3e6'), ('M4', '2e6')]
+mydict['Rooms9C']['rm'] = [('M1', '2e6'), ('M2', '2e6'), ('M3', '3.2e6'), ('M4', '1.5e6'),('M5', '3.2e6')]
 mydict['Rooms9C']['gamma'] = 0.99
 mydict['Rooms9C']['options'] = ['cr', 'basic']
 
