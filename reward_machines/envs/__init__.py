@@ -93,7 +93,7 @@ register(
 
 register(
     id='Rooms9C-M1-v0',
-    entry_point='envs.rooms.rm_rooms:nine_rooms_half_continuous',
+    entry_point='envs.rooms.rm_rooms:nine_rooms_back_and_forth',
     max_episode_steps=1000
 )
 
@@ -105,8 +105,20 @@ register(
 )
 
 register(
+    id='Rooms9C-M3-v0',
+    entry_point='envs.rooms.rm_rooms:nine_rooms_one_continuous',
+    max_episode_steps=1000
+)
+
+register(
     id='Rooms9C-M4-v0',
-    entry_point='envs.rooms.rm_rooms:nine_rooms_back_and_forth',
+    entry_point='envs.rooms.rm_rooms:nine_rooms_obstacle_continuous',
+    max_episode_steps=1000
+)
+
+register(
+    id='Rooms9C-M5-v0',
+    entry_point='envs.rooms.rm_rooms:nine_rooms_one_obstacle_continuous',
     max_episode_steps=1000
 )
 
