@@ -66,7 +66,7 @@ class nine_rooms_obstacle_continuous(RewardMachineEnv):
 
         goal = (2,0)
         center_list = [grid_params.get_center_region(goal).region]
-        rm.delta_r[0][0] = RoomRewardFunctionObstacle(center_list, obstacle_list)
+            rm.delta_r[i][i] = RoomRewardFunctionObstacle(center_list, obstacle_list)
 
         super().__init__(env, rm)
 
