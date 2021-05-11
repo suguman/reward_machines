@@ -1,0 +1,3341 @@
+Logging to ../results/Fetch/M2/ddpg/cr/1
+scaling actions by [1. 1. 1. 1.] before executing in env
+setting up param noise
+  param_noise_actor/mlp_fc0/w:0 <- actor/mlp_fc0/w:0 + noise
+  param_noise_actor/mlp_fc0/b:0 <- actor/mlp_fc0/b:0 + noise
+  param_noise_actor/mlp_fc1/w:0 <- actor/mlp_fc1/w:0 + noise
+  param_noise_actor/mlp_fc1/b:0 <- actor/mlp_fc1/b:0 + noise
+  param_noise_actor/dense/kernel:0 <- actor/dense/kernel:0 + noise
+  param_noise_actor/dense/bias:0 <- actor/dense/bias:0 + noise
+  adaptive_param_noise_actor/mlp_fc0/w:0 <- actor/mlp_fc0/w:0 + noise
+  adaptive_param_noise_actor/mlp_fc0/b:0 <- actor/mlp_fc0/b:0 + noise
+  adaptive_param_noise_actor/mlp_fc1/w:0 <- actor/mlp_fc1/w:0 + noise
+  adaptive_param_noise_actor/mlp_fc1/b:0 <- actor/mlp_fc1/b:0 + noise
+  adaptive_param_noise_actor/dense/kernel:0 <- actor/dense/kernel:0 + noise
+  adaptive_param_noise_actor/dense/bias:0 <- actor/dense/bias:0 + noise
+setting up actor optimizer
+  actor shapes: [[35, 30], [30], [30, 30], [30], [30, 4], [4]]
+  actor params: 2134
+setting up critic optimizer
+  regularizing: critic/mlp_fc0/w:0
+  regularizing: critic/mlp_fc1/w:0
+  applying l2 regularization with 0.01
+  critic shapes: [[39, 30], [30], [30, 30], [30], [30, 1], [1]]
+  critic params: 2161
+setting up target updates ...
+  target_actor/mlp_fc0/w:0 <- actor/mlp_fc0/w:0
+  target_actor/mlp_fc0/b:0 <- actor/mlp_fc0/b:0
+  target_actor/mlp_fc1/w:0 <- actor/mlp_fc1/w:0
+  target_actor/mlp_fc1/b:0 <- actor/mlp_fc1/b:0
+  target_actor/dense/kernel:0 <- actor/dense/kernel:0
+  target_actor/dense/bias:0 <- actor/dense/bias:0
+setting up target updates ...
+  target_critic/mlp_fc0/w:0 <- critic/mlp_fc0/w:0
+  target_critic/mlp_fc0/b:0 <- critic/mlp_fc0/b:0
+  target_critic/mlp_fc1/w:0 <- critic/mlp_fc1/w:0
+  target_critic/mlp_fc1/b:0 <- critic/mlp_fc1/b:0
+  target_critic/output/kernel:0 <- critic/output/kernel:0
+  target_critic/output/bias:0 <- critic/output/bias:0
+Using agent with the following configuration:
+dict_items([('obs0', <tf.Tensor 'obs0:0' shape=(?, 35) dtype=float32>), ('obs1', <tf.Tensor 'obs1:0' shape=(?, 35) dtype=float32>), ('terminals1', <tf.Tensor 'terminals1:0' shape=(?, 1) dtype=float32>), ('rewards', <tf.Tensor 'rewards:0' shape=(?, 1) dtype=float32>), ('actions', <tf.Tensor 'actions:0' shape=(?, 4) dtype=float32>), ('critic_target', <tf.Tensor 'critic_target:0' shape=(?, 1) dtype=float32>), ('param_noise_stddev', <tf.Tensor 'param_noise_stddev:0' shape=() dtype=float32>), ('gamma', 0.95), ('tau', 0.01), ('memory', <baselines.ddpg.memory.Memory object at 0x7fddb8b57898>), ('normalize_observations', False), ('normalize_returns', False), ('action_noise', None), ('param_noise', AdaptiveParamNoiseSpec(initial_stddev=0.2, desired_action_stddev=0.2, adoption_coefficient=1.01)), ('action_range', (-1.0, 1.0)), ('return_range', (-inf, inf)), ('observation_range', (-5.0, 5.0)), ('critic', <baselines.ddpg.models.Critic object at 0x7fdbf3402828>), ('actor', <baselines.ddpg.models.Actor object at 0x7fdbf3402860>), ('actor_lr', 0.0001), ('critic_lr', 0.001), ('clip_norm', None), ('enable_popart', False), ('reward_scale', 1.0), ('batch_size', 400), ('stats_sample', None), ('critic_l2_reg', 0.01), ('obs_rms', None), ('ret_rms', None), ('target_actor', <baselines.ddpg.models.Actor object at 0x7fdbf3402c88>), ('target_critic', <baselines.ddpg.models.Critic object at 0x7fdbf3402ba8>), ('actor_tf', <tf.Tensor 'actor/Tanh:0' shape=(?, 4) dtype=float32>), ('normalized_critic_tf', <tf.Tensor 'critic/output/BiasAdd:0' shape=(?, 1) dtype=float32>), ('critic_tf', <tf.Tensor 'clip_by_value_2:0' shape=(?, 1) dtype=float32>), ('normalized_critic_with_actor_tf', <tf.Tensor 'critic_1/output/BiasAdd:0' shape=(?, 1) dtype=float32>), ('critic_with_actor_tf', <tf.Tensor 'clip_by_value_3:0' shape=(?, 1) dtype=float32>), ('target_Q', <tf.Tensor 'add:0' shape=(?, 1) dtype=float32>), ('perturbed_actor_tf', <tf.Tensor 'param_noise_actor/Tanh:0' shape=(?, 4) dtype=float32>), ('perturb_policy_ops', <tf.Operation 'group_deps' type=NoOp>), ('perturb_adaptive_policy_ops', <tf.Operation 'group_deps_1' type=NoOp>), ('adaptive_policy_distance', <tf.Tensor 'Sqrt:0' shape=() dtype=float32>), ('actor_loss', <tf.Tensor 'Neg:0' shape=() dtype=float32>), ('actor_grads', <tf.Tensor 'concat:0' shape=(2134,) dtype=float32>), ('actor_optimizer', <baselines.common.mpi_adam.MpiAdam object at 0x7fdb302dc2e8>), ('critic_loss', <tf.Tensor 'add_13:0' shape=() dtype=float32>), ('critic_grads', <tf.Tensor 'concat_2:0' shape=(2161,) dtype=float32>), ('critic_optimizer', <baselines.common.mpi_adam.MpiAdam object at 0x7fdb302228d0>), ('stats_ops', [<tf.Tensor 'Mean_3:0' shape=() dtype=float32>, <tf.Tensor 'Sqrt_1:0' shape=() dtype=float32>, <tf.Tensor 'Mean_6:0' shape=() dtype=float32>, <tf.Tensor 'Sqrt_2:0' shape=() dtype=float32>, <tf.Tensor 'Mean_9:0' shape=() dtype=float32>, <tf.Tensor 'Sqrt_3:0' shape=() dtype=float32>, <tf.Tensor 'Mean_12:0' shape=() dtype=float32>, <tf.Tensor 'Sqrt_4:0' shape=() dtype=float32>]), ('stats_names', ['reference_Q_mean', 'reference_Q_std', 'reference_actor_Q_mean', 'reference_actor_Q_std', 'reference_action_mean', 'reference_action_std', 'reference_perturbed_action_mean', 'reference_perturbed_action_std']), ('target_init_updates', [<tf.Operation 'group_deps_4' type=NoOp>, <tf.Operation 'group_deps_6' type=NoOp>]), ('target_soft_updates', [<tf.Operation 'group_deps_5' type=NoOp>, <tf.Operation 'group_deps_7' type=NoOp>]), ('initial_state', None)])
+---------------------------------------------
+| param_noise_stddev             | 0.185    |
+| prob_satisfiability            | 0        |
+| reference_action_mean          | -0.344   |
+| reference_action_std           | 0.776    |
+| reference_actor_Q_mean         | -2.88    |
+| reference_actor_Q_std          | 2.01     |
+| reference_perturbed_action_... | -0.286   |
+| reference_perturbed_action_std | 0.789    |
+| reference_Q_mean               | -3       |
+| reference_Q_std                | 2.2      |
+| rollout/actions_mean           | -0.358   |
+| rollout/actions_std            | 0.73     |
+| rollout/episode_steps          | 1e+03    |
+| rollout/episodes               | 2        |
+| rollout/Q_mean                 | -2.32    |
+| rollout/return                 | -932     |
+| rollout/return_history         | -932     |
+| rollout/return_history_std     | 287      |
+| rollout/return_std             | 287      |
+| total/duration                 | 14.5     |
+| total/episodes                 | 2        |
+| total/epochs                   | 1        |
+| total/steps                    | 2e+03    |
+| total/steps_per_second         | 138      |
+| train/loss_actor               | 2.86     |
+| train/loss_critic              | 0.0526   |
+| train/param_noise_distance     | 0.51     |
+---------------------------------------------
+
+---------------------------------------------
+| param_noise_stddev             | 0.177    |
+| prob_satisfiability            | 0        |
+| reference_action_mean          | 0.494    |
+| reference_action_std           | 0.862    |
+| reference_actor_Q_mean         | -3.49    |
+| reference_actor_Q_std          | 2.81     |
+| reference_perturbed_action_... | -0.00521 |
+| reference_perturbed_action_std | 0.832    |
+| reference_Q_mean               | -3.93    |
+| reference_Q_std                | 3.04     |
+| rollout/actions_mean           | -0.275   |
+| rollout/actions_std            | 0.782    |
+| rollout/episode_steps          | 975      |
+| rollout/episodes               | 4        |
+| rollout/Q_mean                 | -3.46    |
+| rollout/return                 | -903     |
+| rollout/return_history         | -903     |
+| rollout/return_history_std     | 205      |
+| rollout/return_std             | 205      |
+| total/duration                 | 50.1     |
+| total/episodes                 | 4        |
+| total/epochs                   | 2        |
+| total/steps                    | 4e+03    |
+| total/steps_per_second         | 79.8     |
+| train/loss_actor               | 3.29     |
+| train/loss_critic              | 0.0448   |
+| train/param_noise_distance     | 0.0276   |
+---------------------------------------------
+
+---------------------------------------------
+| param_noise_stddev             | 0.196    |
+| prob_satisfiability            | 0        |
+| reference_action_mean          | 0.499    |
+| reference_action_std           | 0.865    |
+| reference_actor_Q_mean         | -5.69    |
+| reference_actor_Q_std          | 3.96     |
+| reference_perturbed_action_... | 0.483    |
+| reference_perturbed_action_std | 0.856    |
+| reference_Q_mean               | -5.67    |
+| reference_Q_std                | 4.05     |
+| rollout/actions_mean           | -0.0977  |
+| rollout/actions_std            | 0.856    |
+| rollout/episode_steps          | 983      |
+| rollout/episodes               | 6        |
+| rollout/Q_mean                 | -4.18    |
+| rollout/return                 | -879     |
+| rollout/return_history         | -879     |
+| rollout/return_history_std     | 222      |
+| rollout/return_std             | 222      |
+| total/duration                 | 95.1     |
+| total/episodes                 | 6        |
+| total/epochs                   | 3        |
+| total/steps                    | 6e+03    |
+| total/steps_per_second         | 63.1     |
+| train/loss_actor               | 5.04     |
+| train/loss_critic              | 0.0439   |
+| train/param_noise_distance     | 0.00593  |
+---------------------------------------------
+
+---------------------------------------------
+| param_noise_stddev             | 0.185    |
+| prob_satisfiability            | 0        |
+| reference_action_mean          | 0.497    |
+| reference_action_std           | 0.864    |
+| reference_actor_Q_mean         | -8.04    |
+| reference_actor_Q_std          | 5.22     |
+| reference_perturbed_action_... | 0.00101  |
+| reference_perturbed_action_std | 0.999    |
+| reference_Q_mean               | -8.05    |
+| reference_Q_std                | 5.27     |
+| rollout/actions_mean           | 0.0209   |
+| rollout/actions_std            | 0.874    |
+| rollout/episode_steps          | 988      |
+| rollout/episodes               | 8        |
+| rollout/Q_mean                 | -4.98    |
+| rollout/return                 | -822     |
+| rollout/return_history         | -822     |
+| rollout/return_history_std     | 220      |
+| rollout/return_std             | 220      |
+| total/duration                 | 129      |
+| total/episodes                 | 8        |
+| total/epochs                   | 4        |
+| total/steps                    | 8e+03    |
+| total/steps_per_second         | 61.8     |
+| train/loss_actor               | 6.59     |
+| train/loss_critic              | 0.0407   |
+| train/param_noise_distance     | 0.189    |
+---------------------------------------------
+
+----------------------------------------------
+| param_noise_stddev             | 0.174     |
+| prob_satisfiability            | 0         |
+| reference_action_mean          | 0.353     |
+| reference_action_std           | 0.823     |
+| reference_actor_Q_mean         | -8.83     |
+| reference_actor_Q_std          | 6.02      |
+| reference_perturbed_action_... | -0.000649 |
+| reference_perturbed_action_std | 0.999     |
+| reference_Q_mean               | -8.88     |
+| reference_Q_std                | 6.08      |
+| rollout/actions_mean           | 0.0146    |
+| rollout/actions_std            | 0.887     |
+| rollout/episode_steps          | 990       |
+| rollout/episodes               | 10        |
+| rollout/Q_mean                 | -6.46     |
+| rollout/return                 | -838      |
+| rollout/return_history         | -838      |
+| rollout/return_history_std     | 210       |
+| rollout/return_std             | 210       |
+| total/duration                 | 176       |
+| total/episodes                 | 10        |
+| total/epochs                   | 5         |
+| total/steps                    | 1e+04     |
+| total/steps_per_second         | 56.8      |
+| train/loss_actor               | 7.77      |
+| train/loss_critic              | 0.0416    |
+| train/param_noise_distance     | 0.509     |
+----------------------------------------------
+
+---------------------------------------------
+| param_noise_stddev             | 0.171    |
+| prob_satisfiability            | 0        |
+| reference_action_mean          | 0.447    |
+| reference_action_std           | 0.854    |
+| reference_actor_Q_mean         | -9.43    |
+| reference_actor_Q_std          | 6.51     |
+| reference_perturbed_action_... | -0.021   |
+| reference_perturbed_action_std | 0.979    |
+| reference_Q_mean               | -9.45    |
+| reference_Q_std                | 6.57     |
+| rollout/actions_mean           | 0.0383   |
+| rollout/actions_std            | 0.895    |
+| rollout/episode_steps          | 992      |
+| rollout/episodes               | 12       |
+| rollout/Q_mean                 | -7.15    |
+| rollout/return                 | -789     |
+| rollout/return_history         | -789     |
+| rollout/return_history_std     | 223      |
+| rollout/return_std             | 223      |
+| total/duration                 | 216      |
+| total/episodes                 | 12       |
+| total/epochs                   | 6        |
+| total/steps                    | 1.2e+04  |
+| total/steps_per_second         | 55.5     |
+| train/loss_actor               | 8.15     |
+| train/loss_critic              | 0.0437   |
+| train/param_noise_distance     | 0.743    |
+---------------------------------------------
+
+---------------------------------------------
+| param_noise_stddev             | 0.164    |
+| prob_satisfiability            | 0        |
+| reference_action_mean          | 0.432    |
+| reference_action_std           | 0.896    |
+| reference_actor_Q_mean         | -9.94    |
+| reference_actor_Q_std          | 6.85     |
+| reference_perturbed_action_... | 0.484    |
+| reference_perturbed_action_std | 0.859    |
+| reference_Q_mean               | -9.96    |
+| reference_Q_std                | 6.9      |
+| rollout/actions_mean           | 0.0706   |
+| rollout/actions_std            | 0.907    |
+| rollout/episode_steps          | 993      |
+| rollout/episodes               | 14       |
+| rollout/Q_mean                 | -7.85    |
+| rollout/return                 | -774     |
+| rollout/return_history         | -774     |
+| rollout/return_history_std     | 211      |
+| rollout/return_std             | 211      |
+| total/duration                 | 249      |
+| total/episodes                 | 14       |
+| total/epochs                   | 7        |
+| total/steps                    | 1.4e+04  |
+| total/steps_per_second         | 56.2     |
+| train/loss_actor               | 8.36     |
+| train/loss_critic              | 0.044    |
+| train/param_noise_distance     | 0.866    |
+---------------------------------------------
+
+---------------------------------------------
+| param_noise_stddev             | 0.145    |
+| prob_satisfiability            | 0        |
+| reference_action_mean          | 0.154    |
+| reference_action_std           | 0.962    |
+| reference_actor_Q_mean         | -9.78    |
+| reference_actor_Q_std          | 7.41     |
+| reference_perturbed_action_... | 0.0523   |
+| reference_perturbed_action_std | 0.946    |
+| reference_Q_mean               | -9.84    |
+| reference_Q_std                | 7.42     |
+| rollout/actions_mean           | 0.12     |
+| rollout/actions_std            | 0.91     |
+| rollout/episode_steps          | 994      |
+| rollout/episodes               | 16       |
+| rollout/Q_mean                 | -8.52    |
+| rollout/return                 | -769     |
+| rollout/return_history         | -769     |
+| rollout/return_history_std     | 199      |
+| rollout/return_std             | 199      |
+| total/duration                 | 296      |
+| total/episodes                 | 16       |
+| total/epochs                   | 8        |
+| total/steps                    | 1.6e+04  |
+| total/steps_per_second         | 54.1     |
+| train/loss_actor               | 8.4      |
+| train/loss_critic              | 0.0456   |
+| train/param_noise_distance     | 0.661    |
+---------------------------------------------
+
+---------------------------------------------
+| param_noise_stddev             | 0.127    |
+| prob_satisfiability            | 0        |
+| reference_action_mean          | 0.12     |
+| reference_action_std           | 0.971    |
+| reference_actor_Q_mean         | -9.94    |
+| reference_actor_Q_std          | 8.06     |
+| reference_perturbed_action_... | 0.129    |
+| reference_perturbed_action_std | 0.968    |
+| reference_Q_mean               | -10      |
+| reference_Q_std                | 8.04     |
+| rollout/actions_mean           | 0.137    |
+| rollout/actions_std            | 0.911    |
+| rollout/episode_steps          | 994      |
+| rollout/episodes               | 18       |
+| rollout/Q_mean                 | -9.32    |
+| rollout/return                 | -783     |
+| rollout/return_history         | -783     |
+| rollout/return_history_std     | 213      |
+| rollout/return_std             | 213      |
+| total/duration                 | 331      |
+| total/episodes                 | 18       |
+| total/epochs                   | 9        |
+| total/steps                    | 1.8e+04  |
+| total/steps_per_second         | 54.4     |
+| train/loss_actor               | 8.67     |
+| train/loss_critic              | 0.0469   |
+| train/param_noise_distance     | 0.0704   |
+---------------------------------------------
+
+---------------------------------------------
+| param_noise_stddev             | 0.117    |
+| prob_satisfiability            | 0        |
+| reference_action_mean          | 0.164    |
+| reference_action_std           | 0.978    |
+| reference_actor_Q_mean         | -9.83    |
+| reference_actor_Q_std          | 8.34     |
+| reference_perturbed_action_... | 0.161    |
+| reference_perturbed_action_std | 0.962    |
+| reference_Q_mean               | -9.9     |
+| reference_Q_std                | 8.34     |
+| rollout/actions_mean           | 0.173    |
+| rollout/actions_std            | 0.913    |
+| rollout/episode_steps          | 995      |
+| rollout/episodes               | 20       |
+| rollout/Q_mean                 | -9.8     |
+| rollout/return                 | -777     |
+| rollout/return_history         | -777     |
+| rollout/return_history_std     | 203      |
+| rollout/return_std             | 203      |
+| total/duration                 | 365      |
+| total/episodes                 | 20       |
+| total/epochs                   | 10       |
+| total/steps                    | 2e+04    |
+| total/steps_per_second         | 54.8     |
+| train/loss_actor               | 8.53     |
+| train/loss_critic              | 0.0455   |
+| train/param_noise_distance     | 0.0523   |
+---------------------------------------------
+
+---------------------------------------------
+| param_noise_stddev             | 0.108    |
+| prob_satisfiability            | 0        |
+| reference_action_mean          | 0.125    |
+| reference_action_std           | 0.972    |
+| reference_actor_Q_mean         | -9.64    |
+| reference_actor_Q_std          | 8.45     |
+| reference_perturbed_action_... | 0.169    |
+| reference_perturbed_action_std | 0.977    |
+| reference_Q_mean               | -9.74    |
+| reference_Q_std                | 8.46     |
+| rollout/actions_mean           | 0.202    |
+| rollout/actions_std            | 0.914    |
+| rollout/episode_steps          | 995      |
+| rollout/episodes               | 22       |
+| rollout/Q_mean                 | -10.1    |
+| rollout/return                 | -770     |
+| rollout/return_history         | -770     |
+| rollout/return_history_std     | 196      |
+| rollout/return_std             | 196      |
+| total/duration                 | 411      |
+| total/episodes                 | 22       |
+| total/epochs                   | 11       |
+| total/steps                    | 2.2e+04  |
+| total/steps_per_second         | 53.5     |
+| train/loss_actor               | 8.51     |
+| train/loss_critic              | 0.0443   |
+| train/param_noise_distance     | 0.406    |
+---------------------------------------------
+
+---------------------------------------------
+| param_noise_stddev             | 0.104    |
+| prob_satisfiability            | 0        |
+| reference_action_mean          | 0.1      |
+| reference_action_std           | 0.99     |
+| reference_actor_Q_mean         | -9.21    |
+| reference_actor_Q_std          | 8.5      |
+| reference_perturbed_action_... | 0.0243   |
+| reference_perturbed_action_std | 0.981    |
+| reference_Q_mean               | -9.34    |
+| reference_Q_std                | 8.51     |
+| rollout/actions_mean           | 0.227    |
+| rollout/actions_std            | 0.914    |
+| rollout/episode_steps          | 996      |
+| rollout/episodes               | 24       |
+| rollout/Q_mean                 | -10.5    |
+| rollout/return                 | -770     |
+| rollout/return_history         | -770     |
+| rollout/return_history_std     | 188      |
+| rollout/return_std             | 188      |
+| total/duration                 | 445      |
+| total/episodes                 | 24       |
+| total/epochs                   | 12       |
+| total/steps                    | 2.4e+04  |
+| total/steps_per_second         | 53.9     |
+| train/loss_actor               | 8.31     |
+| train/loss_critic              | 0.0426   |
+| train/param_noise_distance     | 0.307    |
+---------------------------------------------
+
+---------------------------------------------
+| param_noise_stddev             | 0.112    |
+| prob_satisfiability            | 0        |
+| reference_action_mean          | 0.0987   |
+| reference_action_std           | 0.992    |
+| reference_actor_Q_mean         | -8.99    |
+| reference_actor_Q_std          | 8.52     |
+| reference_perturbed_action_... | 0.101    |
+| reference_perturbed_action_std | 0.988    |
+| reference_Q_mean               | -9.11    |
+| reference_Q_std                | 8.53     |
+| rollout/actions_mean           | 0.244    |
+| rollout/actions_std            | 0.91     |
+| rollout/episode_steps          | 996      |
+| rollout/episodes               | 26       |
+| rollout/Q_mean                 | -10.8    |
+| rollout/return                 | -768     |
+| rollout/return_history         | -768     |
+| rollout/return_history_std     | 182      |
+| rollout/return_std             | 182      |
+| total/duration                 | 481      |
+| total/episodes                 | 26       |
+| total/epochs                   | 13       |
+| total/steps                    | 2.6e+04  |
+| total/steps_per_second         | 54.1     |
+| train/loss_actor               | 8.24     |
+| train/loss_critic              | 0.0408   |
+| train/param_noise_distance     | 0.185    |
+---------------------------------------------
+
+---------------------------------------------
+| param_noise_stddev             | 0.112    |
+| prob_satisfiability            | 0        |
+| reference_action_mean          | 0.0985   |
+| reference_action_std           | 0.992    |
+| reference_actor_Q_mean         | -8.81    |
+| reference_actor_Q_std          | 8.38     |
+| reference_perturbed_action_... | 0.057    |
+| reference_perturbed_action_std | 0.983    |
+| reference_Q_mean               | -8.93    |
+| reference_Q_std                | 8.41     |
+| rollout/actions_mean           | 0.262    |
+| rollout/actions_std            | 0.91     |
+| rollout/episode_steps          | 996      |
+| rollout/episodes               | 28       |
+| rollout/Q_mean                 | -10.9    |
+| rollout/return                 | -759     |
+| rollout/return_history         | -759     |
+| rollout/return_history_std     | 180      |
+| rollout/return_std             | 180      |
+| total/duration                 | 525      |
+| total/episodes                 | 28       |
+| total/epochs                   | 14       |
+| total/steps                    | 2.8e+04  |
+| total/steps_per_second         | 53.3     |
+| train/loss_actor               | 8.05     |
+| train/loss_critic              | 0.0392   |
+| train/param_noise_distance     | 0.0485   |
+---------------------------------------------
+
+---------------------------------------------
+| param_noise_stddev             | 0.108    |
+| prob_satisfiability            | 0        |
+| reference_action_mean          | 0.0969   |
+| reference_action_std           | 0.994    |
+| reference_actor_Q_mean         | -8.58    |
+| reference_actor_Q_std          | 8.11     |
+| reference_perturbed_action_... | 0.0269   |
+| reference_perturbed_action_std | 0.979    |
+| reference_Q_mean               | -8.72    |
+| reference_Q_std                | 8.16     |
+| rollout/actions_mean           | 0.278    |
+| rollout/actions_std            | 0.909    |
+| rollout/episode_steps          | 997      |
+| rollout/episodes               | 30       |
+| rollout/Q_mean                 | -11.1    |
+| rollout/return                 | -751     |
+| rollout/return_history         | -751     |
+| rollout/return_history_std     | 176      |
+| rollout/return_std             | 176      |
+| total/duration                 | 557      |
+| total/episodes                 | 30       |
+| total/epochs                   | 15       |
+| total/steps                    | 3e+04    |
+| total/steps_per_second         | 53.9     |
+| train/loss_actor               | 7.97     |
+| train/loss_critic              | 0.037    |
+| train/param_noise_distance     | 0.447    |
+---------------------------------------------
+
+---------------------------------------------
+| param_noise_stddev             | 0.108    |
+| prob_satisfiability            | 0        |
+| reference_action_mean          | 0.0964   |
+| reference_action_std           | 0.995    |
+| reference_actor_Q_mean         | -8.39    |
+| reference_actor_Q_std          | 7.87     |
+| reference_perturbed_action_... | 0.0989   |
+| reference_perturbed_action_std | 0.992    |
+| reference_Q_mean               | -8.53    |
+| reference_Q_std                | 7.92     |
+| rollout/actions_mean           | 0.288    |
+| rollout/actions_std            | 0.906    |
+| rollout/episode_steps          | 997      |
+| rollout/episodes               | 32       |
+| rollout/Q_mean                 | -11.3    |
+| rollout/return                 | -749     |
+| rollout/return_history         | -749     |
+| rollout/return_history_std     | 170      |
+| rollout/return_std             | 170      |
+| total/duration                 | 601      |
+| total/episodes                 | 32       |
+| total/epochs                   | 16       |
+| total/steps                    | 3.2e+04  |
+| total/steps_per_second         | 53.2     |
+| train/loss_actor               | 7.99     |
+| train/loss_critic              | 0.0354   |
+| train/param_noise_distance     | 0.0164   |
+---------------------------------------------
+
+---------------------------------------------
+| param_noise_stddev             | 0.112    |
+| prob_satisfiability            | 0        |
+| reference_action_mean          | 0.0958   |
+| reference_action_std           | 0.995    |
+| reference_actor_Q_mean         | -8.16    |
+| reference_actor_Q_std          | 7.7      |
+| reference_perturbed_action_... | 0.115    |
+| reference_perturbed_action_std | 0.977    |
+| reference_Q_mean               | -8.32    |
+| reference_Q_std                | 7.75     |
+| rollout/actions_mean           | 0.301    |
+| rollout/actions_std            | 0.905    |
+| rollout/episode_steps          | 997      |
+| rollout/episodes               | 34       |
+| rollout/Q_mean                 | -11.3    |
+| rollout/return                 | -742     |
+| rollout/return_history         | -742     |
+| rollout/return_history_std     | 168      |
+| rollout/return_std             | 168      |
+| total/duration                 | 639      |
+| total/episodes                 | 34       |
+| total/epochs                   | 17       |
+| total/steps                    | 3.4e+04  |
+| total/steps_per_second         | 53.2     |
+| train/loss_actor               | 7.91     |
+| train/loss_critic              | 0.0344   |
+| train/param_noise_distance     | 0.237    |
+---------------------------------------------
+
+---------------------------------------------
+| param_noise_stddev             | 0.115    |
+| prob_satisfiability            | 0        |
+| reference_action_mean          | 0.0951   |
+| reference_action_std           | 0.995    |
+| reference_actor_Q_mean         | -7.96    |
+| reference_actor_Q_std          | 7.57     |
+| reference_perturbed_action_... | 0.104    |
+| reference_perturbed_action_std | 0.988    |
+| reference_Q_mean               | -8.12    |
+| reference_Q_std                | 7.64     |
+| rollout/actions_mean           | 0.312    |
+| rollout/actions_std            | 0.904    |
+| rollout/episode_steps          | 997      |
+| rollout/episodes               | 36       |
+| rollout/Q_mean                 | -11.5    |
+| rollout/return                 | -739     |
+| rollout/return_history         | -739     |
+| rollout/return_history_std     | 165      |
+| rollout/return_std             | 165      |
+| total/duration                 | 671      |
+| total/episodes                 | 36       |
+| total/epochs                   | 18       |
+| total/steps                    | 3.6e+04  |
+| total/steps_per_second         | 53.7     |
+| train/loss_actor               | 7.85     |
+| train/loss_critic              | 0.033    |
+| train/param_noise_distance     | 0.0418   |
+---------------------------------------------
+
+---------------------------------------------
+| param_noise_stddev             | 0.119    |
+| prob_satisfiability            | 0        |
+| reference_action_mean          | 0.095    |
+| reference_action_std           | 0.995    |
+| reference_actor_Q_mean         | -7.81    |
+| reference_actor_Q_std          | 7.47     |
+| reference_perturbed_action_... | 0.0955   |
+| reference_perturbed_action_std | 0.995    |
+| reference_Q_mean               | -7.97    |
+| reference_Q_std                | 7.54     |
+| rollout/actions_mean           | 0.322    |
+| rollout/actions_std            | 0.903    |
+| rollout/episode_steps          | 997      |
+| rollout/episodes               | 38       |
+| rollout/Q_mean                 | -11.6    |
+| rollout/return                 | -736     |
+| rollout/return_history         | -736     |
+| rollout/return_history_std     | 161      |
+| rollout/return_std             | 161      |
+| total/duration                 | 717      |
+| total/episodes                 | 38       |
+| total/epochs                   | 19       |
+| total/steps                    | 3.8e+04  |
+| total/steps_per_second         | 53       |
+| train/loss_actor               | 7.83     |
+| train/loss_critic              | 0.0318   |
+| train/param_noise_distance     | 0.0322   |
+---------------------------------------------
+
+---------------------------------------------
+| param_noise_stddev             | 0.117    |
+| prob_satisfiability            | 0        |
+| reference_action_mean          | 0.095    |
+| reference_action_std           | 0.995    |
+| reference_actor_Q_mean         | -7.72    |
+| reference_actor_Q_std          | 7.47     |
+| reference_perturbed_action_... | 0.0949   |
+| reference_perturbed_action_std | 0.995    |
+| reference_Q_mean               | -7.89    |
+| reference_Q_std                | 7.53     |
+| rollout/actions_mean           | 0.321    |
+| rollout/actions_std            | 0.903    |
+| rollout/episode_steps          | 998      |
+| rollout/episodes               | 40       |
+| rollout/Q_mean                 | -11.9    |
+| rollout/return                 | -743     |
+| rollout/return_history         | -743     |
+| rollout/return_history_std     | 166      |
+| rollout/return_std             | 166      |
+| total/duration                 | 751      |
+| total/episodes                 | 40       |
+| total/epochs                   | 20       |
+| total/steps                    | 4e+04    |
+| total/steps_per_second         | 53.3     |
+| train/loss_actor               | 7.79     |
+| train/loss_critic              | 0.0315   |
+| train/param_noise_distance     | 0.305    |
+---------------------------------------------
+
+---------------------------------------------
+| param_noise_stddev             | 0.127    |
+| prob_satisfiability            | 0        |
+| reference_action_mean          | -0.126   |
+| reference_action_std           | 0.992    |
+| reference_actor_Q_mean         | -7.59    |
+| reference_actor_Q_std          | 7.53     |
+| reference_perturbed_action_... | -0.131   |
+| reference_perturbed_action_std | 0.984    |
+| reference_Q_mean               | -7.77    |
+| reference_Q_std                | 7.58     |
+| rollout/actions_mean           | 0.33     |
+| rollout/actions_std            | 0.902    |
+| rollout/episode_steps          | 998      |
+| rollout/episodes               | 42       |
+| rollout/Q_mean                 | -11.9    |
+| rollout/return                 | -738     |
+| rollout/return_history         | -738     |
+| rollout/return_history_std     | 164      |
+| rollout/return_std             | 164      |
+| total/duration                 | 787      |
+| total/episodes                 | 42       |
+| total/epochs                   | 21       |
+| total/steps                    | 4.2e+04  |
+| total/steps_per_second         | 53.4     |
+| train/loss_actor               | 7.79     |
+| train/loss_critic              | 0.0316   |
+| train/param_noise_distance     | 0.145    |
+---------------------------------------------
+
+---------------------------------------------
+| param_noise_stddev             | 0.132    |
+| prob_satisfiability            | 0        |
+| reference_action_mean          | -0.126   |
+| reference_action_std           | 0.992    |
+| reference_actor_Q_mean         | -7.56    |
+| reference_actor_Q_std          | 7.54     |
+| reference_perturbed_action_... | -0.133   |
+| reference_perturbed_action_std | 0.985    |
+| reference_Q_mean               | -7.74    |
+| reference_Q_std                | 7.6      |
+| rollout/actions_mean           | 0.337    |
+| rollout/actions_std            | 0.901    |
+| rollout/episode_steps          | 998      |
+| rollout/episodes               | 44       |
+| rollout/Q_mean                 | -12      |
+| rollout/return                 | -735     |
+| rollout/return_history         | -735     |
+| rollout/return_history_std     | 161      |
+| rollout/return_std             | 161      |
+| total/duration                 | 834      |
+| total/episodes                 | 44       |
+| total/epochs                   | 22       |
+| total/steps                    | 4.4e+04  |
+| total/steps_per_second         | 52.8     |
+| train/loss_actor               | 7.8      |
+| train/loss_critic              | 0.0312   |
+| train/param_noise_distance     | 0.108    |
+---------------------------------------------
+
+---------------------------------------------
+| param_noise_stddev             | 0.129    |
+| prob_satisfiability            | 0        |
+| reference_action_mean          | -0.126   |
+| reference_action_std           | 0.991    |
+| reference_actor_Q_mean         | -7.47    |
+| reference_actor_Q_std          | 7.52     |
+| reference_perturbed_action_... | -0.155   |
+| reference_perturbed_action_std | 0.948    |
+| reference_Q_mean               | -7.65    |
+| reference_Q_std                | 7.58     |
+| rollout/actions_mean           | 0.344    |
+| rollout/actions_std            | 0.9      |
+| rollout/episode_steps          | 998      |
+| rollout/episodes               | 46       |
+| rollout/Q_mean                 | -12.1    |
+| rollout/return                 | -733     |
+| rollout/return_history         | -733     |
+| rollout/return_history_std     | 159      |
+| rollout/return_std             | 159      |
+| total/duration                 | 872      |
+| total/episodes                 | 46       |
+| total/epochs                   | 23       |
+| total/steps                    | 4.6e+04  |
+| total/steps_per_second         | 52.7     |
+| train/loss_actor               | 7.74     |
+| train/loss_critic              | 0.0307   |
+| train/param_noise_distance     | 0.279    |
+---------------------------------------------
+
+---------------------------------------------
+| param_noise_stddev             | 0.143    |
+| prob_satisfiability            | 0        |
+| reference_action_mean          | -0.127   |
+| reference_action_std           | 0.991    |
+| reference_actor_Q_mean         | -7.37    |
+| reference_actor_Q_std          | 7.52     |
+| reference_perturbed_action_... | 0.0539   |
+| reference_perturbed_action_std | 0.974    |
+| reference_Q_mean               | -7.55    |
+| reference_Q_std                | 7.57     |
+| rollout/actions_mean           | 0.351    |
+| rollout/actions_std            | 0.899    |
+| rollout/episode_steps          | 998      |
+| rollout/episodes               | 48       |
+| rollout/Q_mean                 | -12.1    |
+| rollout/return                 | -730     |
+| rollout/return_history         | -730     |
+| rollout/return_history_std     | 157      |
+| rollout/return_std             | 157      |
+| total/duration                 | 914      |
+| total/episodes                 | 48       |
+| total/epochs                   | 24       |
+| total/steps                    | 4.8e+04  |
+| total/steps_per_second         | 52.5     |
+| train/loss_actor               | 7.71     |
+| train/loss_critic              | 0.0297   |
+| train/param_noise_distance     | 0.104    |
+---------------------------------------------
+
+---------------------------------------------
+| param_noise_stddev             | 0.134    |
+| prob_satisfiability            | 0        |
+| reference_action_mean          | -0.126   |
+| reference_action_std           | 0.991    |
+| reference_actor_Q_mean         | -7.38    |
+| reference_actor_Q_std          | 7.52     |
+| reference_perturbed_action_... | 0.085    |
+| reference_perturbed_action_std | 0.984    |
+| reference_Q_mean               | -7.56    |
+| reference_Q_std                | 7.58     |
+| rollout/actions_mean           | 0.357    |
+| rollout/actions_std            | 0.898    |
+| rollout/episode_steps          | 998      |
+| rollout/episodes               | 50       |
+| rollout/Q_mean                 | -12.2    |
+| rollout/return                 | -727     |
+| rollout/return_history         | -727     |
+| rollout/return_history_std     | 154      |
+| rollout/return_std             | 154      |
+| total/duration                 | 945      |
+| total/episodes                 | 50       |
+| total/epochs                   | 25       |
+| total/steps                    | 5e+04    |
+| total/steps_per_second         | 52.9     |
+| train/loss_actor               | 7.76     |
+| train/loss_critic              | 0.0292   |
+| train/param_noise_distance     | 0.355    |
+---------------------------------------------
+
+---------------------------------------------
+| param_noise_stddev             | 0.132    |
+| prob_satisfiability            | 0        |
+| reference_action_mean          | -0.127   |
+| reference_action_std           | 0.992    |
+| reference_actor_Q_mean         | -7.3     |
+| reference_actor_Q_std          | 7.49     |
+| reference_perturbed_action_... | -0.288   |
+| reference_perturbed_action_std | 0.933    |
+| reference_Q_mean               | -7.48    |
+| reference_Q_std                | 7.55     |
+| rollout/actions_mean           | 0.361    |
+| rollout/actions_std            | 0.898    |
+| rollout/episode_steps          | 998      |
+| rollout/episodes               | 52       |
+| rollout/Q_mean                 | -12.2    |
+| rollout/return                 | -724     |
+| rollout/return_history         | -724     |
+| rollout/return_history_std     | 153      |
+| rollout/return_std             | 153      |
+| total/duration                 | 993      |
+| total/episodes                 | 52       |
+| total/epochs                   | 26       |
+| total/steps                    | 5.2e+04  |
+| total/steps_per_second         | 52.4     |
+| train/loss_actor               | 7.71     |
+| train/loss_critic              | 0.0287   |
+| train/param_noise_distance     | 0.417    |
+---------------------------------------------
+
+---------------------------------------------
+| param_noise_stddev             | 0.119    |
+| prob_satisfiability            | 0        |
+| reference_action_mean          | -0.0729  |
+| reference_action_std           | 0.997    |
+| reference_actor_Q_mean         | -7.54    |
+| reference_actor_Q_std          | 7.34     |
+| reference_perturbed_action_... | -0.0715  |
+| reference_perturbed_action_std | 0.997    |
+| reference_Q_mean               | -7.69    |
+| reference_Q_std                | 7.41     |
+| rollout/actions_mean           | 0.349    |
+| rollout/actions_std            | 0.904    |
+| rollout/episode_steps          | 998      |
+| rollout/episodes               | 54       |
+| rollout/Q_mean                 | -12.3    |
+| rollout/return                 | -730     |
+| rollout/return_history         | -730     |
+| rollout/return_history_std     | 156      |
+| rollout/return_std             | 156      |
+| total/duration                 | 1.03e+03 |
+| total/episodes                 | 54       |
+| total/epochs                   | 27       |
+| total/steps                    | 5.4e+04  |
+| total/steps_per_second         | 52.4     |
+| train/loss_actor               | 7.8      |
+| train/loss_critic              | 0.0283   |
+| train/param_noise_distance     | 0.238    |
+---------------------------------------------
+
+---------------------------------------------
+| param_noise_stddev             | 0.119    |
+| prob_satisfiability            | 0        |
+| reference_action_mean          | -0.0749  |
+| reference_action_std           | 0.997    |
+| reference_actor_Q_mean         | -7.66    |
+| reference_actor_Q_std          | 7.19     |
+| reference_perturbed_action_... | -0.0744  |
+| reference_perturbed_action_std | 0.994    |
+| reference_Q_mean               | -7.82    |
+| reference_Q_std                | 7.28     |
+| rollout/actions_mean           | 0.354    |
+| rollout/actions_std            | 0.903    |
+| rollout/episode_steps          | 998      |
+| rollout/episodes               | 56       |
+| rollout/Q_mean                 | -12.4    |
+| rollout/return                 | -728     |
+| rollout/return_history         | -728     |
+| rollout/return_history_std     | 155      |
+| rollout/return_std             | 155      |
+| total/duration                 | 1.08e+03 |
+| total/episodes                 | 56       |
+| total/epochs                   | 28       |
+| total/steps                    | 5.6e+04  |
+| total/steps_per_second         | 52       |
+| train/loss_actor               | 7.91     |
+| train/loss_critic              | 0.0279   |
+| train/param_noise_distance     | 0.122    |
+---------------------------------------------
+
+---------------------------------------------
+| param_noise_stddev             | 0.112    |
+| prob_satisfiability            | 0        |
+| reference_action_mean          | -0.0725  |
+| reference_action_std           | 0.997    |
+| reference_actor_Q_mean         | -7.73    |
+| reference_actor_Q_std          | 7.1      |
+| reference_perturbed_action_... | -0.0717  |
+| reference_perturbed_action_std | 0.997    |
+| reference_Q_mean               | -7.9     |
+| reference_Q_std                | 7.18     |
+| rollout/actions_mean           | 0.36     |
+| rollout/actions_std            | 0.902    |
+| rollout/episode_steps          | 998      |
+| rollout/episodes               | 58       |
+| rollout/Q_mean                 | -12.4    |
+| rollout/return                 | -724     |
+| rollout/return_history         | -724     |
+| rollout/return_history_std     | 154      |
+| rollout/return_std             | 154      |
+| total/duration                 | 1.11e+03 |
+| total/episodes                 | 58       |
+| total/epochs                   | 29       |
+| total/steps                    | 5.8e+04  |
+| total/steps_per_second         | 52.2     |
+| train/loss_actor               | 8.04     |
+| train/loss_critic              | 0.0274   |
+| train/param_noise_distance     | 0.449    |
+---------------------------------------------
+
+---------------------------------------------
+| param_noise_stddev             | 0.115    |
+| prob_satisfiability            | 0        |
+| reference_action_mean          | -0.0734  |
+| reference_action_std           | 0.997    |
+| reference_actor_Q_mean         | -7.78    |
+| reference_actor_Q_std          | 7.02     |
+| reference_perturbed_action_... | -0.076   |
+| reference_perturbed_action_std | 0.996    |
+| reference_Q_mean               | -7.94    |
+| reference_Q_std                | 7.11     |
+| rollout/actions_mean           | 0.364    |
+| rollout/actions_std            | 0.901    |
+| rollout/episode_steps          | 998      |
+| rollout/episodes               | 60       |
+| rollout/Q_mean                 | -12.4    |
+| rollout/return                 | -724     |
+| rollout/return_history         | -724     |
+| rollout/return_history_std     | 151      |
+| rollout/return_std             | 151      |
+| total/duration                 | 1.16e+03 |
+| total/episodes                 | 60       |
+| total/epochs                   | 30       |
+| total/steps                    | 6e+04    |
+| total/steps_per_second         | 51.9     |
+| train/loss_actor               | 8.09     |
+| train/loss_critic              | 0.0271   |
+| train/param_noise_distance     | 0.122    |
+---------------------------------------------
+
+---------------------------------------------
+| param_noise_stddev             | 0.117    |
+| prob_satisfiability            | 0        |
+| reference_action_mean          | -0.0745  |
+| reference_action_std           | 0.996    |
+| reference_actor_Q_mean         | -7.74    |
+| reference_actor_Q_std          | 6.95     |
+| reference_perturbed_action_... | -0.0728  |
+| reference_perturbed_action_std | 0.996    |
+| reference_Q_mean               | -7.91    |
+| reference_Q_std                | 7.04     |
+| rollout/actions_mean           | 0.369    |
+| rollout/actions_std            | 0.901    |
+| rollout/episode_steps          | 998      |
+| rollout/episodes               | 62       |
+| rollout/Q_mean                 | -12.5    |
+| rollout/return                 | -722     |
+| rollout/return_history         | -722     |
+| rollout/return_history_std     | 150      |
+| rollout/return_std             | 150      |
+| total/duration                 | 1.19e+03 |
+| total/episodes                 | 62       |
+| total/epochs                   | 31       |
+| total/steps                    | 6.2e+04  |
+| total/steps_per_second         | 52.1     |
+| train/loss_actor               | 8.16     |
+| train/loss_critic              | 0.0266   |
+| train/param_noise_distance     | 0.213    |
+---------------------------------------------
+
+---------------------------------------------
+| param_noise_stddev             | 0.112    |
+| prob_satisfiability            | 0        |
+| reference_action_mean          | -0.0753  |
+| reference_action_std           | 0.997    |
+| reference_actor_Q_mean         | -7.81    |
+| reference_actor_Q_std          | 6.89     |
+| reference_perturbed_action_... | -0.0456  |
+| reference_perturbed_action_std | 0.978    |
+| reference_Q_mean               | -7.97    |
+| reference_Q_std                | 7        |
+| rollout/actions_mean           | 0.373    |
+| rollout/actions_std            | 0.9      |
+| rollout/episode_steps          | 998      |
+| rollout/episodes               | 64       |
+| rollout/Q_mean                 | -12.5    |
+| rollout/return                 | -722     |
+| rollout/return_history         | -722     |
+| rollout/return_history_std     | 148      |
+| rollout/return_std             | 148      |
+| total/duration                 | 1.23e+03 |
+| total/episodes                 | 64       |
+| total/epochs                   | 32       |
+| total/steps                    | 6.4e+04  |
+| total/steps_per_second         | 51.9     |
+| train/loss_actor               | 8.26     |
+| train/loss_critic              | 0.0265   |
+| train/param_noise_distance     | 0.224    |
+---------------------------------------------
+
+---------------------------------------------
+| param_noise_stddev             | 0.124    |
+| prob_satisfiability            | 0        |
+| reference_action_mean          | -0.0745  |
+| reference_action_std           | 0.997    |
+| reference_actor_Q_mean         | -7.84    |
+| reference_actor_Q_std          | 6.85     |
+| reference_perturbed_action_... | -0.123   |
+| reference_perturbed_action_std | 0.986    |
+| reference_Q_mean               | -8       |
+| reference_Q_std                | 6.96     |
+| rollout/actions_mean           | 0.377    |
+| rollout/actions_std            | 0.899    |
+| rollout/episode_steps          | 998      |
+| rollout/episodes               | 66       |
+| rollout/Q_mean                 | -12.5    |
+| rollout/return                 | -721     |
+| rollout/return_history         | -721     |
+| rollout/return_history_std     | 146      |
+| rollout/return_std             | 146      |
+| total/duration                 | 1.27e+03 |
+| total/episodes                 | 66       |
+| total/epochs                   | 33       |
+| total/steps                    | 6.6e+04  |
+| total/steps_per_second         | 51.9     |
+| train/loss_actor               | 8.27     |
+| train/loss_critic              | 0.026    |
+| train/param_noise_distance     | 0.0802   |
+---------------------------------------------
+
+---------------------------------------------
+| param_noise_stddev             | 0.129    |
+| prob_satisfiability            | 0        |
+| reference_action_mean          | -0.0749  |
+| reference_action_std           | 0.997    |
+| reference_actor_Q_mean         | -7.87    |
+| reference_actor_Q_std          | 6.81     |
+| reference_perturbed_action_... | 0.0188   |
+| reference_perturbed_action_std | 0.978    |
+| reference_Q_mean               | -8.03    |
+| reference_Q_std                | 6.91     |
+| rollout/actions_mean           | 0.366    |
+| rollout/actions_std            | 0.904    |
+| rollout/episode_steps          | 999      |
+| rollout/episodes               | 68       |
+| rollout/Q_mean                 | -12.6    |
+| rollout/return                 | -724     |
+| rollout/return_history         | -724     |
+| rollout/return_history_std     | 150      |
+| rollout/return_std             | 150      |
+| total/duration                 | 1.31e+03 |
+| total/episodes                 | 68       |
+| total/epochs                   | 34       |
+| total/steps                    | 6.8e+04  |
+| total/steps_per_second         | 51.9     |
+| train/loss_actor               | 8.3      |
+| train/loss_critic              | 0.0256   |
+| train/param_noise_distance     | 0.167    |
+---------------------------------------------
+
+---------------------------------------------
+| param_noise_stddev             | 0.132    |
+| prob_satisfiability            | 0        |
+| reference_action_mean          | -0.0759  |
+| reference_action_std           | 0.997    |
+| reference_actor_Q_mean         | -7.86    |
+| reference_actor_Q_std          | 6.78     |
+| reference_perturbed_action_... | -0.0713  |
+| reference_perturbed_action_std | 0.997    |
+| reference_Q_mean               | -8.02    |
+| reference_Q_std                | 6.89     |
+| rollout/actions_mean           | 0.369    |
+| rollout/actions_std            | 0.904    |
+| rollout/episode_steps          | 999      |
+| rollout/episodes               | 70       |
+| rollout/Q_mean                 | -12.7    |
+| rollout/return                 | -725     |
+| rollout/return_history         | -725     |
+| rollout/return_history_std     | 149      |
+| rollout/return_std             | 149      |
+| total/duration                 | 1.35e+03 |
+| total/episodes                 | 70       |
+| total/epochs                   | 35       |
+| total/steps                    | 7e+04    |
+| total/steps_per_second         | 51.7     |
+| train/loss_actor               | 8.41     |
+| train/loss_critic              | 0.0256   |
+| train/param_noise_distance     | 0.212    |
+---------------------------------------------
+
+---------------------------------------------
+| param_noise_stddev             | 0.132    |
+| prob_satisfiability            | 0        |
+| reference_action_mean          | -0.08    |
+| reference_action_std           | 0.997    |
+| reference_actor_Q_mean         | -7.9     |
+| reference_actor_Q_std          | 6.77     |
+| reference_perturbed_action_... | -0.255   |
+| reference_perturbed_action_std | 0.966    |
+| reference_Q_mean               | -8.06    |
+| reference_Q_std                | 6.87     |
+| rollout/actions_mean           | 0.372    |
+| rollout/actions_std            | 0.903    |
+| rollout/episode_steps          | 999      |
+| rollout/episodes               | 72       |
+| rollout/Q_mean                 | -12.7    |
+| rollout/return                 | -723     |
+| rollout/return_history         | -723     |
+| rollout/return_history_std     | 147      |
+| rollout/return_std             | 147      |
+| total/duration                 | 1.39e+03 |
+| total/episodes                 | 72       |
+| total/epochs                   | 36       |
+| total/steps                    | 7.2e+04  |
+| total/steps_per_second         | 51.7     |
+| train/loss_actor               | 8.29     |
+| train/loss_critic              | 0.0254   |
+| train/param_noise_distance     | 0.419    |
+---------------------------------------------
+
+---------------------------------------------
+| param_noise_stddev             | 0.122    |
+| prob_satisfiability            | 0        |
+| reference_action_mean          | -0.0775  |
+| reference_action_std           | 0.997    |
+| reference_actor_Q_mean         | -8       |
+| reference_actor_Q_std          | 6.75     |
+| reference_perturbed_action_... | -0.0712  |
+| reference_perturbed_action_std | 0.994    |
+| reference_Q_mean               | -8.14    |
+| reference_Q_std                | 6.85     |
+| rollout/actions_mean           | 0.363    |
+| rollout/actions_std            | 0.907    |
+| rollout/episode_steps          | 999      |
+| rollout/episodes               | 74       |
+| rollout/Q_mean                 | -12.7    |
+| rollout/return                 | -723     |
+| rollout/return_history         | -723     |
+| rollout/return_history_std     | 145      |
+| rollout/return_std             | 145      |
+| total/duration                 | 1.43e+03 |
+| total/episodes                 | 74       |
+| total/epochs                   | 37       |
+| total/steps                    | 7.4e+04  |
+| total/steps_per_second         | 51.7     |
+| train/loss_actor               | 8.24     |
+| train/loss_critic              | 0.0246   |
+| train/param_noise_distance     | 0.459    |
+---------------------------------------------
+
+---------------------------------------------
+| param_noise_stddev             | 0.117    |
+| prob_satisfiability            | 0        |
+| reference_action_mean          | -0.0775  |
+| reference_action_std           | 0.997    |
+| reference_actor_Q_mean         | -8.03    |
+| reference_actor_Q_std          | 6.74     |
+| reference_perturbed_action_... | -0.105   |
+| reference_perturbed_action_std | 0.974    |
+| reference_Q_mean               | -8.18    |
+| reference_Q_std                | 6.83     |
+| rollout/actions_mean           | 0.36     |
+| rollout/actions_std            | 0.909    |
+| rollout/episode_steps          | 999      |
+| rollout/episodes               | 76       |
+| rollout/Q_mean                 | -12.8    |
+| rollout/return                 | -723     |
+| rollout/return_history         | -723     |
+| rollout/return_history_std     | 144      |
+| rollout/return_std             | 144      |
+| total/duration                 | 1.47e+03 |
+| total/episodes                 | 76       |
+| total/epochs                   | 38       |
+| total/steps                    | 7.6e+04  |
+| total/steps_per_second         | 51.8     |
+| train/loss_actor               | 8.34     |
+| train/loss_critic              | 0.0242   |
+| train/param_noise_distance     | 0.345    |
+---------------------------------------------
+
+---------------------------------------------
+| param_noise_stddev             | 0.102    |
+| prob_satisfiability            | 0        |
+| reference_action_mean          | -0.0775  |
+| reference_action_std           | 0.997    |
+| reference_actor_Q_mean         | -7.96    |
+| reference_actor_Q_std          | 6.7      |
+| reference_perturbed_action_... | -0.0502  |
+| reference_perturbed_action_std | 0.984    |
+| reference_Q_mean               | -8.12    |
+| reference_Q_std                | 6.8      |
+| rollout/actions_mean           | 0.363    |
+| rollout/actions_std            | 0.908    |
+| rollout/episode_steps          | 999      |
+| rollout/episodes               | 78       |
+| rollout/Q_mean                 | -12.8    |
+| rollout/return                 | -721     |
+| rollout/return_history         | -721     |
+| rollout/return_history_std     | 143      |
+| rollout/return_std             | 143      |
+| total/duration                 | 1.5e+03  |
+| total/episodes                 | 78       |
+| total/epochs                   | 39       |
+| total/steps                    | 7.8e+04  |
+| total/steps_per_second         | 51.8     |
+| train/loss_actor               | 8.3      |
+| train/loss_critic              | 0.0243   |
+| train/param_noise_distance     | 0.281    |
+---------------------------------------------
+
+---------------------------------------------
+| param_noise_stddev             | 0.0867   |
+| prob_satisfiability            | 0        |
+| reference_action_mean          | -0.0775  |
+| reference_action_std           | 0.997    |
+| reference_actor_Q_mean         | -7.92    |
+| reference_actor_Q_std          | 6.66     |
+| reference_perturbed_action_... | -0.0638  |
+| reference_perturbed_action_std | 0.988    |
+| reference_Q_mean               | -8.09    |
+| reference_Q_std                | 6.77     |
+| rollout/actions_mean           | 0.367    |
+| rollout/actions_std            | 0.908    |
+| rollout/episode_steps          | 999      |
+| rollout/episodes               | 80       |
+| rollout/Q_mean                 | -12.8    |
+| rollout/return                 | -718     |
+| rollout/return_history         | -718     |
+| rollout/return_history_std     | 142      |
+| rollout/return_std             | 142      |
+| total/duration                 | 1.54e+03 |
+| total/episodes                 | 80       |
+| total/epochs                   | 40       |
+| total/steps                    | 8e+04    |
+| total/steps_per_second         | 51.9     |
+| train/loss_actor               | 8.32     |
+| train/loss_critic              | 0.025    |
+| train/param_noise_distance     | 0.268    |
+---------------------------------------------
+
+---------------------------------------------
+| param_noise_stddev             | 0.085    |
+| prob_satisfiability            | 0        |
+| reference_action_mean          | -0.0754  |
+| reference_action_std           | 0.996    |
+| reference_actor_Q_mean         | -7.85    |
+| reference_actor_Q_std          | 6.63     |
+| reference_perturbed_action_... | -0.0775  |
+| reference_perturbed_action_std | 0.997    |
+| reference_Q_mean               | -8.01    |
+| reference_Q_std                | 6.73     |
+| rollout/actions_mean           | 0.364    |
+| rollout/actions_std            | 0.909    |
+| rollout/episode_steps          | 999      |
+| rollout/episodes               | 82       |
+| rollout/Q_mean                 | -12.8    |
+| rollout/return                 | -717     |
+| rollout/return_history         | -717     |
+| rollout/return_history_std     | 141      |
+| rollout/return_std             | 141      |
+| total/duration                 | 1.58e+03 |
+| total/episodes                 | 82       |
+| total/epochs                   | 41       |
+| total/steps                    | 8.2e+04  |
+| total/steps_per_second         | 51.8     |
+| train/loss_actor               | 8.31     |
+| train/loss_critic              | 0.0242   |
+| train/param_noise_distance     | 0.0968   |
+---------------------------------------------
+
+---------------------------------------------
+| param_noise_stddev             | 0.0958   |
+| prob_satisfiability            | 0        |
+| reference_action_mean          | -0.0401  |
+| reference_action_std           | 0.984    |
+| reference_actor_Q_mean         | -7.81    |
+| reference_actor_Q_std          | 6.57     |
+| reference_perturbed_action_... | 0.109    |
+| reference_perturbed_action_std | 0.987    |
+| reference_Q_mean               | -7.99    |
+| reference_Q_std                | 6.68     |
+| rollout/actions_mean           | 0.362    |
+| rollout/actions_std            | 0.911    |
+| rollout/episode_steps          | 999      |
+| rollout/episodes               | 84       |
+| rollout/Q_mean                 | -12.8    |
+| rollout/return                 | -717     |
+| rollout/return_history         | -717     |
+| rollout/return_history_std     | 140      |
+| rollout/return_std             | 140      |
+| total/duration                 | 1.62e+03 |
+| total/episodes                 | 84       |
+| total/epochs                   | 42       |
+| total/steps                    | 8.4e+04  |
+| total/steps_per_second         | 51.8     |
+| train/loss_actor               | 8.24     |
+| train/loss_critic              | 0.0237   |
+| train/param_noise_distance     | 0.0935   |
+---------------------------------------------
+
+---------------------------------------------
+| param_noise_stddev             | 0.092    |
+| prob_satisfiability            | 0        |
+| reference_action_mean          | -0.0288  |
+| reference_action_std           | 0.984    |
+| reference_actor_Q_mean         | -7.74    |
+| reference_actor_Q_std          | 6.55     |
+| reference_perturbed_action_... | 0.0434   |
+| reference_perturbed_action_std | 0.993    |
+| reference_Q_mean               | -7.91    |
+| reference_Q_std                | 6.67     |
+| rollout/actions_mean           | 0.365    |
+| rollout/actions_std            | 0.91     |
+| rollout/episode_steps          | 999      |
+| rollout/episodes               | 86       |
+| rollout/Q_mean                 | -12.8    |
+| rollout/return                 | -718     |
+| rollout/return_history         | -718     |
+| rollout/return_history_std     | 138      |
+| rollout/return_std             | 138      |
+| total/duration                 | 1.66e+03 |
+| total/episodes                 | 86       |
+| total/epochs                   | 43       |
+| total/steps                    | 8.6e+04  |
+| total/steps_per_second         | 51.8     |
+| train/loss_actor               | 8.36     |
+| train/loss_critic              | 0.023    |
+| train/param_noise_distance     | 0.22     |
+---------------------------------------------
+
+---------------------------------------------
+| param_noise_stddev             | 0.0884   |
+| prob_satisfiability            | 0        |
+| reference_action_mean          | -0.0159  |
+| reference_action_std           | 0.99     |
+| reference_actor_Q_mean         | -7.79    |
+| reference_actor_Q_std          | 6.49     |
+| reference_perturbed_action_... | -0.0765  |
+| reference_perturbed_action_std | 0.997    |
+| reference_Q_mean               | -7.95    |
+| reference_Q_std                | 6.61     |
+| rollout/actions_mean           | 0.368    |
+| rollout/actions_std            | 0.909    |
+| rollout/episode_steps          | 999      |
+| rollout/episodes               | 88       |
+| rollout/Q_mean                 | -12.8    |
+| rollout/return                 | -716     |
+| rollout/return_history         | -716     |
+| rollout/return_history_std     | 137      |
+| rollout/return_std             | 137      |
+| total/duration                 | 1.7e+03  |
+| total/episodes                 | 88       |
+| total/epochs                   | 44       |
+| total/steps                    | 8.8e+04  |
+| total/steps_per_second         | 51.8     |
+| train/loss_actor               | 8.37     |
+| train/loss_critic              | 0.0228   |
+| train/param_noise_distance     | 0.215    |
+---------------------------------------------
+
+---------------------------------------------
+| param_noise_stddev             | 0.0958   |
+| prob_satisfiability            | 0        |
+| reference_action_mean          | 0.0129   |
+| reference_action_std           | 0.979    |
+| reference_actor_Q_mean         | -7.8     |
+| reference_actor_Q_std          | 6.47     |
+| reference_perturbed_action_... | 0.0148   |
+| reference_perturbed_action_std | 0.984    |
+| reference_Q_mean               | -7.97    |
+| reference_Q_std                | 6.59     |
+| rollout/actions_mean           | 0.369    |
+| rollout/actions_std            | 0.908    |
+| rollout/episode_steps          | 999      |
+| rollout/episodes               | 90       |
+| rollout/Q_mean                 | -12.9    |
+| rollout/return                 | -716     |
+| rollout/return_history         | -716     |
+| rollout/return_history_std     | 136      |
+| rollout/return_std             | 136      |
+| total/duration                 | 1.74e+03 |
+| total/episodes                 | 90       |
+| total/epochs                   | 45       |
+| total/steps                    | 9e+04    |
+| total/steps_per_second         | 51.8     |
+| train/loss_actor               | 8.36     |
+| train/loss_critic              | 0.0232   |
+| train/param_noise_distance     | 0.191    |
+---------------------------------------------
+
+---------------------------------------------
+| param_noise_stddev             | 0.0939   |
+| prob_satisfiability            | 0        |
+| reference_action_mean          | -0.0243  |
+| reference_action_std           | 0.995    |
+| reference_actor_Q_mean         | -7.82    |
+| reference_actor_Q_std          | 6.48     |
+| reference_perturbed_action_... | -0.0276  |
+| reference_perturbed_action_std | 0.999    |
+| reference_Q_mean               | -7.98    |
+| reference_Q_std                | 6.59     |
+| rollout/actions_mean           | 0.372    |
+| rollout/actions_std            | 0.907    |
+| rollout/episode_steps          | 999      |
+| rollout/episodes               | 92       |
+| rollout/Q_mean                 | -12.9    |
+| rollout/return                 | -716     |
+| rollout/return_history         | -716     |
+| rollout/return_history_std     | 135      |
+| rollout/return_std             | 135      |
+| total/duration                 | 1.78e+03 |
+| total/episodes                 | 92       |
+| total/epochs                   | 46       |
+| total/steps                    | 9.2e+04  |
+| total/steps_per_second         | 51.8     |
+| train/loss_actor               | 8.27     |
+| train/loss_critic              | 0.0228   |
+| train/param_noise_distance     | 0.151    |
+---------------------------------------------
+
+---------------------------------------------
+| param_noise_stddev             | 0.0997   |
+| prob_satisfiability            | 0        |
+| reference_action_mean          | -0.0264  |
+| reference_action_std           | 0.999    |
+| reference_actor_Q_mean         | -7.78    |
+| reference_actor_Q_std          | 6.44     |
+| reference_perturbed_action_... | -0.0247  |
+| reference_perturbed_action_std | 0.999    |
+| reference_Q_mean               | -7.93    |
+| reference_Q_std                | 6.55     |
+| rollout/actions_mean           | 0.374    |
+| rollout/actions_std            | 0.907    |
+| rollout/episode_steps          | 999      |
+| rollout/episodes               | 94       |
+| rollout/Q_mean                 | -13      |
+| rollout/return                 | -717     |
+| rollout/return_history         | -717     |
+| rollout/return_history_std     | 133      |
+| rollout/return_std             | 133      |
+| total/duration                 | 1.81e+03 |
+| total/episodes                 | 94       |
+| total/epochs                   | 47       |
+| total/steps                    | 9.4e+04  |
+| total/steps_per_second         | 51.8     |
+| train/loss_actor               | 8.29     |
+| train/loss_critic              | 0.0222   |
+| train/param_noise_distance     | 0.118    |
+---------------------------------------------
+
+---------------------------------------------
+| param_noise_stddev             | 0.0997   |
+| prob_satisfiability            | 0        |
+| reference_action_mean          | -0.0097  |
+| reference_action_std           | 0.989    |
+| reference_actor_Q_mean         | -7.79    |
+| reference_actor_Q_std          | 6.44     |
+| reference_perturbed_action_... | 0.0476   |
+| reference_perturbed_action_std | 0.997    |
+| reference_Q_mean               | -7.96    |
+| reference_Q_std                | 6.56     |
+| rollout/actions_mean           | 0.377    |
+| rollout/actions_std            | 0.906    |
+| rollout/episode_steps          | 999      |
+| rollout/episodes               | 96       |
+| rollout/Q_mean                 | -13      |
+| rollout/return                 | -718     |
+| rollout/return_history         | -718     |
+| rollout/return_history_std     | 132      |
+| rollout/return_std             | 132      |
+| total/duration                 | 1.85e+03 |
+| total/episodes                 | 96       |
+| total/epochs                   | 48       |
+| total/steps                    | 9.6e+04  |
+| total/steps_per_second         | 51.9     |
+| train/loss_actor               | 8.42     |
+| train/loss_critic              | 0.0225   |
+| train/param_noise_distance     | 0.143    |
+---------------------------------------------
+
+---------------------------------------------
+| param_noise_stddev             | 0.106    |
+| prob_satisfiability            | 0        |
+| reference_action_mean          | -0.0204  |
+| reference_action_std           | 0.995    |
+| reference_actor_Q_mean         | -7.78    |
+| reference_actor_Q_std          | 6.42     |
+| reference_perturbed_action_... | -0.023   |
+| reference_perturbed_action_std | 0.997    |
+| reference_Q_mean               | -7.95    |
+| reference_Q_std                | 6.54     |
+| rollout/actions_mean           | 0.379    |
+| rollout/actions_std            | 0.905    |
+| rollout/episode_steps          | 999      |
+| rollout/episodes               | 98       |
+| rollout/Q_mean                 | -13      |
+| rollout/return                 | -715     |
+| rollout/return_history         | -715     |
+| rollout/return_history_std     | 132      |
+| rollout/return_std             | 132      |
+| total/duration                 | 1.89e+03 |
+| total/episodes                 | 98       |
+| total/epochs                   | 49       |
+| total/steps                    | 9.8e+04  |
+| total/steps_per_second         | 51.9     |
+| train/loss_actor               | 8.37     |
+| train/loss_critic              | 0.0218   |
+| train/param_noise_distance     | 0.116    |
+---------------------------------------------
+
+---------------------------------------------
+| param_noise_stddev             | 0.104    |
+| prob_satisfiability            | 0        |
+| reference_action_mean          | -0.0128  |
+| reference_action_std           | 0.991    |
+| reference_actor_Q_mean         | -7.82    |
+| reference_actor_Q_std          | 6.43     |
+| reference_perturbed_action_... | -0.0274  |
+| reference_perturbed_action_std | 1        |
+| reference_Q_mean               | -7.99    |
+| reference_Q_std                | 6.53     |
+| rollout/actions_mean           | 0.382    |
+| rollout/actions_std            | 0.905    |
+| rollout/episode_steps          | 999      |
+| rollout/episodes               | 100      |
+| rollout/Q_mean                 | -13      |
+| rollout/return                 | -714     |
+| rollout/return_history         | -714     |
+| rollout/return_history_std     | 131      |
+| rollout/return_std             | 131      |
+| total/duration                 | 1.93e+03 |
+| total/episodes                 | 100      |
+| total/epochs                   | 50       |
+| total/steps                    | 1e+05    |
+| total/steps_per_second         | 51.9     |
+| train/loss_actor               | 8.36     |
+| train/loss_critic              | 0.0214   |
+| train/param_noise_distance     | 0.0579   |
+---------------------------------------------
+
+---------------------------------------------
+| param_noise_stddev             | 0.112    |
+| prob_satisfiability            | 0        |
+| reference_action_mean          | -0.00815 |
+| reference_action_std           | 0.989    |
+| reference_actor_Q_mean         | -7.76    |
+| reference_actor_Q_std          | 6.41     |
+| reference_perturbed_action_... | 0.0565   |
+| reference_perturbed_action_std | 0.997    |
+| reference_Q_mean               | -7.94    |
+| reference_Q_std                | 6.52     |
+| rollout/actions_mean           | 0.379    |
+| rollout/actions_std            | 0.906    |
+| rollout/episode_steps          | 999      |
+| rollout/episodes               | 102      |
+| rollout/Q_mean                 | -13      |
+| rollout/return                 | -715     |
+| rollout/return_history         | -710     |
+| rollout/return_history_std     | 121      |
+| rollout/return_std             | 130      |
+| total/duration                 | 1.96e+03 |
+| total/episodes                 | 102      |
+| total/epochs                   | 51       |
+| total/steps                    | 1.02e+05 |
+| total/steps_per_second         | 51.9     |
+| train/loss_actor               | 8.29     |
+| train/loss_critic              | 0.0212   |
+| train/param_noise_distance     | 0.15     |
+---------------------------------------------
+
+---------------------------------------------
+| param_noise_stddev             | 0.117    |
+| prob_satisfiability            | 0        |
+| reference_action_mean          | 0.143    |
+| reference_action_std           | 0.979    |
+| reference_actor_Q_mean         | -7.81    |
+| reference_actor_Q_std          | 6.41     |
+| reference_perturbed_action_... | 0.161    |
+| reference_perturbed_action_std | 0.987    |
+| reference_Q_mean               | -7.97    |
+| reference_Q_std                | 6.53     |
+| rollout/actions_mean           | 0.381    |
+| rollout/actions_std            | 0.905    |
+| rollout/episode_steps          | 999      |
+| rollout/episodes               | 104      |
+| rollout/Q_mean                 | -13      |
+| rollout/return                 | -712     |
+| rollout/return_history         | -704     |
+| rollout/return_history_std     | 120      |
+| rollout/return_std             | 130      |
+| total/duration                 | 2.01e+03 |
+| total/episodes                 | 104      |
+| total/epochs                   | 52       |
+| total/steps                    | 1.04e+05 |
+| total/steps_per_second         | 51.9     |
+| train/loss_actor               | 8.27     |
+| train/loss_critic              | 0.0209   |
+| train/param_noise_distance     | 0.176    |
+---------------------------------------------
+
+---------------------------------------------
+| param_noise_stddev             | 0.129    |
+| prob_satisfiability            | 0        |
+| reference_action_mean          | 0.16     |
+| reference_action_std           | 0.986    |
+| reference_actor_Q_mean         | -7.75    |
+| reference_actor_Q_std          | 6.39     |
+| reference_perturbed_action_... | 0.165    |
+| reference_perturbed_action_std | 0.981    |
+| reference_Q_mean               | -7.92    |
+| reference_Q_std                | 6.5      |
+| rollout/actions_mean           | 0.384    |
+| rollout/actions_std            | 0.905    |
+| rollout/episode_steps          | 999      |
+| rollout/episodes               | 106      |
+| rollout/Q_mean                 | -13      |
+| rollout/return                 | -712     |
+| rollout/return_history         | -702     |
+| rollout/return_history_std     | 114      |
+| rollout/return_std             | 130      |
+| total/duration                 | 2.04e+03 |
+| total/episodes                 | 106      |
+| total/epochs                   | 53       |
+| total/steps                    | 1.06e+05 |
+| total/steps_per_second         | 51.8     |
+| train/loss_actor               | 8.3      |
+| train/loss_critic              | 0.0212   |
+| train/param_noise_distance     | 0.104    |
+---------------------------------------------
+
+---------------------------------------------
+| param_noise_stddev             | 0.137    |
+| prob_satisfiability            | 0        |
+| reference_action_mean          | 0.161    |
+| reference_action_std           | 0.987    |
+| reference_actor_Q_mean         | -7.81    |
+| reference_actor_Q_std          | 6.39     |
+| reference_perturbed_action_... | -0.0278  |
+| reference_perturbed_action_std | 0.999    |
+| reference_Q_mean               | -7.98    |
+| reference_Q_std                | 6.51     |
+| rollout/actions_mean           | 0.386    |
+| rollout/actions_std            | 0.904    |
+| rollout/episode_steps          | 999      |
+| rollout/episodes               | 108      |
+| rollout/Q_mean                 | -13      |
+| rollout/return                 | -711     |
+| rollout/return_history         | -702     |
+| rollout/return_history_std     | 114      |
+| rollout/return_std             | 129      |
+| total/duration                 | 2.08e+03 |
+| total/episodes                 | 108      |
+| total/epochs                   | 54       |
+| total/steps                    | 1.08e+05 |
+| total/steps_per_second         | 51.8     |
+| train/loss_actor               | 8.31     |
+| train/loss_critic              | 0.0211   |
+| train/param_noise_distance     | 0.213    |
+---------------------------------------------
+
+---------------------------------------------
+| param_noise_stddev             | 0.137    |
+| prob_satisfiability            | 0        |
+| reference_action_mean          | 0.161    |
+| reference_action_std           | 0.987    |
+| reference_actor_Q_mean         | -7.82    |
+| reference_actor_Q_std          | 6.37     |
+| reference_perturbed_action_... | 0.161    |
+| reference_perturbed_action_std | 0.987    |
+| reference_Q_mean               | -7.99    |
+| reference_Q_std                | 6.5      |
+| rollout/actions_mean           | 0.388    |
+| rollout/actions_std            | 0.904    |
+| rollout/episode_steps          | 999      |
+| rollout/episodes               | 110      |
+| rollout/Q_mean                 | -13.1    |
+| rollout/return                 | -711     |
+| rollout/return_history         | -698     |
+| rollout/return_history_std     | 109      |
+| rollout/return_std             | 128      |
+| total/duration                 | 2.12e+03 |
+| total/episodes                 | 110      |
+| total/epochs                   | 55       |
+| total/steps                    | 1.1e+05  |
+| total/steps_per_second         | 51.9     |
+| train/loss_actor               | 8.34     |
+| train/loss_critic              | 0.0206   |
+| train/param_noise_distance     | 0.144    |
+---------------------------------------------
+
+---------------------------------------------
+| param_noise_stddev             | 0.14     |
+| prob_satisfiability            | 0        |
+| reference_action_mean          | 0.161    |
+| reference_action_std           | 0.987    |
+| reference_actor_Q_mean         | -7.81    |
+| reference_actor_Q_std          | 6.35     |
+| reference_perturbed_action_... | 0.297    |
+| reference_perturbed_action_std | 0.924    |
+| reference_Q_mean               | -7.96    |
+| reference_Q_std                | 6.47     |
+| rollout/actions_mean           | 0.39     |
+| rollout/actions_std            | 0.903    |
+| rollout/episode_steps          | 999      |
+| rollout/episodes               | 112      |
+| rollout/Q_mean                 | -13.1    |
+| rollout/return                 | -711     |
+| rollout/return_history         | -702     |
+| rollout/return_history_std     | 106      |
+| rollout/return_std             | 127      |
+| total/duration                 | 2.16e+03 |
+| total/episodes                 | 112      |
+| total/epochs                   | 56       |
+| total/steps                    | 1.12e+05 |
+| total/steps_per_second         | 51.8     |
+| train/loss_actor               | 8.25     |
+| train/loss_critic              | 0.0205   |
+| train/param_noise_distance     | 0.569    |
+---------------------------------------------
+
+---------------------------------------------
+| param_noise_stddev             | 0.14     |
+| prob_satisfiability            | 0        |
+| reference_action_mean          | 0.161    |
+| reference_action_std           | 0.987    |
+| reference_actor_Q_mean         | -7.79    |
+| reference_actor_Q_std          | 6.34     |
+| reference_perturbed_action_... | 0.0333   |
+| reference_perturbed_action_std | 0.991    |
+| reference_Q_mean               | -7.96    |
+| reference_Q_std                | 6.46     |
+| rollout/actions_mean           | 0.392    |
+| rollout/actions_std            | 0.903    |
+| rollout/episode_steps          | 999      |
+| rollout/episodes               | 114      |
+| rollout/Q_mean                 | -13.1    |
+| rollout/return                 | -711     |
+| rollout/return_history         | -702     |
+| rollout/return_history_std     | 106      |
+| rollout/return_std             | 126      |
+| total/duration                 | 2.2e+03  |
+| total/episodes                 | 114      |
+| total/epochs                   | 57       |
+| total/steps                    | 1.14e+05 |
+| total/steps_per_second         | 51.8     |
+| train/loss_actor               | 8.35     |
+| train/loss_critic              | 0.0205   |
+| train/param_noise_distance     | 0.183    |
+---------------------------------------------
+
+---------------------------------------------
+| param_noise_stddev             | 0.143    |
+| prob_satisfiability            | 0        |
+| reference_action_mean          | 0.161    |
+| reference_action_std           | 0.987    |
+| reference_actor_Q_mean         | -7.78    |
+| reference_actor_Q_std          | 6.33     |
+| reference_perturbed_action_... | 0.11     |
+| reference_perturbed_action_std | 0.993    |
+| reference_Q_mean               | -7.94    |
+| reference_Q_std                | 6.45     |
+| rollout/actions_mean           | 0.39     |
+| rollout/actions_std            | 0.904    |
+| rollout/episode_steps          | 999      |
+| rollout/episodes               | 116      |
+| rollout/Q_mean                 | -13.2    |
+| rollout/return                 | -716     |
+| rollout/return_history         | -707     |
+| rollout/return_history_std     | 119      |
+| rollout/return_std             | 135      |
+| total/duration                 | 2.24e+03 |
+| total/episodes                 | 116      |
+| total/epochs                   | 58       |
+| total/steps                    | 1.16e+05 |
+| total/steps_per_second         | 51.7     |
+| train/loss_actor               | 8.33     |
+| train/loss_critic              | 0.0202   |
+| train/param_noise_distance     | 0.157    |
+---------------------------------------------
+
+---------------------------------------------
+| param_noise_stddev             | 0.143    |
+| prob_satisfiability            | 0        |
+| reference_action_mean          | 0.161    |
+| reference_action_std           | 0.987    |
+| reference_actor_Q_mean         | -7.77    |
+| reference_actor_Q_std          | 6.31     |
+| reference_perturbed_action_... | 0.106    |
+| reference_perturbed_action_std | 0.991    |
+| reference_Q_mean               | -7.94    |
+| reference_Q_std                | 6.44     |
+| rollout/actions_mean           | 0.392    |
+| rollout/actions_std            | 0.903    |
+| rollout/episode_steps          | 999      |
+| rollout/episodes               | 118      |
+| rollout/Q_mean                 | -13.2    |
+| rollout/return                 | -715     |
+| rollout/return_history         | -702     |
+| rollout/return_history_std     | 110      |
+| rollout/return_std             | 134      |
+| total/duration                 | 2.28e+03 |
+| total/episodes                 | 118      |
+| total/epochs                   | 59       |
+| total/steps                    | 1.18e+05 |
+| total/steps_per_second         | 51.7     |
+| train/loss_actor               | 8.44     |
+| train/loss_critic              | 0.02     |
+| train/param_noise_distance     | 0.26     |
+---------------------------------------------
+
+---------------------------------------------
+| param_noise_stddev             | 0.151    |
+| prob_satisfiability            | 0        |
+| reference_action_mean          | 0.161    |
+| reference_action_std           | 0.987    |
+| reference_actor_Q_mean         | -7.79    |
+| reference_actor_Q_std          | 6.31     |
+| reference_perturbed_action_... | 0.161    |
+| reference_perturbed_action_std | 0.987    |
+| reference_Q_mean               | -7.94    |
+| reference_Q_std                | 6.44     |
+| rollout/actions_mean           | 0.393    |
+| rollout/actions_std            | 0.903    |
+| rollout/episode_steps          | 999      |
+| rollout/episodes               | 120      |
+| rollout/Q_mean                 | -13.2    |
+| rollout/return                 | -715     |
+| rollout/return_history         | -703     |
+| rollout/return_history_std     | 110      |
+| rollout/return_std             | 133      |
+| total/duration                 | 2.32e+03 |
+| total/episodes                 | 120      |
+| total/epochs                   | 60       |
+| total/steps                    | 1.2e+05  |
+| total/steps_per_second         | 51.7     |
+| train/loss_actor               | 8.44     |
+| train/loss_critic              | 0.0199   |
+| train/param_noise_distance     | 0.1      |
+---------------------------------------------
+
+---------------------------------------------
+| param_noise_stddev             | 0.151    |
+| prob_satisfiability            | 0        |
+| reference_action_mean          | 0.161    |
+| reference_action_std           | 0.987    |
+| reference_actor_Q_mean         | -7.77    |
+| reference_actor_Q_std          | 6.29     |
+| reference_perturbed_action_... | 0.239    |
+| reference_perturbed_action_std | 0.971    |
+| reference_Q_mean               | -7.94    |
+| reference_Q_std                | 6.42     |
+| rollout/actions_mean           | 0.395    |
+| rollout/actions_std            | 0.902    |
+| rollout/episode_steps          | 999      |
+| rollout/episodes               | 122      |
+| rollout/Q_mean                 | -13.2    |
+| rollout/return                 | -716     |
+| rollout/return_history         | -704     |
+| rollout/return_history_std     | 110      |
+| rollout/return_std             | 132      |
+| total/duration                 | 2.36e+03 |
+| total/episodes                 | 122      |
+| total/epochs                   | 61       |
+| total/steps                    | 1.22e+05 |
+| total/steps_per_second         | 51.7     |
+| train/loss_actor               | 8.38     |
+| train/loss_critic              | 0.0198   |
+| train/param_noise_distance     | 0.0735   |
+---------------------------------------------
+
+---------------------------------------------
+| param_noise_stddev             | 0.148    |
+| prob_satisfiability            | 0        |
+| reference_action_mean          | 0.161    |
+| reference_action_std           | 0.987    |
+| reference_actor_Q_mean         | -7.78    |
+| reference_actor_Q_std          | 6.26     |
+| reference_perturbed_action_... | 0.241    |
+| reference_perturbed_action_std | 0.961    |
+| reference_Q_mean               | -7.94    |
+| reference_Q_std                | 6.4      |
+| rollout/actions_mean           | 0.393    |
+| rollout/actions_std            | 0.903    |
+| rollout/episode_steps          | 999      |
+| rollout/episodes               | 124      |
+| rollout/Q_mean                 | -13.3    |
+| rollout/return                 | -719     |
+| rollout/return_history         | -707     |
+| rollout/return_history_std     | 120      |
+| rollout/return_std             | 138      |
+| total/duration                 | 2.4e+03  |
+| total/episodes                 | 124      |
+| total/epochs                   | 62       |
+| total/steps                    | 1.24e+05 |
+| total/steps_per_second         | 51.6     |
+| train/loss_actor               | 8.43     |
+| train/loss_critic              | 0.0202   |
+| train/param_noise_distance     | 0.574    |
+---------------------------------------------
+
+---------------------------------------------
+| param_noise_stddev             | 0.148    |
+| prob_satisfiability            | 0        |
+| reference_action_mean          | 0.161    |
+| reference_action_std           | 0.987    |
+| reference_actor_Q_mean         | -7.76    |
+| reference_actor_Q_std          | 6.23     |
+| reference_perturbed_action_... | 0.161    |
+| reference_perturbed_action_std | 0.987    |
+| reference_Q_mean               | -7.92    |
+| reference_Q_std                | 6.36     |
+| rollout/actions_mean           | 0.394    |
+| rollout/actions_std            | 0.903    |
+| rollout/episode_steps          | 999      |
+| rollout/episodes               | 126      |
+| rollout/Q_mean                 | -13.3    |
+| rollout/return                 | -719     |
+| rollout/return_history         | -706     |
+| rollout/return_history_std     | 120      |
+| rollout/return_std             | 137      |
+| total/duration                 | 2.44e+03 |
+| total/episodes                 | 126      |
+| total/epochs                   | 63       |
+| total/steps                    | 1.26e+05 |
+| total/steps_per_second         | 51.6     |
+| train/loss_actor               | 8.31     |
+| train/loss_critic              | 0.0197   |
+| train/param_noise_distance     | 0.0737   |
+---------------------------------------------
+
+---------------------------------------------
+| param_noise_stddev             | 0.151    |
+| prob_satisfiability            | 0        |
+| reference_action_mean          | 0.161    |
+| reference_action_std           | 0.987    |
+| reference_actor_Q_mean         | -7.78    |
+| reference_actor_Q_std          | 6.23     |
+| reference_perturbed_action_... | 0.13     |
+| reference_perturbed_action_std | 0.98     |
+| reference_Q_mean               | -7.95    |
+| reference_Q_std                | 6.36     |
+| rollout/actions_mean           | 0.393    |
+| rollout/actions_std            | 0.903    |
+| rollout/episode_steps          | 999      |
+| rollout/episodes               | 128      |
+| rollout/Q_mean                 | -13.3    |
+| rollout/return                 | -720     |
+| rollout/return_history         | -709     |
+| rollout/return_history_std     | 124      |
+| rollout/return_std             | 140      |
+| total/duration                 | 2.48e+03 |
+| total/episodes                 | 128      |
+| total/epochs                   | 64       |
+| total/steps                    | 1.28e+05 |
+| total/steps_per_second         | 51.6     |
+| train/loss_actor               | 8.43     |
+| train/loss_critic              | 0.0196   |
+| train/param_noise_distance     | 0.0345   |
+---------------------------------------------
+
+---------------------------------------------
+| param_noise_stddev             | 0.143    |
+| prob_satisfiability            | 0        |
+| reference_action_mean          | 0.161    |
+| reference_action_std           | 0.987    |
+| reference_actor_Q_mean         | -7.77    |
+| reference_actor_Q_std          | 6.2      |
+| reference_perturbed_action_... | 0.202    |
+| reference_perturbed_action_std | 0.961    |
+| reference_Q_mean               | -7.92    |
+| reference_Q_std                | 6.34     |
+| rollout/actions_mean           | 0.395    |
+| rollout/actions_std            | 0.903    |
+| rollout/episode_steps          | 999      |
+| rollout/episodes               | 130      |
+| rollout/Q_mean                 | -13.3    |
+| rollout/return                 | -719     |
+| rollout/return_history         | -710     |
+| rollout/return_history_std     | 124      |
+| rollout/return_std             | 139      |
+| total/duration                 | 2.52e+03 |
+| total/episodes                 | 130      |
+| total/epochs                   | 65       |
+| total/steps                    | 1.3e+05  |
+| total/steps_per_second         | 51.6     |
+| train/loss_actor               | 8.36     |
+| train/loss_critic              | 0.0193   |
+| train/param_noise_distance     | 0.282    |
+---------------------------------------------
+
+---------------------------------------------
+| param_noise_stddev             | 0.145    |
+| prob_satisfiability            | 0        |
+| reference_action_mean          | 0.161    |
+| reference_action_std           | 0.987    |
+| reference_actor_Q_mean         | -7.72    |
+| reference_actor_Q_std          | 6.18     |
+| reference_perturbed_action_... | 0.161    |
+| reference_perturbed_action_std | 0.987    |
+| reference_Q_mean               | -7.91    |
+| reference_Q_std                | 6.31     |
+| rollout/actions_mean           | 0.397    |
+| rollout/actions_std            | 0.902    |
+| rollout/episode_steps          | 999      |
+| rollout/episodes               | 132      |
+| rollout/Q_mean                 | -13.3    |
+| rollout/return                 | -718     |
+| rollout/return_history         | -707     |
+| rollout/return_history_std     | 125      |
+| rollout/return_std             | 139      |
+| total/duration                 | 2.56e+03 |
+| total/episodes                 | 132      |
+| total/epochs                   | 66       |
+| total/steps                    | 1.32e+05 |
+| total/steps_per_second         | 51.6     |
+| train/loss_actor               | 8.38     |
+| train/loss_critic              | 0.0192   |
+| train/param_noise_distance     | 0.0719   |
+---------------------------------------------
+
+---------------------------------------------
+| param_noise_stddev             | 0.145    |
+| prob_satisfiability            | 0        |
+| reference_action_mean          | 0.161    |
+| reference_action_std           | 0.987    |
+| reference_actor_Q_mean         | -7.68    |
+| reference_actor_Q_std          | 6.17     |
+| reference_perturbed_action_... | 0.157    |
+| reference_perturbed_action_std | 0.985    |
+| reference_Q_mean               | -7.85    |
+| reference_Q_std                | 6.32     |
+| rollout/actions_mean           | 0.398    |
+| rollout/actions_std            | 0.902    |
+| rollout/episode_steps          | 999      |
+| rollout/episodes               | 134      |
+| rollout/Q_mean                 | -13.3    |
+| rollout/return                 | -717     |
+| rollout/return_history         | -709     |
+| rollout/return_history_std     | 125      |
+| rollout/return_std             | 138      |
+| total/duration                 | 2.6e+03  |
+| total/episodes                 | 134      |
+| total/epochs                   | 67       |
+| total/steps                    | 1.34e+05 |
+| total/steps_per_second         | 51.6     |
+| train/loss_actor               | 8.39     |
+| train/loss_critic              | 0.0194   |
+| train/param_noise_distance     | 0.124    |
+---------------------------------------------
+
+---------------------------------------------
+| param_noise_stddev             | 0.129    |
+| prob_satisfiability            | 0        |
+| reference_action_mean          | 0.161    |
+| reference_action_std           | 0.987    |
+| reference_actor_Q_mean         | -7.69    |
+| reference_actor_Q_std          | 6.15     |
+| reference_perturbed_action_... | 0.161    |
+| reference_perturbed_action_std | 0.987    |
+| reference_Q_mean               | -7.85    |
+| reference_Q_std                | 6.29     |
+| rollout/actions_mean           | 0.4      |
+| rollout/actions_std            | 0.902    |
+| rollout/episode_steps          | 999      |
+| rollout/episodes               | 136      |
+| rollout/Q_mean                 | -13.3    |
+| rollout/return                 | -716     |
+| rollout/return_history         | -707     |
+| rollout/return_history_std     | 125      |
+| rollout/return_std             | 137      |
+| total/duration                 | 2.63e+03 |
+| total/episodes                 | 136      |
+| total/epochs                   | 68       |
+| total/steps                    | 1.36e+05 |
+| total/steps_per_second         | 51.6     |
+| train/loss_actor               | 8.34     |
+| train/loss_critic              | 0.019    |
+| train/param_noise_distance     | 0.132    |
+---------------------------------------------
+
+---------------------------------------------
+| param_noise_stddev             | 0.127    |
+| prob_satisfiability            | 0        |
+| reference_action_mean          | 0.161    |
+| reference_action_std           | 0.987    |
+| reference_actor_Q_mean         | -7.67    |
+| reference_actor_Q_std          | 6.12     |
+| reference_perturbed_action_... | 0.161    |
+| reference_perturbed_action_std | 0.987    |
+| reference_Q_mean               | -7.84    |
+| reference_Q_std                | 6.26     |
+| rollout/actions_mean           | 0.401    |
+| rollout/actions_std            | 0.901    |
+| rollout/episode_steps          | 999      |
+| rollout/episodes               | 138      |
+| rollout/Q_mean                 | -13.3    |
+| rollout/return                 | -715     |
+| rollout/return_history         | -706     |
+| rollout/return_history_std     | 125      |
+| rollout/return_std             | 137      |
+| total/duration                 | 2.67e+03 |
+| total/episodes                 | 138      |
+| total/epochs                   | 69       |
+| total/steps                    | 1.38e+05 |
+| total/steps_per_second         | 51.7     |
+| train/loss_actor               | 8.38     |
+| train/loss_critic              | 0.0191   |
+| train/param_noise_distance     | 0.152    |
+---------------------------------------------
+
+---------------------------------------------
+| param_noise_stddev             | 0.124    |
+| prob_satisfiability            | 0        |
+| reference_action_mean          | 0.161    |
+| reference_action_std           | 0.987    |
+| reference_actor_Q_mean         | -7.64    |
+| reference_actor_Q_std          | 6.12     |
+| reference_perturbed_action_... | 0.16     |
+| reference_perturbed_action_std | 0.986    |
+| reference_Q_mean               | -7.8     |
+| reference_Q_std                | 6.26     |
+| rollout/actions_mean           | 0.402    |
+| rollout/actions_std            | 0.901    |
+| rollout/episode_steps          | 999      |
+| rollout/episodes               | 140      |
+| rollout/Q_mean                 | -13.3    |
+| rollout/return                 | -713     |
+| rollout/return_history         | -701     |
+| rollout/return_history_std     | 121      |
+| rollout/return_std             | 137      |
+| total/duration                 | 2.71e+03 |
+| total/episodes                 | 140      |
+| total/epochs                   | 70       |
+| total/steps                    | 1.4e+05  |
+| total/steps_per_second         | 51.6     |
+| train/loss_actor               | 8.39     |
+| train/loss_critic              | 0.0185   |
+| train/param_noise_distance     | 0.165    |
+---------------------------------------------
+
+---------------------------------------------
+| param_noise_stddev             | 0.11     |
+| prob_satisfiability            | 0        |
+| reference_action_mean          | 0.161    |
+| reference_action_std           | 0.987    |
+| reference_actor_Q_mean         | -7.6     |
+| reference_actor_Q_std          | 6.09     |
+| reference_perturbed_action_... | 0.161    |
+| reference_perturbed_action_std | 0.987    |
+| reference_Q_mean               | -7.78    |
+| reference_Q_std                | 6.24     |
+| rollout/actions_mean           | 0.404    |
+| rollout/actions_std            | 0.9      |
+| rollout/episode_steps          | 999      |
+| rollout/episodes               | 142      |
+| rollout/Q_mean                 | -13.3    |
+| rollout/return                 | -713     |
+| rollout/return_history         | -703     |
+| rollout/return_history_std     | 121      |
+| rollout/return_std             | 136      |
+| total/duration                 | 2.75e+03 |
+| total/episodes                 | 142      |
+| total/epochs                   | 71       |
+| total/steps                    | 1.42e+05 |
+| total/steps_per_second         | 51.6     |
+| train/loss_actor               | 8.27     |
+| train/loss_critic              | 0.0188   |
+| train/param_noise_distance     | 0.239    |
+---------------------------------------------
+
+---------------------------------------------
+| param_noise_stddev             | 0.104    |
+| prob_satisfiability            | 0        |
+| reference_action_mean          | 0.161    |
+| reference_action_std           | 0.987    |
+| reference_actor_Q_mean         | -7.58    |
+| reference_actor_Q_std          | 6.09     |
+| reference_perturbed_action_... | 0.161    |
+| reference_perturbed_action_std | 0.987    |
+| reference_Q_mean               | -7.77    |
+| reference_Q_std                | 6.23     |
+| rollout/actions_mean           | 0.405    |
+| rollout/actions_std            | 0.9      |
+| rollout/episode_steps          | 999      |
+| rollout/episodes               | 144      |
+| rollout/Q_mean                 | -13.3    |
+| rollout/return                 | -713     |
+| rollout/return_history         | -703     |
+| rollout/return_history_std     | 121      |
+| rollout/return_std             | 135      |
+| total/duration                 | 2.79e+03 |
+| total/episodes                 | 144      |
+| total/epochs                   | 72       |
+| total/steps                    | 1.44e+05 |
+| total/steps_per_second         | 51.7     |
+| train/loss_actor               | 8.29     |
+| train/loss_critic              | 0.0188   |
+| train/param_noise_distance     | 0.141    |
+---------------------------------------------
+
+---------------------------------------------
+| param_noise_stddev             | 0.106    |
+| prob_satisfiability            | 0        |
+| reference_action_mean          | 0.161    |
+| reference_action_std           | 0.987    |
+| reference_actor_Q_mean         | -7.46    |
+| reference_actor_Q_std          | 6.11     |
+| reference_perturbed_action_... | 0.16     |
+| reference_perturbed_action_std | 0.987    |
+| reference_Q_mean               | -7.64    |
+| reference_Q_std                | 6.24     |
+| rollout/actions_mean           | 0.406    |
+| rollout/actions_std            | 0.899    |
+| rollout/episode_steps          | 999      |
+| rollout/episodes               | 146      |
+| rollout/Q_mean                 | -13.3    |
+| rollout/return                 | -712     |
+| rollout/return_history         | -702     |
+| rollout/return_history_std     | 120      |
+| rollout/return_std             | 135      |
+| total/duration                 | 2.82e+03 |
+| total/episodes                 | 146      |
+| total/epochs                   | 73       |
+| total/steps                    | 1.46e+05 |
+| total/steps_per_second         | 51.8     |
+| train/loss_actor               | 8.19     |
+| train/loss_critic              | 0.019    |
+| train/param_noise_distance     | 0.225    |
+---------------------------------------------
+
+---------------------------------------------
+| param_noise_stddev             | 0.11     |
+| prob_satisfiability            | 0        |
+| reference_action_mean          | 0.161    |
+| reference_action_std           | 0.987    |
+| reference_actor_Q_mean         | -7.45    |
+| reference_actor_Q_std          | 6.08     |
+| reference_perturbed_action_... | 0.00418  |
+| reference_perturbed_action_std | 0.991    |
+| reference_Q_mean               | -7.64    |
+| reference_Q_std                | 6.21     |
+| rollout/actions_mean           | 0.407    |
+| rollout/actions_std            | 0.899    |
+| rollout/episode_steps          | 999      |
+| rollout/episodes               | 148      |
+| rollout/Q_mean                 | -13.3    |
+| rollout/return                 | -710     |
+| rollout/return_history         | -700     |
+| rollout/return_history_std     | 121      |
+| rollout/return_std             | 135      |
+| total/duration                 | 2.86e+03 |
+| total/episodes                 | 148      |
+| total/epochs                   | 74       |
+| total/steps                    | 1.48e+05 |
+| total/steps_per_second         | 51.7     |
+| train/loss_actor               | 8.14     |
+| train/loss_critic              | 0.0186   |
+| train/param_noise_distance     | 0.156    |
+---------------------------------------------
+
+---------------------------------------------
+| param_noise_stddev             | 0.115    |
+| prob_satisfiability            | 0        |
+| reference_action_mean          | 0.161    |
+| reference_action_std           | 0.987    |
+| reference_actor_Q_mean         | -7.44    |
+| reference_actor_Q_std          | 6.07     |
+| reference_perturbed_action_... | 0.161    |
+| reference_perturbed_action_std | 0.987    |
+| reference_Q_mean               | -7.61    |
+| reference_Q_std                | 6.21     |
+| rollout/actions_mean           | 0.406    |
+| rollout/actions_std            | 0.9      |
+| rollout/episode_steps          | 999      |
+| rollout/episodes               | 150      |
+| rollout/Q_mean                 | -13.3    |
+| rollout/return                 | -713     |
+| rollout/return_history         | -706     |
+| rollout/return_history_std     | 133      |
+| rollout/return_std             | 141      |
+| total/duration                 | 2.9e+03  |
+| total/episodes                 | 150      |
+| total/epochs                   | 75       |
+| total/steps                    | 1.5e+05  |
+| total/steps_per_second         | 51.7     |
+| train/loss_actor               | 8.13     |
+| train/loss_critic              | 0.0187   |
+| train/param_noise_distance     | 0.245    |
+---------------------------------------------
+
+---------------------------------------------
+| param_noise_stddev             | 0.122    |
+| prob_satisfiability            | 0        |
+| reference_action_mean          | 0.161    |
+| reference_action_std           | 0.987    |
+| reference_actor_Q_mean         | -7.47    |
+| reference_actor_Q_std          | 6.03     |
+| reference_perturbed_action_... | 0.161    |
+| reference_perturbed_action_std | 0.987    |
+| reference_Q_mean               | -7.64    |
+| reference_Q_std                | 6.17     |
+| rollout/actions_mean           | 0.407    |
+| rollout/actions_std            | 0.9      |
+| rollout/episode_steps          | 999      |
+| rollout/episodes               | 152      |
+| rollout/Q_mean                 | -13.3    |
+| rollout/return                 | -713     |
+| rollout/return_history         | -707     |
+| rollout/return_history_std     | 133      |
+| rollout/return_std             | 140      |
+| total/duration                 | 2.94e+03 |
+| total/episodes                 | 152      |
+| total/epochs                   | 76       |
+| total/steps                    | 1.52e+05 |
+| total/steps_per_second         | 51.7     |
+| train/loss_actor               | 8.18     |
+| train/loss_critic              | 0.0185   |
+| train/param_noise_distance     | 0.172    |
+---------------------------------------------
+
+---------------------------------------------
+| param_noise_stddev             | 0.117    |
+| prob_satisfiability            | 0        |
+| reference_action_mean          | 0.161    |
+| reference_action_std           | 0.987    |
+| reference_actor_Q_mean         | -7.47    |
+| reference_actor_Q_std          | 6.03     |
+| reference_perturbed_action_... | 0.2      |
+| reference_perturbed_action_std | 0.968    |
+| reference_Q_mean               | -7.65    |
+| reference_Q_std                | 6.17     |
+| rollout/actions_mean           | 0.408    |
+| rollout/actions_std            | 0.899    |
+| rollout/episode_steps          | 999      |
+| rollout/episodes               | 154      |
+| rollout/Q_mean                 | -13.3    |
+| rollout/return                 | -712     |
+| rollout/return_history         | -702     |
+| rollout/return_history_std     | 129      |
+| rollout/return_std             | 140      |
+| total/duration                 | 2.98e+03 |
+| total/episodes                 | 154      |
+| total/epochs                   | 77       |
+| total/steps                    | 1.54e+05 |
+| total/steps_per_second         | 51.7     |
+| train/loss_actor               | 8.16     |
+| train/loss_critic              | 0.0181   |
+| train/param_noise_distance     | 0.219    |
+---------------------------------------------
+
+---------------------------------------------
+| param_noise_stddev             | 0.115    |
+| prob_satisfiability            | 0        |
+| reference_action_mean          | 0.161    |
+| reference_action_std           | 0.987    |
+| reference_actor_Q_mean         | -7.52    |
+| reference_actor_Q_std          | 6        |
+| reference_perturbed_action_... | 0.16     |
+| reference_perturbed_action_std | 0.986    |
+| reference_Q_mean               | -7.68    |
+| reference_Q_std                | 6.16     |
+| rollout/actions_mean           | 0.409    |
+| rollout/actions_std            | 0.899    |
+| rollout/episode_steps          | 999      |
+| rollout/episodes               | 156      |
+| rollout/Q_mean                 | -13.3    |
+| rollout/return                 | -712     |
+| rollout/return_history         | -702     |
+| rollout/return_history_std     | 129      |
+| rollout/return_std             | 139      |
+| total/duration                 | 3.01e+03 |
+| total/episodes                 | 156      |
+| total/epochs                   | 78       |
+| total/steps                    | 1.56e+05 |
+| total/steps_per_second         | 51.8     |
+| train/loss_actor               | 8.21     |
+| train/loss_critic              | 0.018    |
+| train/param_noise_distance     | 0.121    |
+---------------------------------------------
+
+---------------------------------------------
+| param_noise_stddev             | 0.117    |
+| prob_satisfiability            | 0        |
+| reference_action_mean          | 0.161    |
+| reference_action_std           | 0.987    |
+| reference_actor_Q_mean         | -7.52    |
+| reference_actor_Q_std          | 5.97     |
+| reference_perturbed_action_... | 0.0463   |
+| reference_perturbed_action_std | 0.98     |
+| reference_Q_mean               | -7.69    |
+| reference_Q_std                | 6.12     |
+| rollout/actions_mean           | 0.408    |
+| rollout/actions_std            | 0.899    |
+| rollout/episode_steps          | 999      |
+| rollout/episodes               | 158      |
+| rollout/Q_mean                 | -13.3    |
+| rollout/return                 | -714     |
+| rollout/return_history         | -708     |
+| rollout/return_history_std     | 133      |
+| rollout/return_std             | 141      |
+| total/duration                 | 3.05e+03 |
+| total/episodes                 | 158      |
+| total/epochs                   | 79       |
+| total/steps                    | 1.58e+05 |
+| total/steps_per_second         | 51.8     |
+| train/loss_actor               | 8.33     |
+| train/loss_critic              | 0.0178   |
+| train/param_noise_distance     | 0.0743   |
+---------------------------------------------
+
+---------------------------------------------
+| param_noise_stddev             | 0.122    |
+| prob_satisfiability            | 0        |
+| reference_action_mean          | 0.161    |
+| reference_action_std           | 0.987    |
+| reference_actor_Q_mean         | -7.57    |
+| reference_actor_Q_std          | 5.93     |
+| reference_perturbed_action_... | 0.144    |
+| reference_perturbed_action_std | 0.978    |
+| reference_Q_mean               | -7.74    |
+| reference_Q_std                | 6.08     |
+| rollout/actions_mean           | 0.406    |
+| rollout/actions_std            | 0.899    |
+| rollout/episode_steps          | 999      |
+| rollout/episodes               | 160      |
+| rollout/Q_mean                 | -13.4    |
+| rollout/return                 | -718     |
+| rollout/return_history         | -714     |
+| rollout/return_history_std     | 140      |
+| rollout/return_std             | 145      |
+| total/duration                 | 3.09e+03 |
+| total/episodes                 | 160      |
+| total/epochs                   | 80       |
+| total/steps                    | 1.6e+05  |
+| total/steps_per_second         | 51.8     |
+| train/loss_actor               | 8.25     |
+| train/loss_critic              | 0.0178   |
+| train/param_noise_distance     | 0.294    |
+---------------------------------------------
+
+---------------------------------------------
+| param_noise_stddev             | 0.115    |
+| prob_satisfiability            | 0        |
+| reference_action_mean          | 0.161    |
+| reference_action_std           | 0.987    |
+| reference_actor_Q_mean         | -7.59    |
+| reference_actor_Q_std          | 5.9      |
+| reference_perturbed_action_... | 0.161    |
+| reference_perturbed_action_std | 0.987    |
+| reference_Q_mean               | -7.76    |
+| reference_Q_std                | 6.05     |
+| rollout/actions_mean           | 0.407    |
+| rollout/actions_std            | 0.899    |
+| rollout/episode_steps          | 999      |
+| rollout/episodes               | 162      |
+| rollout/Q_mean                 | -13.4    |
+| rollout/return                 | -718     |
+| rollout/return_history         | -715     |
+| rollout/return_history_std     | 140      |
+| rollout/return_std             | 144      |
+| total/duration                 | 3.13e+03 |
+| total/episodes                 | 162      |
+| total/epochs                   | 81       |
+| total/steps                    | 1.62e+05 |
+| total/steps_per_second         | 51.8     |
+| train/loss_actor               | 8.22     |
+| train/loss_critic              | 0.0185   |
+| train/param_noise_distance     | 0.234    |
+---------------------------------------------
+
+---------------------------------------------
+| param_noise_stddev             | 0.119    |
+| prob_satisfiability            | 0        |
+| reference_action_mean          | 0.161    |
+| reference_action_std           | 0.987    |
+| reference_actor_Q_mean         | -7.6     |
+| reference_actor_Q_std          | 5.88     |
+| reference_perturbed_action_... | 0.105    |
+| reference_perturbed_action_std | 0.99     |
+| reference_Q_mean               | -7.76    |
+| reference_Q_std                | 6.02     |
+| rollout/actions_mean           | 0.408    |
+| rollout/actions_std            | 0.898    |
+| rollout/episode_steps          | 999      |
+| rollout/episodes               | 164      |
+| rollout/Q_mean                 | -13.4    |
+| rollout/return                 | -718     |
+| rollout/return_history         | -716     |
+| rollout/return_history_std     | 140      |
+| rollout/return_std             | 143      |
+| total/duration                 | 3.16e+03 |
+| total/episodes                 | 164      |
+| total/epochs                   | 82       |
+| total/steps                    | 1.64e+05 |
+| total/steps_per_second         | 51.8     |
+| train/loss_actor               | 8.32     |
+| train/loss_critic              | 0.0181   |
+| train/param_noise_distance     | 0.0768   |
+---------------------------------------------
+
+---------------------------------------------
+| param_noise_stddev             | 0.119    |
+| prob_satisfiability            | 0        |
+| reference_action_mean          | 0.161    |
+| reference_action_std           | 0.987    |
+| reference_actor_Q_mean         | -7.57    |
+| reference_actor_Q_std          | 5.85     |
+| reference_perturbed_action_... | 0.104    |
+| reference_perturbed_action_std | 0.985    |
+| reference_Q_mean               | -7.75    |
+| reference_Q_std                | 6.01     |
+| rollout/actions_mean           | 0.409    |
+| rollout/actions_std            | 0.898    |
+| rollout/episode_steps          | 999      |
+| rollout/episodes               | 166      |
+| rollout/Q_mean                 | -13.4    |
+| rollout/return                 | -717     |
+| rollout/return_history         | -715     |
+| rollout/return_history_std     | 140      |
+| rollout/return_std             | 143      |
+| total/duration                 | 3.2e+03  |
+| total/episodes                 | 166      |
+| total/epochs                   | 83       |
+| total/steps                    | 1.66e+05 |
+| total/steps_per_second         | 51.8     |
+| train/loss_actor               | 8.35     |
+| train/loss_critic              | 0.0177   |
+| train/param_noise_distance     | 0.319    |
+---------------------------------------------
+
+---------------------------------------------
+| param_noise_stddev             | 0.122    |
+| prob_satisfiability            | 0        |
+| reference_action_mean          | 0.161    |
+| reference_action_std           | 0.987    |
+| reference_actor_Q_mean         | -7.57    |
+| reference_actor_Q_std          | 5.87     |
+| reference_perturbed_action_... | 0.161    |
+| reference_perturbed_action_std | 0.987    |
+| reference_Q_mean               | -7.74    |
+| reference_Q_std                | 6.01     |
+| rollout/actions_mean           | 0.41     |
+| rollout/actions_std            | 0.898    |
+| rollout/episode_steps          | 999      |
+| rollout/episodes               | 168      |
+| rollout/Q_mean                 | -13.4    |
+| rollout/return                 | -717     |
+| rollout/return_history         | -712     |
+| rollout/return_history_std     | 136      |
+| rollout/return_std             | 142      |
+| total/duration                 | 3.24e+03 |
+| total/episodes                 | 168      |
+| total/epochs                   | 84       |
+| total/steps                    | 1.68e+05 |
+| total/steps_per_second         | 51.8     |
+| train/loss_actor               | 8.28     |
+| train/loss_critic              | 0.0183   |
+| train/param_noise_distance     | 0.0815   |
+---------------------------------------------
+
+---------------------------------------------
+| param_noise_stddev             | 0.122    |
+| prob_satisfiability            | 0        |
+| reference_action_mean          | 0.161    |
+| reference_action_std           | 0.987    |
+| reference_actor_Q_mean         | -7.58    |
+| reference_actor_Q_std          | 5.88     |
+| reference_perturbed_action_... | 0.163    |
+| reference_perturbed_action_std | 0.986    |
+| reference_Q_mean               | -7.74    |
+| reference_Q_std                | 6.03     |
+| rollout/actions_mean           | 0.411    |
+| rollout/actions_std            | 0.897    |
+| rollout/episode_steps          | 999      |
+| rollout/episodes               | 170      |
+| rollout/Q_mean                 | -13.4    |
+| rollout/return                 | -716     |
+| rollout/return_history         | -710     |
+| rollout/return_history_std     | 136      |
+| rollout/return_std             | 142      |
+| total/duration                 | 3.28e+03 |
+| total/episodes                 | 170      |
+| total/epochs                   | 85       |
+| total/steps                    | 1.7e+05  |
+| total/steps_per_second         | 51.8     |
+| train/loss_actor               | 8.38     |
+| train/loss_critic              | 0.0183   |
+| train/param_noise_distance     | 0.158    |
+---------------------------------------------
+
+---------------------------------------------
+| param_noise_stddev             | 0.122    |
+| prob_satisfiability            | 0        |
+| reference_action_mean          | 0.161    |
+| reference_action_std           | 0.987    |
+| reference_actor_Q_mean         | -7.59    |
+| reference_actor_Q_std          | 5.87     |
+| reference_perturbed_action_... | 0.15     |
+| reference_perturbed_action_std | 0.98     |
+| reference_Q_mean               | -7.76    |
+| reference_Q_std                | 6.02     |
+| rollout/actions_mean           | 0.412    |
+| rollout/actions_std            | 0.897    |
+| rollout/episode_steps          | 999      |
+| rollout/episodes               | 172      |
+| rollout/Q_mean                 | -13.4    |
+| rollout/return                 | -717     |
+| rollout/return_history         | -712     |
+| rollout/return_history_std     | 136      |
+| rollout/return_std             | 141      |
+| total/duration                 | 3.33e+03 |
+| total/episodes                 | 172      |
+| total/epochs                   | 86       |
+| total/steps                    | 1.72e+05 |
+| total/steps_per_second         | 51.7     |
+| train/loss_actor               | 8.37     |
+| train/loss_critic              | 0.0175   |
+| train/param_noise_distance     | 0.0881   |
+---------------------------------------------
+
+---------------------------------------------
+| param_noise_stddev             | 0.124    |
+| prob_satisfiability            | 0        |
+| reference_action_mean          | 0.161    |
+| reference_action_std           | 0.987    |
+| reference_actor_Q_mean         | -7.6     |
+| reference_actor_Q_std          | 5.87     |
+| reference_perturbed_action_... | 0.122    |
+| reference_perturbed_action_std | 0.984    |
+| reference_Q_mean               | -7.76    |
+| reference_Q_std                | 6.02     |
+| rollout/actions_mean           | 0.413    |
+| rollout/actions_std            | 0.897    |
+| rollout/episode_steps          | 999      |
+| rollout/episodes               | 174      |
+| rollout/Q_mean                 | -13.4    |
+| rollout/return                 | -715     |
+| rollout/return_history         | -710     |
+| rollout/return_history_std     | 137      |
+| rollout/return_std             | 141      |
+| total/duration                 | 3.37e+03 |
+| total/episodes                 | 174      |
+| total/epochs                   | 87       |
+| total/steps                    | 1.74e+05 |
+| total/steps_per_second         | 51.7     |
+| train/loss_actor               | 8.34     |
+| train/loss_critic              | 0.0175   |
+| train/param_noise_distance     | 0.0859   |
+---------------------------------------------
+
+---------------------------------------------
+| param_noise_stddev             | 0.124    |
+| prob_satisfiability            | 0        |
+| reference_action_mean          | 0.161    |
+| reference_action_std           | 0.987    |
+| reference_actor_Q_mean         | -7.6     |
+| reference_actor_Q_std          | 5.88     |
+| reference_perturbed_action_... | 0.145    |
+| reference_perturbed_action_std | 0.978    |
+| reference_Q_mean               | -7.77    |
+| reference_Q_std                | 6.03     |
+| rollout/actions_mean           | 0.414    |
+| rollout/actions_std            | 0.896    |
+| rollout/episode_steps          | 999      |
+| rollout/episodes               | 176      |
+| rollout/Q_mean                 | -13.4    |
+| rollout/return                 | -716     |
+| rollout/return_history         | -710     |
+| rollout/return_history_std     | 137      |
+| rollout/return_std             | 140      |
+| total/duration                 | 3.41e+03 |
+| total/episodes                 | 176      |
+| total/epochs                   | 88       |
+| total/steps                    | 1.76e+05 |
+| total/steps_per_second         | 51.7     |
+| train/loss_actor               | 8.29     |
+| train/loss_critic              | 0.0175   |
+| train/param_noise_distance     | 0.0646   |
+---------------------------------------------
+
+---------------------------------------------
+| param_noise_stddev             | 0.119    |
+| prob_satisfiability            | 0        |
+| reference_action_mean          | 0.161    |
+| reference_action_std           | 0.987    |
+| reference_actor_Q_mean         | -7.65    |
+| reference_actor_Q_std          | 5.87     |
+| reference_perturbed_action_... | 0.161    |
+| reference_perturbed_action_std | 0.987    |
+| reference_Q_mean               | -7.81    |
+| reference_Q_std                | 6.01     |
+| rollout/actions_mean           | 0.415    |
+| rollout/actions_std            | 0.896    |
+| rollout/episode_steps          | 999      |
+| rollout/episodes               | 178      |
+| rollout/Q_mean                 | -13.4    |
+| rollout/return                 | -715     |
+| rollout/return_history         | -711     |
+| rollout/return_history_std     | 136      |
+| rollout/return_std             | 139      |
+| total/duration                 | 3.45e+03 |
+| total/episodes                 | 178      |
+| total/epochs                   | 89       |
+| total/steps                    | 1.78e+05 |
+| total/steps_per_second         | 51.7     |
+| train/loss_actor               | 8.39     |
+| train/loss_critic              | 0.0174   |
+| train/param_noise_distance     | 0.598    |
+---------------------------------------------
+
+---------------------------------------------
+| param_noise_stddev             | 0.115    |
+| prob_satisfiability            | 0        |
+| reference_action_mean          | 0.161    |
+| reference_action_std           | 0.987    |
+| reference_actor_Q_mean         | -7.64    |
+| reference_actor_Q_std          | 5.86     |
+| reference_perturbed_action_... | 0.0282   |
+| reference_perturbed_action_std | 0.973    |
+| reference_Q_mean               | -7.8     |
+| reference_Q_std                | 6.01     |
+| rollout/actions_mean           | 0.416    |
+| rollout/actions_std            | 0.896    |
+| rollout/episode_steps          | 999      |
+| rollout/episodes               | 180      |
+| rollout/Q_mean                 | -13.4    |
+| rollout/return                 | -715     |
+| rollout/return_history         | -712     |
+| rollout/return_history_std     | 136      |
+| rollout/return_std             | 138      |
+| total/duration                 | 3.49e+03 |
+| total/episodes                 | 180      |
+| total/epochs                   | 90       |
+| total/steps                    | 1.8e+05  |
+| total/steps_per_second         | 51.6     |
+| train/loss_actor               | 8.33     |
+| train/loss_critic              | 0.0172   |
+| train/param_noise_distance     | 0.319    |
+---------------------------------------------
+
+---------------------------------------------
+| param_noise_stddev             | 0.127    |
+| prob_satisfiability            | 0        |
+| reference_action_mean          | 0.161    |
+| reference_action_std           | 0.987    |
+| reference_actor_Q_mean         | -7.68    |
+| reference_actor_Q_std          | 5.85     |
+| reference_perturbed_action_... | 0.217    |
+| reference_perturbed_action_std | 0.975    |
+| reference_Q_mean               | -7.84    |
+| reference_Q_std                | 6        |
+| rollout/actions_mean           | 0.417    |
+| rollout/actions_std            | 0.895    |
+| rollout/episode_steps          | 999      |
+| rollout/episodes               | 182      |
+| rollout/Q_mean                 | -13.5    |
+| rollout/return                 | -715     |
+| rollout/return_history         | -713     |
+| rollout/return_history_std     | 135      |
+| rollout/return_std             | 138      |
+| total/duration                 | 3.52e+03 |
+| total/episodes                 | 182      |
+| total/epochs                   | 91       |
+| total/steps                    | 1.82e+05 |
+| total/steps_per_second         | 51.6     |
+| train/loss_actor               | 8.31     |
+| train/loss_critic              | 0.0171   |
+| train/param_noise_distance     | 0.185    |
+---------------------------------------------
+
+---------------------------------------------
+| param_noise_stddev             | 0.122    |
+| prob_satisfiability            | 0        |
+| reference_action_mean          | 0.161    |
+| reference_action_std           | 0.987    |
+| reference_actor_Q_mean         | -7.66    |
+| reference_actor_Q_std          | 5.86     |
+| reference_perturbed_action_... | 0.168    |
+| reference_perturbed_action_std | 0.981    |
+| reference_Q_mean               | -7.82    |
+| reference_Q_std                | 6        |
+| rollout/actions_mean           | 0.418    |
+| rollout/actions_std            | 0.895    |
+| rollout/episode_steps          | 999      |
+| rollout/episodes               | 184      |
+| rollout/Q_mean                 | -13.4    |
+| rollout/return                 | -714     |
+| rollout/return_history         | -711     |
+| rollout/return_history_std     | 135      |
+| rollout/return_std             | 137      |
+| total/duration                 | 3.57e+03 |
+| total/episodes                 | 184      |
+| total/epochs                   | 92       |
+| total/steps                    | 1.84e+05 |
+| total/steps_per_second         | 51.6     |
+| train/loss_actor               | 8.35     |
+| train/loss_critic              | 0.0175   |
+| train/param_noise_distance     | 0.215    |
+---------------------------------------------
+
+---------------------------------------------
+| param_noise_stddev             | 0.119    |
+| prob_satisfiability            | 0        |
+| reference_action_mean          | 0.161    |
+| reference_action_std           | 0.987    |
+| reference_actor_Q_mean         | -7.67    |
+| reference_actor_Q_std          | 5.83     |
+| reference_perturbed_action_... | 0.158    |
+| reference_perturbed_action_std | 0.987    |
+| reference_Q_mean               | -7.83    |
+| reference_Q_std                | 5.98     |
+| rollout/actions_mean           | 0.419    |
+| rollout/actions_std            | 0.895    |
+| rollout/episode_steps          | 999      |
+| rollout/episodes               | 186      |
+| rollout/Q_mean                 | -13.4    |
+| rollout/return                 | -713     |
+| rollout/return_history         | -710     |
+| rollout/return_history_std     | 136      |
+| rollout/return_std             | 137      |
+| total/duration                 | 3.6e+03  |
+| total/episodes                 | 186      |
+| total/epochs                   | 93       |
+| total/steps                    | 1.86e+05 |
+| total/steps_per_second         | 51.6     |
+| train/loss_actor               | 8.41     |
+| train/loss_critic              | 0.0175   |
+| train/param_noise_distance     | 0.172    |
+---------------------------------------------
+
+---------------------------------------------
+| param_noise_stddev             | 0.122    |
+| prob_satisfiability            | 0        |
+| reference_action_mean          | 0.161    |
+| reference_action_std           | 0.987    |
+| reference_actor_Q_mean         | -7.71    |
+| reference_actor_Q_std          | 5.82     |
+| reference_perturbed_action_... | 0.14     |
+| reference_perturbed_action_std | 0.978    |
+| reference_Q_mean               | -7.87    |
+| reference_Q_std                | 5.98     |
+| rollout/actions_mean           | 0.419    |
+| rollout/actions_std            | 0.895    |
+| rollout/episode_steps          | 999      |
+| rollout/episodes               | 188      |
+| rollout/Q_mean                 | -13.4    |
+| rollout/return                 | -712     |
+| rollout/return_history         | -710     |
+| rollout/return_history_std     | 136      |
+| rollout/return_std             | 137      |
+| total/duration                 | 3.64e+03 |
+| total/episodes                 | 188      |
+| total/epochs                   | 94       |
+| total/steps                    | 1.88e+05 |
+| total/steps_per_second         | 51.6     |
+| train/loss_actor               | 8.41     |
+| train/loss_critic              | 0.0168   |
+| train/param_noise_distance     | 0.205    |
+---------------------------------------------
+
+---------------------------------------------
+| param_noise_stddev             | 0.11     |
+| prob_satisfiability            | 0        |
+| reference_action_mean          | 0.161    |
+| reference_action_std           | 0.987    |
+| reference_actor_Q_mean         | -7.73    |
+| reference_actor_Q_std          | 5.81     |
+| reference_perturbed_action_... | 0.0545   |
+| reference_perturbed_action_std | 0.995    |
+| reference_Q_mean               | -7.88    |
+| reference_Q_std                | 5.95     |
+| rollout/actions_mean           | 0.42     |
+| rollout/actions_std            | 0.894    |
+| rollout/episode_steps          | 999      |
+| rollout/episodes               | 190      |
+| rollout/Q_mean                 | -13.4    |
+| rollout/return                 | -712     |
+| rollout/return_history         | -709     |
+| rollout/return_history_std     | 136      |
+| rollout/return_std             | 136      |
+| total/duration                 | 3.68e+03 |
+| total/episodes                 | 190      |
+| total/epochs                   | 95       |
+| total/steps                    | 1.9e+05  |
+| total/steps_per_second         | 51.6     |
+| train/loss_actor               | 8.39     |
+| train/loss_critic              | 0.0168   |
+| train/param_noise_distance     | 0.202    |
+---------------------------------------------
+
+---------------------------------------------
+| param_noise_stddev             | 0.108    |
+| prob_satisfiability            | 0        |
+| reference_action_mean          | 0.161    |
+| reference_action_std           | 0.987    |
+| reference_actor_Q_mean         | -7.7     |
+| reference_actor_Q_std          | 5.81     |
+| reference_perturbed_action_... | 0.259    |
+| reference_perturbed_action_std | 0.949    |
+| reference_Q_mean               | -7.86    |
+| reference_Q_std                | 5.96     |
+| rollout/actions_mean           | 0.421    |
+| rollout/actions_std            | 0.894    |
+| rollout/episode_steps          | 999      |
+| rollout/episodes               | 192      |
+| rollout/Q_mean                 | -13.5    |
+| rollout/return                 | -712     |
+| rollout/return_history         | -709     |
+| rollout/return_history_std     | 136      |
+| rollout/return_std             | 135      |
+| total/duration                 | 3.72e+03 |
+| total/episodes                 | 192      |
+| total/epochs                   | 96       |
+| total/steps                    | 1.92e+05 |
+| total/steps_per_second         | 51.6     |
+| train/loss_actor               | 8.43     |
+| train/loss_critic              | 0.0168   |
+| train/param_noise_distance     | 0.268    |
+---------------------------------------------
+
+---------------------------------------------
+| param_noise_stddev             | 0.122    |
+| prob_satisfiability            | 0        |
+| reference_action_mean          | 0.161    |
+| reference_action_std           | 0.987    |
+| reference_actor_Q_mean         | -7.68    |
+| reference_actor_Q_std          | 5.79     |
+| reference_perturbed_action_... | 0.18     |
+| reference_perturbed_action_std | 0.962    |
+| reference_Q_mean               | -7.84    |
+| reference_Q_std                | 5.95     |
+| rollout/actions_mean           | 0.422    |
+| rollout/actions_std            | 0.894    |
+| rollout/episode_steps          | 999      |
+| rollout/episodes               | 194      |
+| rollout/Q_mean                 | -13.4    |
+| rollout/return                 | -711     |
+| rollout/return_history         | -706     |
+| rollout/return_history_std     | 136      |
+| rollout/return_std             | 135      |
+| total/duration                 | 3.76e+03 |
+| total/episodes                 | 194      |
+| total/epochs                   | 97       |
+| total/steps                    | 1.94e+05 |
+| total/steps_per_second         | 51.6     |
+| train/loss_actor               | 8.37     |
+| train/loss_critic              | 0.0172   |
+| train/param_noise_distance     | 0.471    |
+---------------------------------------------
+
+---------------------------------------------
+| param_noise_stddev             | 0.122    |
+| prob_satisfiability            | 0        |
+| reference_action_mean          | 0.161    |
+| reference_action_std           | 0.987    |
+| reference_actor_Q_mean         | -7.68    |
+| reference_actor_Q_std          | 5.78     |
+| reference_perturbed_action_... | 0.218    |
+| reference_perturbed_action_std | 0.975    |
+| reference_Q_mean               | -7.84    |
+| reference_Q_std                | 5.94     |
+| rollout/actions_mean           | 0.422    |
+| rollout/actions_std            | 0.894    |
+| rollout/episode_steps          | 999      |
+| rollout/episodes               | 196      |
+| rollout/Q_mean                 | -13.4    |
+| rollout/return                 | -710     |
+| rollout/return_history         | -703     |
+| rollout/return_history_std     | 137      |
+| rollout/return_std             | 135      |
+| total/duration                 | 3.8e+03  |
+| total/episodes                 | 196      |
+| total/epochs                   | 98       |
+| total/steps                    | 1.96e+05 |
+| total/steps_per_second         | 51.6     |
+| train/loss_actor               | 8.33     |
+| train/loss_critic              | 0.0165   |
+| train/param_noise_distance     | 0.455    |
+---------------------------------------------
+
+---------------------------------------------
+| param_noise_stddev             | 0.124    |
+| prob_satisfiability            | 0        |
+| reference_action_mean          | 0.161    |
+| reference_action_std           | 0.987    |
+| reference_actor_Q_mean         | -7.72    |
+| reference_actor_Q_std          | 5.77     |
+| reference_perturbed_action_... | 0.162    |
+| reference_perturbed_action_std | 0.985    |
+| reference_Q_mean               | -7.88    |
+| reference_Q_std                | 5.92     |
+| rollout/actions_mean           | 0.423    |
+| rollout/actions_std            | 0.893    |
+| rollout/episode_steps          | 999      |
+| rollout/episodes               | 198      |
+| rollout/Q_mean                 | -13.4    |
+| rollout/return                 | -710     |
+| rollout/return_history         | -705     |
+| rollout/return_history_std     | 136      |
+| rollout/return_std             | 134      |
+| total/duration                 | 3.84e+03 |
+| total/episodes                 | 198      |
+| total/epochs                   | 99       |
+| total/steps                    | 1.98e+05 |
+| total/steps_per_second         | 51.6     |
+| train/loss_actor               | 8.41     |
+| train/loss_critic              | 0.0167   |
+| train/param_noise_distance     | 0.113    |
+---------------------------------------------
+
+---------------------------------------------
+| param_noise_stddev             | 0.124    |
+| prob_satisfiability            | 0        |
+| reference_action_mean          | 0.161    |
+| reference_action_std           | 0.987    |
+| reference_actor_Q_mean         | -7.69    |
+| reference_actor_Q_std          | 5.73     |
+| reference_perturbed_action_... | 0.161    |
+| reference_perturbed_action_std | 0.987    |
+| reference_Q_mean               | -7.86    |
+| reference_Q_std                | 5.89     |
+| rollout/actions_mean           | 0.424    |
+| rollout/actions_std            | 0.893    |
+| rollout/episode_steps          | 1e+03    |
+| rollout/episodes               | 200      |
+| rollout/Q_mean                 | -13.4    |
+| rollout/return                 | -710     |
+| rollout/return_history         | -705     |
+| rollout/return_history_std     | 136      |
+| rollout/return_std             | 134      |
+| total/duration                 | 3.88e+03 |
+| total/episodes                 | 200      |
+| total/epochs                   | 100      |
+| total/steps                    | 2e+05    |
+| total/steps_per_second         | 51.6     |
+| train/loss_actor               | 8.37     |
+| train/loss_critic              | 0.0174   |
+| train/param_noise_distance     | 0.145    |
+---------------------------------------------
+
+---------------------------------------------
+| param_noise_stddev             | 0.122    |
+| prob_satisfiability            | 0        |
+| reference_action_mean          | 0.161    |
+| reference_action_std           | 0.987    |
+| reference_actor_Q_mean         | -7.69    |
+| reference_actor_Q_std          | 5.78     |
+| reference_perturbed_action_... | 0.161    |
+| reference_perturbed_action_std | 0.987    |
+| reference_Q_mean               | -7.86    |
+| reference_Q_std                | 5.93     |
+| rollout/actions_mean           | 0.425    |
+| rollout/actions_std            | 0.893    |
+| rollout/episode_steps          | 1e+03    |
+| rollout/episodes               | 202      |
+| rollout/Q_mean                 | -13.4    |
+| rollout/return                 | -710     |
+| rollout/return_history         | -704     |
+| rollout/return_history_std     | 136      |
+| rollout/return_std             | 133      |
+| total/duration                 | 3.91e+03 |
+| total/episodes                 | 202      |
+| total/epochs                   | 101      |
+| total/steps                    | 2.02e+05 |
+| total/steps_per_second         | 51.6     |
+| train/loss_actor               | 8.43     |
+| train/loss_critic              | 0.0173   |
+| train/param_noise_distance     | 0.198    |
+---------------------------------------------
+
+---------------------------------------------
+| param_noise_stddev             | 0.115    |
+| prob_satisfiability            | 0        |
+| reference_action_mean          | 0.161    |
+| reference_action_std           | 0.987    |
+| reference_actor_Q_mean         | -7.68    |
+| reference_actor_Q_std          | 5.77     |
+| reference_perturbed_action_... | 0.161    |
+| reference_perturbed_action_std | 0.987    |
+| reference_Q_mean               | -7.85    |
+| reference_Q_std                | 5.92     |
+| rollout/actions_mean           | 0.426    |
+| rollout/actions_std            | 0.893    |
+| rollout/episode_steps          | 1e+03    |
+| rollout/episodes               | 204      |
+| rollout/Q_mean                 | -13.4    |
+| rollout/return                 | -709     |
+| rollout/return_history         | -706     |
+| rollout/return_history_std     | 135      |
+| rollout/return_std             | 133      |
+| total/duration                 | 3.95e+03 |
+| total/episodes                 | 204      |
+| total/epochs                   | 102      |
+| total/steps                    | 2.04e+05 |
+| total/steps_per_second         | 51.6     |
+| train/loss_actor               | 8.4      |
+| train/loss_critic              | 0.0162   |
+| train/param_noise_distance     | 0.31     |
+---------------------------------------------
+
+---------------------------------------------
+| param_noise_stddev             | 0.124    |
+| prob_satisfiability            | 0        |
+| reference_action_mean          | 0.161    |
+| reference_action_std           | 0.987    |
+| reference_actor_Q_mean         | -7.63    |
+| reference_actor_Q_std          | 5.78     |
+| reference_perturbed_action_... | -0.0198  |
+| reference_perturbed_action_std | 0.967    |
+| reference_Q_mean               | -7.79    |
+| reference_Q_std                | 5.93     |
+| rollout/actions_mean           | 0.426    |
+| rollout/actions_std            | 0.893    |
+| rollout/episode_steps          | 1e+03    |
+| rollout/episodes               | 206      |
+| rollout/Q_mean                 | -13.4    |
+| rollout/return                 | -708     |
+| rollout/return_history         | -704     |
+| rollout/return_history_std     | 136      |
+| rollout/return_std             | 133      |
+| total/duration                 | 3.99e+03 |
+| total/episodes                 | 206      |
+| total/epochs                   | 103      |
+| total/steps                    | 2.06e+05 |
+| total/steps_per_second         | 51.6     |
+| train/loss_actor               | 8.45     |
+| train/loss_critic              | 0.0165   |
+| train/param_noise_distance     | 0.75     |
+---------------------------------------------
+
+---------------------------------------------
+| param_noise_stddev             | 0.119    |
+| prob_satisfiability            | 0        |
+| reference_action_mean          | 0.161    |
+| reference_action_std           | 0.987    |
+| reference_actor_Q_mean         | -7.64    |
+| reference_actor_Q_std          | 5.75     |
+| reference_perturbed_action_... | 0.159    |
+| reference_perturbed_action_std | 0.986    |
+| reference_Q_mean               | -7.81    |
+| reference_Q_std                | 5.91     |
+| rollout/actions_mean           | 0.427    |
+| rollout/actions_std            | 0.892    |
+| rollout/episode_steps          | 1e+03    |
+| rollout/episodes               | 208      |
+| rollout/Q_mean                 | -13.4    |
+| rollout/return                 | -708     |
+| rollout/return_history         | -705     |
+| rollout/return_history_std     | 136      |
+| rollout/return_std             | 132      |
+| total/duration                 | 4.03e+03 |
+| total/episodes                 | 208      |
+| total/epochs                   | 104      |
+| total/steps                    | 2.08e+05 |
+| total/steps_per_second         | 51.6     |
+| train/loss_actor               | 8.47     |
+| train/loss_critic              | 0.016    |
+| train/param_noise_distance     | 0.23     |
+---------------------------------------------
+
+---------------------------------------------
+| param_noise_stddev             | 0.122    |
+| prob_satisfiability            | 0        |
+| reference_action_mean          | 0.161    |
+| reference_action_std           | 0.987    |
+| reference_actor_Q_mean         | -7.66    |
+| reference_actor_Q_std          | 5.76     |
+| reference_perturbed_action_... | 0.0916   |
+| reference_perturbed_action_std | 0.994    |
+| reference_Q_mean               | -7.82    |
+| reference_Q_std                | 5.92     |
+| rollout/actions_mean           | 0.428    |
+| rollout/actions_std            | 0.892    |
+| rollout/episode_steps          | 1e+03    |
+| rollout/episodes               | 210      |
+| rollout/Q_mean                 | -13.5    |
+| rollout/return                 | -709     |
+| rollout/return_history         | -706     |
+| rollout/return_history_std     | 135      |
+| rollout/return_std             | 131      |
+| total/duration                 | 4.07e+03 |
+| total/episodes                 | 210      |
+| total/epochs                   | 105      |
+| total/steps                    | 2.1e+05  |
+| total/steps_per_second         | 51.6     |
+| train/loss_actor               | 8.4      |
+| train/loss_critic              | 0.0158   |
+| train/param_noise_distance     | 0.0507   |
+---------------------------------------------
+
+---------------------------------------------
+| param_noise_stddev             | 0.119    |
+| prob_satisfiability            | 0        |
+| reference_action_mean          | 0.161    |
+| reference_action_std           | 0.987    |
+| reference_actor_Q_mean         | -7.64    |
+| reference_actor_Q_std          | 5.74     |
+| reference_perturbed_action_... | 0.0736   |
+| reference_perturbed_action_std | 0.973    |
+| reference_Q_mean               | -7.81    |
+| reference_Q_std                | 5.91     |
+| rollout/actions_mean           | 0.428    |
+| rollout/actions_std            | 0.892    |
+| rollout/episode_steps          | 1e+03    |
+| rollout/episodes               | 212      |
+| rollout/Q_mean                 | -13.5    |
+| rollout/return                 | -709     |
+| rollout/return_history         | -708     |
+| rollout/return_history_std     | 135      |
+| rollout/return_std             | 131      |
+| total/duration                 | 4.11e+03 |
+| total/episodes                 | 212      |
+| total/epochs                   | 106      |
+| total/steps                    | 2.12e+05 |
+| total/steps_per_second         | 51.6     |
+| train/loss_actor               | 8.39     |
+| train/loss_critic              | 0.0159   |
+| train/param_noise_distance     | 0.163    |
+---------------------------------------------
+
+---------------------------------------------
+| param_noise_stddev             | 0.108    |
+| prob_satisfiability            | 0        |
+| reference_action_mean          | 0.161    |
+| reference_action_std           | 0.987    |
+| reference_actor_Q_mean         | -7.64    |
+| reference_actor_Q_std          | 5.73     |
+| reference_perturbed_action_... | 0.214    |
+| reference_perturbed_action_std | 0.975    |
+| reference_Q_mean               | -7.81    |
+| reference_Q_std                | 5.88     |
+| rollout/actions_mean           | 0.427    |
+| rollout/actions_std            | 0.892    |
+| rollout/episode_steps          | 1e+03    |
+| rollout/episodes               | 214      |
+| rollout/Q_mean                 | -13.5    |
+| rollout/return                 | -712     |
+| rollout/return_history         | -713     |
+| rollout/return_history_std     | 142      |
+| rollout/return_std             | 134      |
+| total/duration                 | 4.15e+03 |
+| total/episodes                 | 214      |
+| total/epochs                   | 107      |
+| total/steps                    | 2.14e+05 |
+| total/steps_per_second         | 51.6     |
+| train/loss_actor               | 8.45     |
+| train/loss_critic              | 0.0157   |
+| train/param_noise_distance     | 0.243    |
+---------------------------------------------
+
+---------------------------------------------
+| param_noise_stddev             | 0.112    |
+| prob_satisfiability            | 0        |
+| reference_action_mean          | 0.161    |
+| reference_action_std           | 0.987    |
+| reference_actor_Q_mean         | -7.67    |
+| reference_actor_Q_std          | 5.74     |
+| reference_perturbed_action_... | 0.161    |
+| reference_perturbed_action_std | 0.987    |
+| reference_Q_mean               | -7.83    |
+| reference_Q_std                | 5.89     |
+| rollout/actions_mean           | 0.428    |
+| rollout/actions_std            | 0.892    |
+| rollout/episode_steps          | 1e+03    |
+| rollout/episodes               | 216      |
+| rollout/Q_mean                 | -13.5    |
+| rollout/return                 | -712     |
+| rollout/return_history         | -708     |
+| rollout/return_history_std     | 132      |
+| rollout/return_std             | 134      |
+| total/duration                 | 4.19e+03 |
+| total/episodes                 | 216      |
+| total/epochs                   | 108      |
+| total/steps                    | 2.16e+05 |
+| total/steps_per_second         | 51.6     |
+| train/loss_actor               | 8.46     |
+| train/loss_critic              | 0.0158   |
+| train/param_noise_distance     | 0.0581   |
+---------------------------------------------
+
+---------------------------------------------
+| param_noise_stddev             | 0.112    |
+| prob_satisfiability            | 0        |
+| reference_action_mean          | 0.161    |
+| reference_action_std           | 0.987    |
+| reference_actor_Q_mean         | -7.67    |
+| reference_actor_Q_std          | 5.75     |
+| reference_perturbed_action_... | 0.163    |
+| reference_perturbed_action_std | 0.985    |
+| reference_Q_mean               | -7.83    |
+| reference_Q_std                | 5.9      |
+| rollout/actions_mean           | 0.429    |
+| rollout/actions_std            | 0.891    |
+| rollout/episode_steps          | 1e+03    |
+| rollout/episodes               | 218      |
+| rollout/Q_mean                 | -13.5    |
+| rollout/return                 | -711     |
+| rollout/return_history         | -707     |
+| rollout/return_history_std     | 133      |
+| rollout/return_std             | 133      |
+| total/duration                 | 4.22e+03 |
+| total/episodes                 | 218      |
+| total/epochs                   | 109      |
+| total/steps                    | 2.18e+05 |
+| total/steps_per_second         | 51.6     |
+| train/loss_actor               | 8.41     |
+| train/loss_critic              | 0.0156   |
+| train/param_noise_distance     | 0.0925   |
+---------------------------------------------
+
+---------------------------------------------
+| param_noise_stddev             | 0.115    |
+| prob_satisfiability            | 0        |
+| reference_action_mean          | 0.161    |
+| reference_action_std           | 0.987    |
+| reference_actor_Q_mean         | -7.63    |
+| reference_actor_Q_std          | 5.76     |
+| reference_perturbed_action_... | 0.161    |
+| reference_perturbed_action_std | 0.987    |
+| reference_Q_mean               | -7.79    |
+| reference_Q_std                | 5.91     |
+| rollout/actions_mean           | 0.429    |
+| rollout/actions_std            | 0.891    |
+| rollout/episode_steps          | 1e+03    |
+| rollout/episodes               | 220      |
+| rollout/Q_mean                 | -13.5    |
+| rollout/return                 | -710     |
+| rollout/return_history         | -704     |
+| rollout/return_history_std     | 134      |
+| rollout/return_std             | 133      |
+| total/duration                 | 4.26e+03 |
+| total/episodes                 | 220      |
+| total/epochs                   | 110      |
+| total/steps                    | 2.2e+05  |
+| total/steps_per_second         | 51.6     |
+| train/loss_actor               | 8.39     |
+| train/loss_critic              | 0.0156   |
+| train/param_noise_distance     | 0.258    |
+---------------------------------------------
+
+Total time: 4573.479897737503 seconds
