@@ -1,10 +1,10 @@
 0   # initial state
 [4]  # terminal state
 (0,0,'!n' ,FetchNearObjectReward())
-(0,1,'n',ConstantRewardFunction(1))
+(0,1,'n',ConstantRewardFunction(50))
 (1,1,'!h',FetchHoldObjectReward())
-(1,2,'h',ConstantRewardFunction(1))
+(1,2,'h',ConstantRewardFunction(50))
 (2,2,'!a',FetchObjectInAirReward())
-(2,3,'a',ConstantRewardFunction(1))
+(2,3,'a',ConstantRewardFunction(50))
 (3,3,'!g',FetchObjectAtGoalReward())
-(3,4,'g',ConstantRewardFunction(1))
+(3,4,'g',ConstantRewardFunction(50))
