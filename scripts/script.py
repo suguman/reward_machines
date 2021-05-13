@@ -1,7 +1,7 @@
 import os
 
-env = 'Rooms9C'
-alg = "ddpg"
+env = 'Fetch'
+alg = "dhrm"
 
 mydict = {}
 mydict['Rooms9'] = {}
