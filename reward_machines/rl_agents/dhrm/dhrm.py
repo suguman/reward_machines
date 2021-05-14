@@ -31,7 +31,7 @@ def learn(env,
           option_kargs={},
           seed=None,
           total_timesteps=100000,
-          print_freq=100,
+          print_freq=10,
           callback=None,
           checkpoint_path=None,
           checkpoint_freq=10000,
@@ -81,13 +81,13 @@ def learn(env,
     sess = get_session()
     set_global_seeds(seed)
 
-    controller  = ControllerDQN(env, **controller_kargs)
+    controller = ControllerDQN(env, **controller_kargs)
     if use_ddpg:
         options = OptionDDPG(env, gamma, total_timesteps, **option_kargs)
     else:
         options = OptionDQN(env, gamma, total_timesteps, **option_kargs)
-    option_s    = None # State where the option initiated
-    option_id   = None # Id of the current option being executed
+    option_s = None  # State where the option initiated
+    option_id = None  # Id of the current option being executed
     option_rews = []   # Rewards obtained by the current option
 
     episode_rewards = [0.0]
@@ -112,7 +112,6 @@ def learn(env,
             load_variables(load_path)
             logger.log('Loaded model from {}'.format(load_path))
 
-
         for t in range(total_timesteps):
             if callback is not None:
                 if callback(locals(), globals()):
@@ -121,18 +120,18 @@ def learn(env,
             # Selecting an option if needed
             if option_id is None:
                 valid_options = env.get_valid_options()
-                option_s    = obs
-                option_id   = controller.get_action(option_s, valid_options)
+                option_s = obs
+                option_id = controller.get_action(option_s, valid_options)
                 option_rews = []
 
             # Take action and update exploration to the newest value
             #print("Option observation in HRM is {}".format(env.get_option_observation(option_id)))
             action = options.get_action(env.get_option_observation(option_id), t, reset)
-                
+
             reset = False
             new_obs, rew, done, info = env.step(action)
             #print("DHRM: ActionTemp is {}, Action is {}, New Obs is {}".format(action1, action, new_obs))
-            
+
             # Saving the real reward that the option is getting
             if use_rs:
                 option_rews.append(info["rs-reward"])
@@ -140,20 +139,21 @@ def learn(env,
                 option_rews.append(rew)
 
             # Store transition for the option policies
-            for _s,_a,_r,_sn,_done in env.get_experience():
-                options.add_experience(_s,_a,_r,_sn,_done)
+            for _s, _a, _r, _sn, _done in env.get_experience():
+                options.add_experience(_s, _a, _r, _sn, _done)
 
             # Learn and update the target networks if needed for the option policies
             options.learn(t)
             options.update_target_network(t)
 
-            # Update the meta-controller if needed 
+            # Update the meta-controller if needed
             # Note that this condition always hold if done is True
             if env.did_option_terminate(option_id):
                 option_sn = new_obs
-                option_reward = sum([_r*gamma**_i for _i,_r in enumerate(option_rews)])
+                option_reward = sum([_r*gamma**_i for _i, _r in enumerate(option_rews)])
                 valid_options = [] if done else env.get_valid_options()
-                controller.add_experience(option_s, option_id, option_reward, option_sn, done, valid_options,gamma**(len(option_rews)))
+                controller.add_experience(option_s, option_id, option_reward,
+                                          option_sn, done, valid_options, gamma**(len(option_rews)))
                 controller.learn()
                 controller.update_target_network()
                 controller.increase_step()
@@ -162,7 +162,7 @@ def learn(env,
             obs = new_obs
             episode_rewards[-1] += rew
             episode_steps += 1
-            
+
             if done:
                 obs = env.reset()
                 options.reset()
@@ -170,13 +170,13 @@ def learn(env,
                 reset = True
                 max_episode_steps = max(episode_steps, max_episode_steps)
                 episode_steps = 0
-    
+
             # General stats
             mean_100ep_reward = round(np.mean(episode_rewards[-101:-1]), 1)
             num_episodes = len(episode_rewards)
             if done and print_freq is not None and len(episode_rewards) % print_freq == 0:
 
-                #Compute prob. of satisfaction:
+                # Compute prob. of satisfaction:
 
                 num_rollout = 50
                 num_sat = 0.0
@@ -187,18 +187,19 @@ def learn(env,
                     for _ in range(min(10*max_episode_steps, 999)):
                         if option_id_eval is None:
                             valid_options_eval = env.get_valid_options()
-                            option_id_eval   = controller.get_action(obs, valid_options_eval)
+                            option_id_eval = controller.get_action(obs, valid_options_eval)
 
                         #print(obs, option_id_eval)
-                        
-                        action_eval = options.get_action(env.get_option_observation(option_id_eval), t, reset)
+
+                        action_eval = options.get_action(
+                            env.get_option_observation(option_id_eval), t, reset)
                         #print(obs, option_id_eval, action_eval)
                         obs, _, _, eval_info = env.step(action_eval)
                         #print(r, eval_info)
-                        
-                        if env.did_option_terminate(option_id_eval) :
+
+                        if env.did_option_terminate(option_id_eval):
                             option_id_eval = None
-                        
+
                         if eval_info['rm_done']:
                             num_sat = num_sat + 1.0
                             #print("Yes, num_sat is {}".format(num_sat))
@@ -209,14 +210,13 @@ def learn(env,
                 prob_sat = num_sat/num_rollout
                 obs = env.reset()
                 options.reset()
-                
+
                 logger.record_tabular("prob_satisfiability", prob_sat)
                 logger.record_tabular("steps", t)
                 logger.record_tabular("episodes", num_episodes)
                 logger.record_tabular("mean 100 episode reward", mean_100ep_reward)
                 logger.dump_tabular()
 
-                
             if (checkpoint_freq is not None and
                     num_episodes > 100 and t % checkpoint_freq == 0):
                 if saved_mean_reward is None or mean_100ep_reward > saved_mean_reward:
@@ -229,6 +229,6 @@ def learn(env,
         if model_saved:
             if print_freq is not None:
                 logger.log("Restored model with mean reward: {}".format(saved_mean_reward))
-            #load_variables(model_file)
+            # load_variables(model_file)
 
     return controller.act, options.act
