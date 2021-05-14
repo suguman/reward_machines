@@ -1,0 +1,3 @@
+episodes,mean 100 episode reward,prob_satisfiability,steps
+100,-571.5,0.0,98999
+200,-463.3,0.0,198999
