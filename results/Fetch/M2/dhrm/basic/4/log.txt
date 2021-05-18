@@ -37,26 +37,150 @@ setting up target updates ...
   target_critic/output/kernel:0 <- critic/output/kernel:0
   target_critic/output/bias:0 <- critic/output/bias:0
 Using agent with the following configuration:
-dict_items([('obs0', <tf.Tensor 'obs0:0' shape=(?, 35) dtype=float32>), ('obs1', <tf.Tensor 'obs1:0' shape=(?, 35) dtype=float32>), ('terminals1', <tf.Tensor 'terminals1:0' shape=(?, 1) dtype=float32>), ('rewards', <tf.Tensor 'rewards:0' shape=(?, 1) dtype=float32>), ('actions', <tf.Tensor 'actions:0' shape=(?, 4) dtype=float32>), ('critic_target', <tf.Tensor 'critic_target:0' shape=(?, 1) dtype=float32>), ('param_noise_stddev', <tf.Tensor 'param_noise_stddev:0' shape=() dtype=float32>), ('gamma', 0.95), ('tau', 0.01), ('memory', <baselines.ddpg.memory.Memory object at 0x7f7e8c4c3cf8>), ('normalize_observations', False), ('normalize_returns', False), ('action_noise', None), ('param_noise', AdaptiveParamNoiseSpec(initial_stddev=0.2, desired_action_stddev=0.2, adoption_coefficient=1.01)), ('action_range', (-1.0, 1.0)), ('return_range', (-inf, inf)), ('observation_range', (-5.0, 5.0)), ('critic', <baselines.ddpg.models.Critic object at 0x7f7e7beedbe0>), ('actor', <baselines.ddpg.models.Actor object at 0x7f7e7beeda58>), ('actor_lr', 0.0001), ('critic_lr', 0.001), ('clip_norm', None), ('enable_popart', False), ('reward_scale', 1.0), ('batch_size', 400), ('stats_sample', None), ('critic_l2_reg', 0.01), ('obs_rms', None), ('ret_rms', None), ('target_actor', <baselines.ddpg.models.Actor object at 0x7f7e7bddcf60>), ('target_critic', <baselines.ddpg.models.Critic object at 0x7f7e7bddc6d8>), ('actor_tf', <tf.Tensor 'actor/Tanh:0' shape=(?, 4) dtype=float32>), ('normalized_critic_tf', <tf.Tensor 'critic/output/BiasAdd:0' shape=(?, 1) dtype=float32>), ('critic_tf', <tf.Tensor 'clip_by_value_2:0' shape=(?, 1) dtype=float32>), ('normalized_critic_with_actor_tf', <tf.Tensor 'critic_1/output/BiasAdd:0' shape=(?, 1) dtype=float32>), ('critic_with_actor_tf', <tf.Tensor 'clip_by_value_3:0' shape=(?, 1) dtype=float32>), ('target_Q', <tf.Tensor 'add:0' shape=(?, 1) dtype=float32>), ('perturbed_actor_tf', <tf.Tensor 'param_noise_actor/Tanh:0' shape=(?, 4) dtype=float32>), ('perturb_policy_ops', <tf.Operation 'group_deps' type=NoOp>), ('perturb_adaptive_policy_ops', <tf.Operation 'group_deps_1' type=NoOp>), ('adaptive_policy_distance', <tf.Tensor 'Sqrt:0' shape=() dtype=float32>), ('actor_loss', <tf.Tensor 'Neg:0' shape=() dtype=float32>), ('actor_grads', <tf.Tensor 'concat:0' shape=(76036,) dtype=float32>), ('actor_optimizer', <baselines.common.mpi_adam.MpiAdam object at 0x7f7cd5fe8908>), ('critic_loss', <tf.Tensor 'add_13:0' shape=() dtype=float32>), ('critic_grads', <tf.Tensor 'concat_2:0' shape=(76289,) dtype=float32>), ('critic_optimizer', <baselines.common.mpi_adam.MpiAdam object at 0x7f7cd5ee5c50>), ('stats_ops', [<tf.Tensor 'Mean_3:0' shape=() dtype=float32>, <tf.Tensor 'Sqrt_1:0' shape=() dtype=float32>, <tf.Tensor 'Mean_6:0' shape=() dtype=float32>, <tf.Tensor 'Sqrt_2:0' shape=() dtype=float32>, <tf.Tensor 'Mean_9:0' shape=() dtype=float32>, <tf.Tensor 'Sqrt_3:0' shape=() dtype=float32>, <tf.Tensor 'Mean_12:0' shape=() dtype=float32>, <tf.Tensor 'Sqrt_4:0' shape=() dtype=float32>]), ('stats_names', ['reference_Q_mean', 'reference_Q_std', 'reference_actor_Q_mean', 'reference_actor_Q_std', 'reference_action_mean', 'reference_action_std', 'reference_perturbed_action_mean', 'reference_perturbed_action_std']), ('target_init_updates', [<tf.Operation 'group_deps_4' type=NoOp>, <tf.Operation 'group_deps_6' type=NoOp>]), ('target_soft_updates', [<tf.Operation 'group_deps_5' type=NoOp>, <tf.Operation 'group_deps_7' type=NoOp>]), ('initial_state', None)])
+dict_items([('obs0', <tf.Tensor 'obs0:0' shape=(?, 35) dtype=float32>), ('obs1', <tf.Tensor 'obs1:0' shape=(?, 35) dtype=float32>), ('terminals1', <tf.Tensor 'terminals1:0' shape=(?, 1) dtype=float32>), ('rewards', <tf.Tensor 'rewards:0' shape=(?, 1) dtype=float32>), ('actions', <tf.Tensor 'actions:0' shape=(?, 4) dtype=float32>), ('critic_target', <tf.Tensor 'critic_target:0' shape=(?, 1) dtype=float32>), ('param_noise_stddev', <tf.Tensor 'param_noise_stddev:0' shape=() dtype=float32>), ('gamma', 0.95), ('tau', 0.01), ('memory', <baselines.ddpg.memory.Memory object at 0x7f831fefecf8>), ('normalize_observations', False), ('normalize_returns', False), ('action_noise', None), ('param_noise', AdaptiveParamNoiseSpec(initial_stddev=0.2, desired_action_stddev=0.2, adoption_coefficient=1.01)), ('action_range', (-1.0, 1.0)), ('return_range', (-inf, inf)), ('observation_range', (-5.0, 5.0)), ('critic', <baselines.ddpg.models.Critic object at 0x7f831f930be0>), ('actor', <baselines.ddpg.models.Actor object at 0x7f831f930a58>), ('actor_lr', 0.0001), ('critic_lr', 0.001), ('clip_norm', None), ('enable_popart', False), ('reward_scale', 1.0), ('batch_size', 400), ('stats_sample', None), ('critic_l2_reg', 0.01), ('obs_rms', None), ('ret_rms', None), ('target_actor', <baselines.ddpg.models.Actor object at 0x7f80dc4d7f60>), ('target_critic', <baselines.ddpg.models.Critic object at 0x7f80dc4d76d8>), ('actor_tf', <tf.Tensor 'actor/Tanh:0' shape=(?, 4) dtype=float32>), ('normalized_critic_tf', <tf.Tensor 'critic/output/BiasAdd:0' shape=(?, 1) dtype=float32>), ('critic_tf', <tf.Tensor 'clip_by_value_2:0' shape=(?, 1) dtype=float32>), ('normalized_critic_with_actor_tf', <tf.Tensor 'critic_1/output/BiasAdd:0' shape=(?, 1) dtype=float32>), ('critic_with_actor_tf', <tf.Tensor 'clip_by_value_3:0' shape=(?, 1) dtype=float32>), ('target_Q', <tf.Tensor 'add:0' shape=(?, 1) dtype=float32>), ('perturbed_actor_tf', <tf.Tensor 'param_noise_actor/Tanh:0' shape=(?, 4) dtype=float32>), ('perturb_policy_ops', <tf.Operation 'group_deps' type=NoOp>), ('perturb_adaptive_policy_ops', <tf.Operation 'group_deps_1' type=NoOp>), ('adaptive_policy_distance', <tf.Tensor 'Sqrt:0' shape=() dtype=float32>), ('actor_loss', <tf.Tensor 'Neg:0' shape=() dtype=float32>), ('actor_grads', <tf.Tensor 'concat:0' shape=(76036,) dtype=float32>), ('actor_optimizer', <baselines.common.mpi_adam.MpiAdam object at 0x7f80dc2a5908>), ('critic_loss', <tf.Tensor 'add_13:0' shape=() dtype=float32>), ('critic_grads', <tf.Tensor 'concat_2:0' shape=(76289,) dtype=float32>), ('critic_optimizer', <baselines.common.mpi_adam.MpiAdam object at 0x7f80dc1a1a90>), ('stats_ops', [<tf.Tensor 'Mean_3:0' shape=() dtype=float32>, <tf.Tensor 'Sqrt_1:0' shape=() dtype=float32>, <tf.Tensor 'Mean_6:0' shape=() dtype=float32>, <tf.Tensor 'Sqrt_2:0' shape=() dtype=float32>, <tf.Tensor 'Mean_9:0' shape=() dtype=float32>, <tf.Tensor 'Sqrt_3:0' shape=() dtype=float32>, <tf.Tensor 'Mean_12:0' shape=() dtype=float32>, <tf.Tensor 'Sqrt_4:0' shape=() dtype=float32>]), ('stats_names', ['reference_Q_mean', 'reference_Q_std', 'reference_actor_Q_mean', 'reference_actor_Q_std', 'reference_action_mean', 'reference_action_std', 'reference_perturbed_action_mean', 'reference_perturbed_action_std']), ('target_init_updates', [<tf.Operation 'group_deps_4' type=NoOp>, <tf.Operation 'group_deps_6' type=NoOp>]), ('target_soft_updates', [<tf.Operation 'group_deps_5' type=NoOp>, <tf.Operation 'group_deps_7' type=NoOp>]), ('initial_state', None)])
+--------------------------------------
+| episodes                | 10       |
+| mean 100 episode reward | -691     |
+| prob_satisfiability     | 0        |
+| steps                   | 9e+03    |
+--------------------------------------
+--------------------------------------
+| episodes                | 20       |
+| mean 100 episode reward | -635     |
+| prob_satisfiability     | 0        |
+| steps                   | 1.9e+04  |
+--------------------------------------
+--------------------------------------
+| episodes                | 30       |
+| mean 100 episode reward | -610     |
+| prob_satisfiability     | 0        |
+| steps                   | 2.9e+04  |
+--------------------------------------
+--------------------------------------
+| episodes                | 40       |
+| mean 100 episode reward | -590     |
+| prob_satisfiability     | 0        |
+| steps                   | 3.9e+04  |
+--------------------------------------
+--------------------------------------
+| episodes                | 50       |
+| mean 100 episode reward | -570     |
+| prob_satisfiability     | 0        |
+| steps                   | 4.9e+04  |
+--------------------------------------
+--------------------------------------
+| episodes                | 60       |
+| mean 100 episode reward | -547     |
+| prob_satisfiability     | 0        |
+| steps                   | 5.9e+04  |
+--------------------------------------
+--------------------------------------
+| episodes                | 70       |
+| mean 100 episode reward | -528     |
+| prob_satisfiability     | 0        |
+| steps                   | 6.9e+04  |
+--------------------------------------
+--------------------------------------
+| episodes                | 80       |
+| mean 100 episode reward | -513     |
+| prob_satisfiability     | 0        |
+| steps                   | 7.9e+04  |
+--------------------------------------
+--------------------------------------
+| episodes                | 90       |
+| mean 100 episode reward | -496     |
+| prob_satisfiability     | 0        |
+| steps                   | 8.9e+04  |
+--------------------------------------
 --------------------------------------
 | episodes                | 100      |
-| mean 100 episode reward | -692     |
+| mean 100 episode reward | -481     |
 | prob_satisfiability     | 0        |
 | steps                   | 9.9e+04  |
 --------------------------------------
-Saving model due to mean reward increase: None -> -691.7
-Saving model due to mean reward increase: -691.7 -> -669.3
-Saving model due to mean reward increase: -669.3 -> -666.8
-Saving model due to mean reward increase: -666.8 -> -664.4
-Saving model due to mean reward increase: -664.4 -> -663.8
-Saving model due to mean reward increase: -663.8 -> -659.3
+Saving model due to mean reward increase: None -> -480.3
+--------------------------------------
+| episodes                | 110      |
+| mean 100 episode reward | -450     |
+| prob_satisfiability     | 0        |
+| steps                   | 1.09e+05 |
+--------------------------------------
+Saving model due to mean reward increase: -480.3 -> -448.0
+--------------------------------------
+| episodes                | 120      |
+| mean 100 episode reward | -427     |
+| prob_satisfiability     | 0        |
+| steps                   | 1.19e+05 |
+--------------------------------------
+Saving model due to mean reward increase: -448.0 -> -423.0
+--------------------------------------
+| episodes                | 130      |
+| mean 100 episode reward | -403     |
+| prob_satisfiability     | 0        |
+| steps                   | 1.29e+05 |
+--------------------------------------
+Saving model due to mean reward increase: -423.0 -> -402.4
+--------------------------------------
+| episodes                | 140      |
+| mean 100 episode reward | -385     |
+| prob_satisfiability     | 0        |
+| steps                   | 1.39e+05 |
+--------------------------------------
+Saving model due to mean reward increase: -402.4 -> -383.6
+--------------------------------------
+| episodes                | 150      |
+| mean 100 episode reward | -371     |
+| prob_satisfiability     | 0        |
+| steps                   | 1.49e+05 |
+--------------------------------------
+Saving model due to mean reward increase: -383.6 -> -368.5
+--------------------------------------
+| episodes                | 160      |
+| mean 100 episode reward | -357     |
+| prob_satisfiability     | 0        |
+| steps                   | 1.59e+05 |
+--------------------------------------
+Saving model due to mean reward increase: -368.5 -> -355.6
+--------------------------------------
+| episodes                | 170      |
+| mean 100 episode reward | -351     |
+| prob_satisfiability     | 0        |
+| steps                   | 1.69e+05 |
+--------------------------------------
+Saving model due to mean reward increase: -355.6 -> -347.8
+--------------------------------------
+| episodes                | 180      |
+| mean 100 episode reward | -339     |
+| prob_satisfiability     | 0        |
+| steps                   | 1.79e+05 |
+--------------------------------------
+Saving model due to mean reward increase: -347.8 -> -338.8
+--------------------------------------
+| episodes                | 190      |
+| mean 100 episode reward | -332     |
+| prob_satisfiability     | 0        |
+| steps                   | 1.89e+05 |
+--------------------------------------
+Saving model due to mean reward increase: -338.8 -> -329.7
 --------------------------------------
 | episodes                | 200      |
-| mean 100 episode reward | -656     |
+| mean 100 episode reward | -323     |
 | prob_satisfiability     | 0        |
 | steps                   | 1.99e+05 |
 --------------------------------------
-Saving model due to mean reward increase: -659.3 -> -657.2
-Saving model due to mean reward increase: -657.2 -> -655.3
-Restored model with mean reward: -655.3
-Total time: 5291.615603685379 seconds
+Saving model due to mean reward increase: -329.7 -> -322.7
+--------------------------------------
+| episodes                | 210      |
+| mean 100 episode reward | -315     |
+| prob_satisfiability     | 0        |
+| steps                   | 2.09e+05 |
+--------------------------------------
+Saving model due to mean reward increase: -322.7 -> -314.1
+--------------------------------------
+| episodes                | 220      |
+| mean 100 episode reward | -304     |
+| prob_satisfiability     | 0        |
+| steps                   | 2.19e+05 |
+--------------------------------------
+Restored model with mean reward: -314.1
+Total time: 15202.866317987442 seconds
