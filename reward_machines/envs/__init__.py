@@ -179,6 +179,40 @@ register(
 )
 
 
+# ----------------------------------------- 16 ROOMS Many  Doors : Continuous
+
+register(
+    id='Rooms16C-M1-v1',
+    entry_point='envs.rooms.rm_rooms:sixteen_rooms_half_continuous_more_doors',
+    max_episode_steps=1000
+)
+
+
+register(
+    id='Rooms16C-M2-v1',
+    entry_point='envs.rooms.rm_rooms:sixteen_rooms_one_continuous_more_doors',
+    max_episode_steps=1000
+)
+
+register(
+    id='Rooms16C-M3-v1',
+    entry_point='envs.rooms.rm_rooms:sixteen_rooms_two_continuous_more_doors',
+    max_episode_steps=1000
+)
+
+register(
+    id='Rooms16C-M4-v1',
+    entry_point='envs.rooms.rm_rooms:sixteen_rooms_three_continuous_more_doors',
+    max_episode_steps=1000
+)
+
+register(
+    id='Rooms16C-M5-v1',
+    entry_point='envs.rooms.rm_rooms:sixteen_rooms_four_continuous_more_doors',
+    max_episode_steps=1000
+)
+
+
 # ------------------------------------- Fetch
 
 register(

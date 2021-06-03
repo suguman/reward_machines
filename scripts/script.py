@@ -1,7 +1,7 @@
 import os
 
-env = 'Fetch'
-alg = "dhrm"
+env = 'Rooms16C_4'
+alg = "ddpg"
 
 mydict: dict = {}
 mydict['Rooms9'] = {}
@@ -25,11 +25,16 @@ mydict['Rooms16']['options'] = ['rs', 'cr', 'rc']
 
 mydict['Rooms16C'] = {}
 mydict['Rooms16C']['time'] = '1.5e7'
-# mydict['Rooms16C']['rm'] = [('M1', '3.3e6'), ('M2', '5.2e6'),
-# ('M3', '9e6'), ('M4', '1.7e7'), ('M5', '2.1e7')]
-mydict['Rooms16C']['rm'] = [('M3', '9e6'), ('M4', '1.7e7'), ('M5', '2.1e7')]
+mydict['Rooms16C']['rm'] = [('M1', '3.3e6'), ('M2', '5.2e6'), ('M3', '9e6'), ('M4', '1.7e7'), ('M5', '2.1e7')]
 mydict['Rooms16C']['gamma'] = 0.99
 mydict['Rooms16C']['options'] = ['cr', 'basic']
+
+mydict['Rooms16C_4'] = {}
+mydict['Rooms16C_4']['time'] = '1.5e7'
+mydict['Rooms16C_4']['rm'] = [('M1', '3.3e6'), ('M2', '5.2e6'), ('M3', '9e6'), ('M4', '1.7e7'), ('M5', '2.1e7')]
+mydict['Rooms16C_4']['gamma'] = 0.99
+mydict['Rooms16C_4']['options'] = ['cr', 'basic']
+
 
 mydict['Fetch'] = {}
 mydict['Fetch']['time'] = '2.5e5'
@@ -38,11 +43,15 @@ mydict['Fetch']['gamma'] = 0.95
 mydict['Fetch']['options'] = ['cr', 'basic']
 
 
-num_iter = 5
+num_iter = 10
 DIR = '../results'
 dict1 = mydict[env]
 for (rm, timestep) in dict1['rm']:
     env_name = '-'.join([env, rm, 'v0'])
+
+    if env == "Rooms16C_4":
+        env_name = '-'.join([env[:-2], rm, 'v1'])
+
     for option in dict1['options']:
         if option == 'rs':
             flag = '--use_rs'
